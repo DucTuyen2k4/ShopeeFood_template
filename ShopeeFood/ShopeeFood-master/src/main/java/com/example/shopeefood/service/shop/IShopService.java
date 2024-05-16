@@ -5,3 +5,4 @@ import com.example.shopeefood.service.IGenerateService;
 
 public interface IShopService extends IGenerateService<Shop> {
 }
+

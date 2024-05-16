@@ -22,11 +22,13 @@ public class UserService implements IUserService{
 
     @Override
     public User save(User user) {
+
         return iUserRepository.save(user);
     }
-
     @Override
     public void remove(Long id) {
         iUserRepository.deleteById(id);
     }
+
 }
+

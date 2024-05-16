@@ -1,4 +1,4 @@
-package com.example.shopeefood.service;
+package com.example.shopeefood.service.product;
 
 import com.example.shopeefood.model.Product;
 import com.example.shopeefood.repository.IProductRepository;
@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 @Service
-public class ProductService implements IProductService{
+public class ProductService implements IProductService {
     @Autowired
     private IProductRepository iProductRepository;
     @Override
@@ -24,13 +24,13 @@ return iProductRepository.save(product);
 
     @Override
     public void remove(Long id) {
+
         iProductRepository.deleteById(id);
     }
 
 
     @Override
     public Optional<Product> findById(Long id) {
-
         return iProductRepository.findById(id);
     }
     @Override

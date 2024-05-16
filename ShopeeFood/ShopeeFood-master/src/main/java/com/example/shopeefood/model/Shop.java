@@ -10,13 +10,14 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "shop")
-@EntityListeners(AuditingEntityListener.class)
+
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String phoneNumber;
+    private String address;
     private String email;
     private String image;
     private String timeStart;
@@ -37,6 +38,32 @@ public class Shop {
     @Column(name = "updated_at")
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+
+
+    public Shop(Long id, String name, String phoneNumber, String address, String email, String image, String timeStart, String timeEnd, City idCity, Category idCategory, User idUser, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.email = email;
+        this.image = image;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.idCity = idCity;
+        this.idCategory = idCategory;
+        this.idUser = idUser;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Long getId() {
         return id;
@@ -77,7 +104,6 @@ public class Shop {
     public void setImage(String image) {
         this.image = image;
     }
-
 
     public String getTimeStart() {
         return timeStart;
@@ -139,19 +165,5 @@ public class Shop {
     }
 
 
-
-    public Shop(String name, String phoneNumber, String email, String image, String timeStart, String timeEnd, City idCity, Category idCategory, User idUser) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.image = image;
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
-        this.idCity = idCity;
-        this.idCategory = idCategory;
-        this.idUser = idUser;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
 }
 

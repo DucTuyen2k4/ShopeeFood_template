@@ -24,9 +24,9 @@ public class CityService implements ICityService{
     public City save(City city) {
         return iCityRepository.save(city);
     }
-
     @Override
     public void remove(Long id) {
         iCityRepository.deleteById(id);
     }
 }
+

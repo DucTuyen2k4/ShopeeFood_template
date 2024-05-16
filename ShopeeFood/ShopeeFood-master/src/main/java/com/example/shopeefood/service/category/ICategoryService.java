@@ -4,4 +4,6 @@ import com.example.shopeefood.model.Category;
 import com.example.shopeefood.service.IGenerateService;
 
 public interface ICategoryService extends IGenerateService<Category> {
+
 }
+

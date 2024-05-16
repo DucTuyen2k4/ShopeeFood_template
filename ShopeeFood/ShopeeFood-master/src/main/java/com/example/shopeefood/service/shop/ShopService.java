@@ -30,3 +30,4 @@ public class ShopService implements IShopService{
         iShopRepository.deleteById(id);
     }
 }
+
