@@ -1,72 +1,92 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import HeadMerchant from "../compoment/HeadMerchant";
+import HeadMerchant from "../compoment/HeadMerchant.js";
 import "../css/LayoutMarchant.css";
+import Validation from "./Validate/ValidateMerchantCreate.js";
+import { toast } from "react-toastify";
 
 export default function CreateMerchant() {
-    const [name, setName] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [email, setEmail] = useState("");
-    const [timeStart, setTimeStart] = useState("");
-    const [timeEnd, setTimeEnd] = useState("");
-    const [citys, setCity] = useState([]);
-    const [selectCity, setSelectCity] = useState(1);
-    const [categorys, setCategory] = useState([]);
-    const [selectCategory, setSelectCategory] = useState(1);
-    const [image, setImage] = useState("");
-    const [idUser, setIdUser] = useState('')
-
     const navigate = useNavigate();
-
-    async function CreateMerchant(e) {
-        e.preventDefault();
-        console.log(name)
-        console.log("Select city: ".selectCity)
-
+    const [image, setImage] = useState(null);
+    const [idCity, setIdCity] = useState([]);
+    const [selectedCityId, setSelectedCityId] = useState(1);
+    const [idCategory, setIdCategory] = useState([]);
+    const [selectedCategoryId, setSelectedCategoryId] = useState(1);
+    const [values, setValues] = useState({
+        name: '',
+        address: '',
+        phoneNumber: '',
+        email: '',
+        timeStart: '',
+        timeEnd: ''
+    });
+    const [errors, setErrors] = useState({});
+    async function CreateMerchant(event) {
+        event.preventDefault();
         try {
-            var formData = new FormData();
-
-            formData.append('name', name);
-            formData.append('phoneNumber', phoneNumber);
-            formData.append('email', email);
-            formData.append('timeStart', timeStart);
-            formData.append('timeEnd', timeEnd);
-            formData.append('idCity', selectCity);
-            formData.append('idCategory', selectCategory);
-            formData.append('image', image);
-            formData.append('idUser', 1);
-            // const jsonData = formDataToJson(formData);
+            const validationErrors = Validation(values); // Assuming Validation function returns errors object
+            if (Object.keys(validationErrors).length !== 0) {
+                setErrors(validationErrors);
+                return;
+            }
+            if (!image) {
+                setErrors({ ...errors, image: "Cần có ảnh" });
+                return;
+            }
+            const formData = new FormData();
+            formData.append("name", values.name);
+            formData.append("address", values.address);
+            formData.append("phoneNumber", values.phoneNumber);
+            formData.append("email", values.email);
+            formData.append("timeStart", values.timeStart);
+            formData.append("timeEnd", values.timeEnd);
+            formData.append("image", image);
+            formData.append('idCity', selectedCityId);
+            formData.append('idCategory', selectedCategoryId);
             const response = await axios.post(`http://localhost:8080/api/shops`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             navigate('/');
+            toast.success("Đăng ký cửa hàng thành công")
             console.log('Product created:', response.data);
         } catch (error) {
             console.error('Error creating product:', error);
         }
     }
-    async function getAllCity() {
-        const reponse = await axios.get("http://localhost:8080/api/cities");
-        setCity(reponse.data);
-        console.log("Select city: ".selectCity)
-    }
-    async function getAllCategory() {
-        const reponse = await axios.get("http://localhost:8080/api/categories");
-        setCategory(reponse.data);
+    async function getListCity() {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/cities`);
+            setIdCity(response.data);
+        } catch (error) {
+            console.error('Error fetching menus:', error);
+        }
     }
     useEffect(() => {
-        getAllCity();
-        getAllCategory();
+        getListCity();
     }, []);
-
-    function handleCategoryChange(e) {
-        console.log(e.target.value);
-        setSelectCategory(e.target.value);
+    async function getListCategory() {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/categories`);
+            setIdCategory(response.data);
+        } catch (error) {
+            console.error('Error fetching menus:', error);
+        }
+    }
+    useEffect(() => {
+        getListCategory();
+    }, []);
+    function handleInput(event) {
+        const { name, value } = event.target;
+        setValues({ ...values, [name]: value });
+        // Clear error message when the user starts typing
+        setErrors({ ...errors, [name]: '' });
     }
     function handleCityChange(e) {
-        console.log(e.target.value);
-        setSelectCity(e.target.value);
+        setSelectedCityId(e.target.value);
+    }
+    function handleCategoryChange(e) {
+        setSelectedCategoryId(e.target.value);
     }
     function handleImageChange(e) {
         const file = e.target.files[0];
@@ -81,75 +101,73 @@ export default function CreateMerchant() {
 
                     <form onSubmit={CreateMerchant} >
                         <div className="row mb-3">
-                            <label class="col-sm-2 col-form-label">
-                                <span className="warning">*</span> Tên quán{" "}
-                            </label>
+
+                            <label class="col-sm-2 col-form-label"><span className='warning'>*</span> Tên quán </label>
                             <div className="col-sm-10">
-                                <input
-                                    type="text"
+                                <input type="text"
+                                    placeholder="Tên quán"
+                                    name="name"
                                     class="form-control"
-                                    id="namme"
-                                    onChange={(e) => setName(e.target.value)}
-                                />
+                                    onChange={handleInput}
+                                    id="name" />
+                                {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label class="col-sm-2 col-form-label">
-                                <span className="warning">*</span> Số điện thoại
-                            </label>
+                            <label class="col-sm-2 col-form-label"><span className='warning'>*</span>  Địa chỉ </label>
                             <div className="col-sm-10">
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    id="phoneNumber"
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
-                                />
+                                <input type="text"
+                                    name="address"
+                                    placeholder="Địa chỉ cụ thể quán"
+                                    onChange={handleInput}
+                                    class="form-control" id="text" />
+                                {errors.address && <p style={{ color: "red" }}>{errors.address}</p>}
                             </div>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row mb-3 contai">
+
                             <label class="col-sm-2 col-form-label">
                                 <span className="warning">*</span> Email
                             </label>
-                            <div className="col-sm-10">
-                                <input
-                                    type="email"
-                                    class="form-control"
-                                    id="email"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
+                            <div className="col-sm-4">
+
+                                <input type="email"
+                                    name="email"
+                                    placeholder="Nhập email"
+                                    onChange={handleInput}
+                                    class="form-control" id="email" />
+                                {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+                            </div>
+                            <label class="col-sm-2 col-form-label label-center"><span className='warning'>*</span> Số điện thoại</label>
+                            <div className="col-sm-4">
+
+                                <input type="text"
+                                    name="phoneNumber"
+                                    placeholder="Số điện thoại bàn hoặc di động"
+                                    onChange={handleInput}
+                                    class="form-control" id="phoneNumber" />
+                                {errors.phoneNumber && <p style={{ color: "red" }}>{errors.phoneNumber}</p>}
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label class="col-sm-2 col-form-label">
-                                <span className="warning">*</span> Địa chỉ
-                            </label>
-                            <div className="col-sm-10">
-                                <select
-                                    class="form-select"
-                                    aria-label="Default select example"
+                            <label className="col-sm-2 col-form-label"><span className='warning'>*</span>  Thành phố</label>
+                            <div className="col-md-4">
+                                <select class="form-select"
                                     onChange={handleCityChange}
-                                    value={selectCity}
-                                >
-                                    {citys.map((city) => (
+                                    value={selectedCityId}>
+                                    {idCity.map((city) => (
                                         <option key={city.id} value={city.id}>
                                             {city.name}
                                         </option>
                                     ))}
                                 </select>
                             </div>
-                        </div>
-                        <div className="row mb-3">
-                            <label class="col-sm-2 col-form-label">
-                                <span className="warning">*</span> Danh mục
-                            </label>
-                            <div className="col-sm-10">
-                                <select
-                                    class="form-select"
-                                    aria-label="Default select example"
+                            <label class="col-sm-2 col-form-label label-center"><span className='warning'>*</span>  Danh mục</label>
+                            <div className="col-sm-4">
+                                <select class="form-select"
                                     onChange={handleCategoryChange}
-                                    value={selectCategory}
-                                >
-                                    {categorys.map((category) => (
+                                    value={selectedCategoryId}>
+                                    {idCategory.map((category) => (
                                         <option key={category.id} value={category.id}>
                                             {category.name}
                                         </option>
@@ -157,30 +175,27 @@ export default function CreateMerchant() {
                                 </select>
                             </div>
                         </div>
+
                         <div className="row mb-3">
-                            <label class="col-sm-2 col-form-label">
-                                <span className="warning">*</span> Giờ mở cửa
-                            </label>
-                            <div className="col-sm-10">
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="namme"
-                                    onChange={(e) => setTimeStart(e.target.value)}
-                                />
+                            <label class="col-sm-2 col-form-label "><span className='warning'>*</span> Giờ mở cửa</label>
+                            <div className="col-sm-4">
+                                <input type="time"
+                                    name="timeStart"
+
+                                    onChange={handleInput}
+                                    class="form-control" id="namme" />
+                                {errors.timeStart && <p style={{ color: "red" }}>{errors.timeStart}</p>}
                             </div>
-                        </div>
-                        <div className="row mb-3">
-                            <label class="col-sm-2 col-form-label">
+                            <label class="col-sm-2 col-form-label label-center">
                                 <span className="warning">*</span> Giờ đóng cửa
                             </label>
-                            <div className="col-sm-10">
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="namme"
-                                    onChange={(e) => setTimeEnd(e.target.value)}
-                                />
+                            <div className="col-sm-4">
+                                <input type="time"
+                                    name="timeEnd"
+                                    value={values.timeEnd}
+                                    onChange={handleInput}
+                                    class="form-control" id="namme" />
+                                {errors.timeStart && <p style={{ color: "red" }}>{errors.timeStart}</p>}
                             </div>
                         </div>
                         <div className="row mb-3">
@@ -188,14 +203,18 @@ export default function CreateMerchant() {
                                 <span className="warning">*</span> Ảnh
                             </label>
                             <div className="col-sm-10">
-                                <input type="file" class="form-control" id="image" onChange={handleImageChange} />
+                                <input type="file" name="image"
+                                    onChange={handleImageChange} class="form-control" id="image" />
+                                {errors.image && <p style={{ color: "red" }}>{errors.image}</p>}
                             </div>
                         </div>
                         <div className="row mb-3">
                             <label class="col-sm-2 col-form-label"></label>
-                            <div className="col">
-                                <Link to={'/'} className=" btnBack ">Quay lại</Link>
-                                <button type="submit" className=" btnSave">Lưu</button>
+                            <div className='col'>
+                                <Link to={"/"} className=' btnBack'>Quay lại</Link>
+                                <button type="submit" className="btnSave">
+                                    Lưu
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -203,4 +222,7 @@ export default function CreateMerchant() {
             </div>
         </div>
     );
+
 }
+
+

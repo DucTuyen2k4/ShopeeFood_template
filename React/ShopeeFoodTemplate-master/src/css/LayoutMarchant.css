@@ -22,6 +22,12 @@
     background-color: #fff;
 }
 
+.containerDetails {
+    margin-top: 20px;
+    padding: 24px 220px 30px;
+    background-color: #fff;
+}
+
 .warning {
     color: red;
 }
@@ -50,6 +56,7 @@
     font-size: 16px;
     text-align: center;
     border-radius: 5px;
+
 }
 
 .btnCreate {
@@ -111,15 +118,18 @@
     margin-bottom: 15px;
     background: #fff;
 }
+
 .carShopBody {
     flex-grow: 1;
     overflow: hidden;
 }
+
 .carShopName {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 5px;
 }
+
 .carShopNameText {
     max-width: 600px;
     margin-left: 5px;
@@ -133,16 +143,19 @@
     flex: 1 1;
     color: rgba(0, 0, 0, .87);
 }
-.carShopInfor{
+
+.carShopInfor {
     display: flex;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
 }
-.carShopTitleText{
+
+.carShopTitleText {
     font-size: 14px;
-    padding-left: 5px;
-    padding-right: 20px;
+    padding-left: 10px;
+    color: #656565;
 }
-.carShopAction{
+
+.carShopAction {
     background-color: #ee4d2d;
     border: none;
     color: white;
@@ -152,4 +165,38 @@
     font-size: 16px;
     text-align: center;
     border-radius: 5px;
+    height: 32px;
+}
+
+.btn.btn-primary {
+    background-color: #ee4d2d;
+    border-color: #ee4d2d;
+}
+
+.icon{
+    font-size: x-large;
+    color: #ee4d2d;
+    margin-right: 5px;
+}
+
+.img-details {
+    height: 300px;
+}
+
+.text-body span {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.col span {
+    margin-bottom: 8px;
+}
+
+.text-details {
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.mrBotton {
+    margin-right: 10px;
 }

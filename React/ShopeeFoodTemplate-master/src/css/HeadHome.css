@@ -1,4 +1,3 @@
-
 .container-header{
     position: fixed;
     top: 0;
@@ -13,7 +12,7 @@
     margin: 0;
     min-height: 42px;
     height: 100%;
-    top: -45px;
+    top: -25px;
 }
 .logo-now{
     position: absolute;
@@ -21,6 +20,10 @@
     cursor: pointer;
     padding-left: 0px;
 }   
+.imgLogo{
+    width: 153px;
+    height: 30px;
+}
 .selectLocal{
     cursor: pointer;
     background-color: #f0f0f0;
@@ -50,6 +53,8 @@
     background-color: transparent;
     position: relative;
     z-index: 1;
+        display: flex;
+            align-items: center;
 }
 .dropdown-menu{
     min-width: 200px;
@@ -74,6 +79,8 @@
     padding-right: 0;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .img{

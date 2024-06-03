@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+}
+
+.main-footer {
+    clear: both;
+}
+
+.container-inner {
+    padding-top: 32px;
+    padding-bottom: 25px;
+    font-size: 14px;
+    overflow: hidden;
+    clear: both;
+}
+
+.block-footer {
+    width: 241px;
+    float: left;
+    color: #959595;
+}
+
+.txt-center {
+    text-align: center !important;
+}
+
+.block-last {
+    text-align: right;
+    float: right;
+    font-size: 16px;
+}
+
+.title-block {
+    font-weight: 700;
+    color: #252525;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+.title-text {
+    font-size: 14px;
+    margin-bottom: 3px;
+    margin-top: 0;
+}
+
+.apps {
+    width: 122px;
+    height: 40px;
+    display: grid;
+    margin-bottom: 25px;
+}
+
+.apps__app-store-vi {
+    background-image: url('https://shopeefood.vn/app/assets/img/AppStore-vn.png?1afe809ef1884945ef4a05dacec7679e');
+    background-size: cover;
+}
+
+.apps__play-store-vi {
+    background-image: url('https://shopeefood.vn/app/assets/img/PlayStore-vn.png?a5bc23fd384a415654c9115efebb67db');
+    background-size: cover;
+}
+
+.apps__huawei-gallery-vi {
+    background-image: url('https://appgallery.huawei.com/#/app/C102401853');
+    background-size: cover;
+}
+
+.menu-footer {
+    line-height: 25px;
+    margin-top: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.main-footer menu-item {
+    cursor: pointer;
+    color: #959595;
+}
+
+.main-footer menu-item a {
+    color: #08f;
+}
+
+a {
+    color: #0288d1;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+
+.logo-footer {
+    margin-top: 14px;
+    margin-bottom: 17px;
+}
+
+.font12 {
+    font-size: .75rem !important;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.social-ico {
+    margin-top: 20px;
+    padding-left: 0;
+}
+
+.block-last {
+    text-align: right;
+    float: right;
+    font-size: 16px;
+}
+
+.title-block {
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+.registered {
+    width: 177px;
+    margin-top: 1px;
+    display: inline-block;
+}
+
+.registered img {
+    width: 100%;
+}
+
+.header-name {
+    display: flex;
+    justify-content: space-between;
+}
