@@ -1,0 +1,72 @@
+.header {
+ 
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 56px;
+    background: #ee4d2d;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+
+}
+
+.header_right {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+.link{
+    text-decoration: none;
+    color: black;
+}
+
+.header_left {
+    line-height: 0;
+    min-width: 50px;
+    padding-left: 10px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: rgba(0, 0, 0, .87);
+    line-height: normal;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+
+}
+
+.search-form {
+    margin-top: 20px;
+    width: 30%;
+    margin-left: 70%;
+}
+.container.row.mt-3{
+    margin-top: -1rem !important;
+    --bs-gutter-x: -0.5rem;
+}
+.containerCreate .contai {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.form-control-b {
+    flex: 1; /* Đảm bảo các input chiếm không gian bằng nhau */
+    margin-right: 10px; /* Khoảng cách giữa input và label */
+}
+
+.col-form-label-b {
+    display: flex;
+    align-items: center; /* Căn giữa nội dung theo chiều dọc */
+    justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+    margin: 0 10px; /* Khoảng cách giữa label và các input */
+}
+
+
