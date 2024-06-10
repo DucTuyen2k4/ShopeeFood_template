@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import HeadHome from "../../compoment/HeadHome";
+
 function Shipper() {
     const [orderShip, setShipOrder] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -14,6 +15,7 @@ function Shipper() {
         try {
             const response = await axios.get(`http://localhost:8080/api/order/orderByShip`);
             setShipOrder(response.data);
+            document.title = "Đơn hàng có thể nhận";
         } catch (error) {
             console.error('Error fetching orders:', error);
         }
@@ -77,62 +79,75 @@ function Shipper() {
                     .order-button:hover {
                         background-color: #28a745; /* Green color */
                     }
+                    .no-orders {
+                        text-align: center;
+                        margin: 20px;
+                        font-size: 18px;
+                        color: #888;
+                    }
                 `}
             </style>
             <Link to="/ShipperReceived" className="order-button">
                 Đơn hàng <br /> của shipper
             </Link>
-            <table className="table table-bordered">
-                <thead>
-                    <tr>
-                        <th className="center">STT</th>
-                        <th className="center">Mã đơn hàng</th>
-                        <th>Thông tin khách hàng</th>
-                        <th>Trạng thái</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {currentOrders.map((order, index) => (
-                        <tr key={order.id}>
-                            <td className="center">{indexOfFirstOrder + index + 1}</td>
-                            <td className="center">{order.id}</td>
-                            <td>
-                                {order.user.name}<br />
-                                {order.user.phoneNumber}<br />
-                                {order.user.address}
-                            </td>
-                            <td className="center">
-                                <div className='button-orders'>
-                                    {order.status.id === 2 && (
-                                        <button onClick={() => setStatusConfirmOrder(order.id, 4)} type="button" className="btn btn-success">Nhận đơn</button>
-                                    )}
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
 
-            {/* Pagination */}
-            <ul className="pagination">
-                <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-                    <button onClick={prevPage} className="page-link">
-                        <FontAwesomeIcon icon={faArrowLeft} />
-                    </button>
-                </li>
-                {Array.from({ length: Math.ceil(orderShip.length / ordersPerPage) }, (_, i) => (
-                    <li key={i} className={`page-item ${currentPage === i + 1 ? "active" : ""}`}>
-                        <button onClick={() => paginate(i + 1)} className="page-link">
-                            {i + 1}
-                        </button>
-                    </li>
-                ))}
-                <li className={`page-item ${currentPage === Math.ceil(orderShip.length / ordersPerPage) ? "disabled" : ""}`}>
-                    <button onClick={nextPage} className="page-link">
-                        <FontAwesomeIcon icon={faArrowRight} />
-                    </button>
-                </li>
-            </ul>
+            {orderShip.length === 0 ? (
+                <div className="no-orders">Không có đơn hàng</div>
+            ) : (
+                <>
+                    <table className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th className="center">STT</th>
+                                <th className="center">Mã đơn hàng</th>
+                                <th>Thông tin khách hàng</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentOrders.map((order, index) => (
+                                <tr key={order.id}>
+                                    <td className="center">{indexOfFirstOrder + index + 1}</td>
+                                    <td className="center">{order.id}</td>
+                                    <td>
+                                        {order.user.name}<br />
+                                        {order.user.phoneNumber}<br />
+                                        {order.user.address}
+                                    </td>
+                                    <td className="center">
+                                        <div className='button-orders'>
+                                            {order.status.id === 2 && (
+                                                <button onClick={() => setStatusConfirmOrder(order.id, 4)} type="button" className="btn btn-success">Nhận đơn</button>
+                                            )}
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                    {/* Pagination */}
+                    <ul className="pagination">
+                        <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                            <button onClick={prevPage} className="page-link">
+                                <FontAwesomeIcon icon={faArrowLeft} />
+                            </button>
+                        </li>
+                        {Array.from({ length: Math.ceil(orderShip.length / ordersPerPage) }, (_, i) => (
+                            <li key={i} className={`page-item ${currentPage === i + 1 ? "active" : ""}`}>
+                                <button onClick={() => paginate(i + 1)} className="page-link">
+                                    {i + 1}
+                                </button>
+                            </li>
+                        ))}
+                        <li className={`page-item ${currentPage === Math.ceil(orderShip.length / ordersPerPage) ? "disabled" : ""}`}>
+                            <button onClick={nextPage} className="page-link">
+                                <FontAwesomeIcon icon={faArrowRight} />
+                            </button>
+                        </li>
+                    </ul>
+                </>
+            )}
         </>
     );
 }

@@ -59,7 +59,9 @@ function ListOrderShop() {
         try {
             const response = await axios.get(
                 `http://localhost:8080/api/order/orders/shop/${params.id}`
+                
             );
+            document.title = "Đơn hàng của shopper";
             if (Array.isArray(response.data)) {
                 const processedOrders = response.data.map((order) => {
                     const createdAt = new Date(

@@ -24,6 +24,7 @@ export default function CreateNewFood() {
         try {
             const response = await axios.get(`http://localhost:8080/api/menus/${params.id}`);
             const menuData = response.data;
+            document.title = "Món ăn của shopper";
             // Nếu danh sách menu rỗng, thêm menu mặc định
             if (menuData.length === 0) {
                 setMenus([{ id: 1, name: "Menu mặc định" }]);

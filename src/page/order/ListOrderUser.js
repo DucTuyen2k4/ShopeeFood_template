@@ -17,6 +17,7 @@ function ListOrderUser() {
             const response = await axios.get(
                 `http://localhost:8080/api/order/orderItem/${orderId}`
             );
+            document.title = "Đơn hàng có thể nhận";
             test.current = response.data;
             console.log(test.current);
         }

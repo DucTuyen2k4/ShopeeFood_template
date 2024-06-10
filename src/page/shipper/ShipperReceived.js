@@ -19,6 +19,7 @@ function ShipperReceived() {
             const response = await axios.get(`http://localhost:8080/api/order/orderReceived`);
             setShipOrder(response.data);
             setTotalPages(Math.ceil(response.data.length / ordersPerPage));
+            document.title = "Đơn hàng đã nhận";
         } catch (error) {
             console.error('Error fetching orders:', error);
         }

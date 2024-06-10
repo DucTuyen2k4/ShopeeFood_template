@@ -34,6 +34,7 @@ export default function DetailsShopMerchant() {
 
     useEffect(() => {
         getProduct();
+        document.title = "Chi tiết shop";
     }, []);
 
     return (

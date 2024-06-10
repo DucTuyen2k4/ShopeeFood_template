@@ -49,6 +49,7 @@ export default function HomeProduct() {
         setSelectedCategoryId(response.data.idCategory);
         console.log(response.data);
     }
+    document.title = "Shop";
 
     function formatNumberWithCommas(number) {
         return number.toLocaleString('de-DE');

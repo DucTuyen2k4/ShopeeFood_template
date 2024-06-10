@@ -60,6 +60,7 @@ export default function CreateMerchant() {
     async function getListCity() {
         try {
             const response = await axios.get(`http://localhost:8080/api/cities`);
+            document.title = "Thêm Shopper";
             setIdCity(response.data);
         } catch (error) {
             console.error('Error fetching menus:', error);

@@ -25,6 +25,7 @@ export default function ListProduct() {
     };
     async function listProduct() {
         const response = await axios.get("http://localhost:8080/api/shops")
+        document.title = "Các shop";
         console.log(response.data);
         setProduct(response.data);
     }
