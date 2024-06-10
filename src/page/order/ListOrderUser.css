@@ -8,7 +8,7 @@
 }
 
 .table {
-    width: 90%;
+    width: 100%;
     margin: 25px auto;
     background-color: #fdfdfd;
 }
@@ -20,7 +20,7 @@ td {
 th {
     height: 50px;
     font-size: 18px;
-    color: rgb(221, 61, 61);
+    color: rgb(228, 62, 62);
 }
 
 .pagination {

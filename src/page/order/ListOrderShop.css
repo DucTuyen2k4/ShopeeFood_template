@@ -195,3 +195,18 @@
 .padding-sum {
     padding-right: 670px;
 }
+.table-merchant {
+    width: 90%;
+    margin: 25px auto;
+    background-color: #fdfdfd;
+}
+
+td {
+    height: 80px;
+}
+
+th {
+    height: 50px;
+    font-size: 18px;
+    color: rgb(221, 61, 61);
+}

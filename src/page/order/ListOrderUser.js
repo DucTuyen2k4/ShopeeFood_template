@@ -31,6 +31,12 @@ function ListOrderUser() {
     const [user, setUser] = useState({});
     const [isShowModalOrder, setIsShowModalOrder] = useState(false);
     const [modalShow, setModalShow] = useState(false);
+    const [searchStart, setSearchStart] = useState('');
+    const [searchEnd, setSearchEnd] = useState('');
+
+
+
+
 
     async function listOrdersByUser() {
 
@@ -41,6 +47,7 @@ function ListOrderUser() {
             // Ensure the data is an array and log its length
             if (Array.isArray(response.data)) {
                 console.log("API returned an array with length:", response.data.length);
+                
                 // Process createdAt to keep only the necessary parts
                 const processedOrders = response.data.map((order) => {
                     const createdAt = new Date(
@@ -54,6 +61,7 @@ function ListOrderUser() {
                     );
                     return { ...order, createdAt };
                 });
+                // console.log("ABC"+processedOrders)
                 setOrders(processedOrders);
             } else {
                 console.error("API did not return an array:", response.data);
@@ -119,6 +127,7 @@ function ListOrderUser() {
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
         searchOrderByStatus(event.target.value);
+
     };
 
     useEffect(() => {
@@ -127,6 +136,20 @@ function ListOrderUser() {
     }, [orderId]);
 
 
+    const handleStartChange = (e) => {
+        setSearchStart(e.target.value);
+      };
+    
+      const handleEndChange = (e) => {
+        setSearchEnd(e.target.value);
+      };
+
+     async function searchOrderByDate() {
+        const response = await axios.get(`http://localhost:8080/api/order/search/${searchStart}/${searchEnd}`);
+        setOrders(response.data);
+        console.log("response"+response.data);
+    }
+
     return (
         <>
             <HeadHome />
@@ -134,12 +157,12 @@ function ListOrderUser() {
             <div className="block-section">
                 <div className="container">
                     <h1 className="block-title mb-4 center">Danh sách đơn hàng</h1>
-                    {/* <div className="history-switch">
+                    <div className="history-switch">
                         <div class="item now active">ShopeeFood</div>
-                    </div> */}
+                    </div>
                     <div class="history-table-container">
                         <div class="filter-table">
-                            <div class="filter-table-item ">
+                                <div class="filter-table-item ">
                                 <div class="text-nowrap">
                                     <span class="filter-table-label">Trạng thái</span>
                                     <select name="" value={selectedValue} onChange={handleChange} class="form-control filter-table-input">
@@ -149,21 +172,23 @@ function ListOrderUser() {
                                     </select>
                                 </div>
                             </div>
-                            <div class="filter-table-item">
+                            <form onSubmit={() => searchOrderByDate()}>
+                                <div class="filter-table-item">
                                 <div class="text-nowrap">
                                     <span class="filter-table-label">Từ ngày</span>
-                                    <input value="" type="date" class="flatpickr-input" readonly="readonly" />
+                                    <input class="flatpickr-input" onChange={handleStartChange}  />
                                 </div>
-                            </div>
+                                </div>
                             <div class="filter-table-item">
                                 <div class="text-nowrap">
                                     <span class="filter-table-label">Đến ngày</span>
-                                    <input mindate="Mon May 27 2024 08:26:05 GMT+0700 (Indochina Time)" value="" type="date" class="flatpickr-input" readonly="readonly" />
+                                    <input   class="flatpickr-input"  onChange={handleEndChange}  />
                                 </div>
                             </div>
                             <div class="filter-table-item">
-                                <button type="button" class="btns btn-primary">Tìm kiếm</button>
+                                <button type="submit" class="btns btn-primary">Tìm kiếm</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <table class="table table-bordered">
@@ -172,14 +197,14 @@ function ListOrderUser() {
                             <th className="center">Mã đơn hàng</th>
                             <th>Thời gian </th>
                             <th>Địa điểm </th>
-                            <th>Thành tiền</th>
-                            <th>Trạng thái</th>
-                            <th>Chi tiết</th>
+                            <th className="center">Thành tiền</th>
+                            <th >Trạng thái</th>
+                            <th className="center">Chi tiết</th>
                         </tr>
                         {ordersProducts.map((order, index) => (
                             <tr>
                                 <td className="center">{index + 1}</td>
-                                <td className="center">{order.id}</td>
+                                <td className="center">{order.codeOrders}</td>
                                 <td>
                                     Thời gian đặt:{" "}
                                     {moment(order.createdAt).format(" DD-MM-YYYY HH:mm")}
@@ -191,14 +216,14 @@ function ListOrderUser() {
                                         {order.orderItems[0].shop.idCity.name}
                                     </td>
                                 )}
-                                <td>
+                                <td className="center">
                                     {formatNumberWithCommas(calculateOrderTotal(order.orderItems))} đ
                                 </td>
                                 <td>
                                     {order.status.type}<br />
                                     {/* <button type="button" class="btn btn-danger">Hủy đơn</button> */}
                                 </td>
-                                <td className="link">
+                                <td className="link center">
                                     <div>
                                         <Link
                                             onClick={() => {

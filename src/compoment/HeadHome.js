@@ -59,7 +59,7 @@ export default function HeadHome() {
                                         <span className='name'>Người dùng</span>
                                     </div>
                                     <div className='dropdown-content'>
-                                        <span><Link to={`/ListOrderUser/1`} class="dropdown-item" href="#">Đơn hàng</Link></span>
+                                        <span><Link to={`/ListOrderUser/2`} class="dropdown-item" href="#">Đơn hàng</Link></span>
                                         <span><a class="dropdown-item" href="#">Lịch sử đơn hàng </a></span>
                                         <span><a class="dropdown-item" href="#">Chỉnh sửa thông tin </a></span>
                                         <span><a class="dropdown-item" href="#">Đăng Suất</a></span>

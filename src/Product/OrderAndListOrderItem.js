@@ -24,7 +24,7 @@ export default function OrderAndListOrderItem() {
   const [showWarning, setShowWarning] = useState(false);
   const [status, setStatus] = useState(0);
   const [addressToEdit, setAddressToEdit] = useState({});
-  const [idUser, setIdUser] = useState(1); 
+  const [idUser, setIdUser] = useState(2); 
 
   useEffect(() => {
     getShop();
@@ -45,7 +45,7 @@ export default function OrderAndListOrderItem() {
 
     const orderNote = note || ' ';
     try {
-      const orderResponse = await axios.post(`http://localhost:8080/api/order/1/${idUser}/${selectedAddressId}`, orderNote, {
+      const orderResponse = await axios.post(`http://localhost:8080/api/order/${idUser}/11/${selectedAddressId}`, orderNote, {
         headers: { 'Content-Type': 'text/plain' },
       });
       console.log('Đặt hàng thành công', orderResponse.data);
@@ -57,7 +57,7 @@ export default function OrderAndListOrderItem() {
 
   async function getShop() {
     try {
-      const response = await axios.get(`http://localhost:8080/api/shops/1`);
+      const response = await axios.get(`http://localhost:8080/api/shops/11`);
       setShop(response.data);
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu cửa hàng:', error);
@@ -75,7 +75,7 @@ export default function OrderAndListOrderItem() {
 
   async function getOrderItem() {
     try {
-      const response = await axios.get(`http://localhost:8080/api/detailCart/1/${idUser}`);
+      const response = await axios.get(`http://localhost:8080/api/detailCart/11/${idUser}`);
       setCart(response.data);
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu giỏ hàng:', error);
@@ -89,7 +89,7 @@ export default function OrderAndListOrderItem() {
 
   const Showcar = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/detailCart/1/${idUser}`);
+      const response = await axios.get(`http://localhost:8080/api/detailCart/11/${idUser}`);
       setCart(response.data);
     } catch (error) {
       console.error('Lỗi khi hiển thị giỏ hàng:', error);
@@ -98,7 +98,7 @@ export default function OrderAndListOrderItem() {
 
   const addProductToCart = async (idShop, idUser, idProduct) => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/detailCart/1/${idUser}/${idProduct}`);
+      const response = await axios.post(`http://localhost:8080/api/detailCart/11/${idUser}/${idProduct}`);
       console.log('Thêm sản phẩm vào giỏ hàng:', response.data);
       Showcar();
     } catch (error) {
