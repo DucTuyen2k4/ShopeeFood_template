@@ -36,7 +36,7 @@ function App() {
             <Route path="/createFood/:id" element={<CreateNewFood />}></Route>
             <Route path="/foodList/:id" element={<FoodList />}></Route>
             <Route path='/HomeProduct/:id' element={<HomeProduct />} ></Route>
-            <Route path='/OrderAndListOrderItem' element={<OrderAndListOrderItem />} ></Route>
+            <Route path='/OrderAndListOrderItem/:id' element={<OrderAndListOrderItem />} ></Route>
             <Route path='/ListOrderShop/:id' element={<ListOrderShop />} ></Route>
             <Route path='/shipper' element={<Shipper />} ></Route>
             <Route path='/ShipperReceived' element={<ShipperReceived />} ></Route>

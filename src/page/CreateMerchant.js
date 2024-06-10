@@ -20,6 +20,12 @@ export default function CreateMerchant() {
         timeEnd: ''
     });
     const [errors, setErrors] = useState({});
+    function handleInput(event) {
+        const { name, value } = event.target;
+        setValues({ ...values, [name]: value });
+        // Clear error message when the user starts typing
+        setErrors({ ...errors, [name]: '' });
+    }
     async function CreateMerchant(event) {
         event.preventDefault();
         try {
@@ -45,7 +51,7 @@ export default function CreateMerchant() {
             const response = await axios.post(`http://localhost:8080/api/shops`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
-            navigate('/');
+            navigate('/homeMerchant');
             console.log('Product created:', response.data);
         } catch (error) {
             console.error('Error creating product:', error);
@@ -73,12 +79,7 @@ export default function CreateMerchant() {
     useEffect(() => {
         getListCategory();
     }, []);
-    function handleInput(event) {
-        const { name, value } = event.target;
-        setValues({ ...values, [name]: value });
-        // Clear error message when the user starts typing
-        setErrors({ ...errors, [name]: '' });
-    }
+
     function handleCityChange(e) {
         setSelectedCityId(e.target.value);
     }
@@ -208,7 +209,7 @@ return (
                     <div className="row mb-3">
                         <label class="col-sm-2 col-form-label"></label>
                         <div className='col'>
-                            <Link to={"/"} className=' btnBack'>Quay lại</Link>
+                            <Link to={"/homeMerchant"} className=' btnBack'>Quay lại</Link>
                             <button type="submit" className="btnSave">
                                 Lưu
                             </button>

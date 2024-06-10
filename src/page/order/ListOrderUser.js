@@ -144,7 +144,7 @@ function ListOrderUser() {
                                     <span class="filter-table-label">Trạng thái</span>
                                     <select name="" value={selectedValue} onChange={handleChange} class="form-control filter-table-input">
                                         <option value="1" selected="">All</option>
-                                        <option value="6">Hoàn tất</option>
+                                        <option value="7">Hoàn tất</option>
                                         <option value="3">Hủy</option>
                                     </select>
                                 </div>

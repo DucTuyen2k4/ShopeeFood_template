@@ -2,15 +2,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import '../css/LayoutOrederAndListOrderItem.css';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import HeadHome from "../compoment/HeadHome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import '../css/LayoutHome.css';
 import { faHouse, faBriefcase, faLocationDot, faWallet, faMoneyBill, faMoneyCheckDollar, faBuildingColumns, faCircleXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import FooterHome from "../compoment/FooterHome";
+import Validation from "../css/ValidateAddress.js";
 
 export default function OrderAndListOrderItem() {
   const navigate = useNavigate();
+  const params = useParams();
   const [cart, setCart] = useState([]);
   const [sum, setSum] = useState(0);
   const [address, setAddress] = useState([]);
@@ -24,7 +26,47 @@ export default function OrderAndListOrderItem() {
   const [showWarning, setShowWarning] = useState(false);
   const [status, setStatus] = useState(0);
   const [addressToEdit, setAddressToEdit] = useState({});
-  const [idUser, setIdUser] = useState(1); 
+  const [idUser, setIdUser] = useState(1);
+  const [errors, setErrors] = useState({});
+  const [values, setValues] = useState({
+    name: '',
+    details: '',
+    contact: ''
+  });
+ function handleInput(event) {
+  const { name, value } = event.target;
+  setValues({ ...values, [name]: value });
+}
+
+  const handleSubmitAddress = async (e) => {
+    e.preventDefault();
+    const newAddress = {
+      nameUser: values.name,
+      address: values.details,
+      phoneNumber: values.contact,
+      status,
+    };
+
+    const validationErrors = Validation(newAddress);
+    if (Object.keys(validationErrors).length !== 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    try {
+      await axios.post(`http://localhost:8080/api/address/${idUser}`, newAddress);
+      setIsModalOpen(false);
+      getAddressList(); // Cập nhật danh sách địa chỉ sau khi thêm thành công
+      setValues({   // Đặt lại giá trị của values thành một đối tượng rỗng
+        name: '',
+        details: '',
+        contact: ''
+      });
+    } catch (error) {
+      console.error('Lỗi khi thêm địa chỉ mới:', error);
+    }
+  };
+
 
   useEffect(() => {
     getShop();
@@ -45,11 +87,12 @@ export default function OrderAndListOrderItem() {
 
     const orderNote = note || ' ';
     try {
-      const orderResponse = await axios.post(`http://localhost:8080/api/order/1/${idUser}/${selectedAddressId}`, orderNote, {
+      const orderResponse = await axios.post(`http://localhost:8080/api/order/${idUser}/${params.id}/${selectedAddressId}`, orderNote, {
         headers: { 'Content-Type': 'text/plain' },
       });
       console.log('Đặt hàng thành công', orderResponse.data);
-      navigate(`/ListOrderUser/${idUser}`);
+      navigate(`/HomeProduct/${params.id}`);
+      
     } catch (error) {
       console.error('Lỗi khi đặt hàng:', error);
     }
@@ -57,7 +100,7 @@ export default function OrderAndListOrderItem() {
 
   async function getShop() {
     try {
-      const response = await axios.get(`http://localhost:8080/api/shops/1`);
+      const response = await axios.get(`http://localhost:8080/api/shops/${params.id}`);
       setShop(response.data);
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu cửa hàng:', error);
@@ -73,6 +116,7 @@ export default function OrderAndListOrderItem() {
     }
   }
 
+
   async function getOrderItem() {
     try {
       const response = await axios.get(`http://localhost:8080/api/detailCart/1/${idUser}`);
@@ -82,6 +126,7 @@ export default function OrderAndListOrderItem() {
     }
   }
 
+
   const formatNumberWithCommas = (number) => number.toLocaleString('de-DE');
 
   const calculateOrderTotal = (orderItems) =>
@@ -89,7 +134,7 @@ export default function OrderAndListOrderItem() {
 
   const Showcar = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/detailCart/1/${idUser}`);
+      const response = await axios.get(`http://localhost:8080/api/detailCart/${params.id}/${idUser}`);
       setCart(response.data);
     } catch (error) {
       console.error('Lỗi khi hiển thị giỏ hàng:', error);
@@ -98,7 +143,7 @@ export default function OrderAndListOrderItem() {
 
   const addProductToCart = async (idShop, idUser, idProduct) => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/detailCart/1/${idUser}/${idProduct}`);
+      const response = await axios.post(`http://localhost:8080/api/detailCart/1/${params.id}/${idProduct}`);
       console.log('Thêm sản phẩm vào giỏ hàng:', response.data);
       Showcar();
     } catch (error) {
@@ -131,6 +176,7 @@ export default function OrderAndListOrderItem() {
   const openModal = (status) => {
     setStatus(status);
     setIsModalOpen(true);
+    setErrors({}); // Dòng này cần được thêm vào để reset state errors
   };
 
   const openEditModal = async (addressId) => {
@@ -139,6 +185,7 @@ export default function OrderAndListOrderItem() {
       setAddressToEdit(response.data);
       setSelectedAddressId(addressId);
       setIsModalEdit(true);
+      setErrors({}); // Đặt lại state errors thành một đối tượng trống khi mở modal chỉnh sửa
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu địa chỉ:', error);
     }
@@ -162,23 +209,7 @@ export default function OrderAndListOrderItem() {
     }
   };
 
-  const handleSubmitAddress = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const newAddress = {
-      nameUser: formData.get('name'),
-      address: formData.get('details'),
-      phoneNumber: formData.get('contact'),
-      status,
-    };
-    try {
-      await axios.post(`http://localhost:8080/api/address/${idUser}`, newAddress);
-      setIsModalOpen(false);
-      getAddressList();
-    } catch (error) {
-      console.error('Lỗi khi thêm địa chỉ mới:', error);
-    }
-  };
+  
 
   const handleUpdateAddress = async (e) => {
     e.preventDefault();
@@ -190,10 +221,22 @@ export default function OrderAndListOrderItem() {
       phoneNumber: formData.get('contact'),
       status: addressToEdit.status,
     };
+
+    const validationErrors = Validation(updatedAddress);
+    if (Object.keys(validationErrors).length !== 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     try {
       await axios.put(`http://localhost:8080/api/address/${selectedAddressId}/${idUser}`, updatedAddress);
       setIsModalEdit(false);
       getAddressList();
+      setValues({
+        name: '',
+        details: '',
+        contact: ''
+      });
     } catch (error) {
       console.error('Lỗi khi cập nhật địa chỉ:', error);
     }
@@ -242,6 +285,7 @@ export default function OrderAndListOrderItem() {
       );
     }
   };
+
   
     return (
       <div>
@@ -365,15 +409,18 @@ export default function OrderAndListOrderItem() {
           <div className="modal-con">
             <h2>Thêm địa chỉ mới</h2>
             <form className="form-cute" onSubmit={handleSubmitAddress}>
-              <input className="text-cute" type="text" name="name" placeholder="Tên khách hàng" required />
-              <input className="text-cute" type="text" name="details" placeholder="Địa chỉ nhận hàng" required />
-              <input className="text-cute" type="text" name="contact" placeholder="Số điện thoại nhận hàng" required />
+                <input className="text-cute" type="text" onChange={handleInput} name="name" placeholder="Tên khách hàng"  />
+                {errors.name && <p style={{ color: "red", fontSize: "12px", textAlign: "left" }}>{errors.name}</p>}
+                <input className="text-cute" type="text" onChange={handleInput} name="details" placeholder="Địa chỉ nhận hàng"  />
+                {errors.details && <p style={{ color: "red", fontSize: "12px", textAlign: "left" }}>{errors.details}</p>}
+                <input className="text-cute" type="text" onChange={handleInput} name="contact" placeholder="Số điện thoại nhận hàng"  />
+                {errors.contact && <p style={{ color: "red", fontSize: "12px", textAlign: "left" }}>{errors.contact}</p>}
               <button className="button-good" type="submit">
-                Submit
+                Xác nhận
               </button>
             </form>
             <button style={{ width: '100%' }} onClick={() => setIsModalOpen(false)}>
-              Close
+              Hủy
             </button>
           </div>
         </div>
@@ -382,15 +429,18 @@ export default function OrderAndListOrderItem() {
         <div className="modal-father">
           <div className="modal-con">
             <h2>Cập nhật địa chỉ</h2>
-            <form className="form-cute" onSubmit={handleUpdateAddress}>
-              Tên khách hàng
-              <input className="text-cute" type="text" name="name" placeholder="Tên khách hàng" defaultValue={addressToEdit.nameUser} required />
-              Địa chỉ nhận hàng
-              <input className="text-cute" type="text" name="details" placeholder="Địa chỉ nhận hàng" defaultValue={addressToEdit.address} required />
-              Số điện thoại nhận hàng
-              <input className="text-cute" type="text" name="contact" placeholder="Số điện thoại nhận hàng" defaultValue={addressToEdit.phoneNumber} required />
-              <button className="button-good" type="submit">Cập nhật</button>
-            </form>
+
+              <form className="form-cute" onSubmit={handleUpdateAddress}>
+                <input className="text-cute" type="text" onChange={handleInput} name="name" placeholder="Tên khách hàng" defaultValue={addressToEdit.nameUser} />
+                {errors.name && <p style={{ color: "red", fontSize: "12px", textAlign: "left" }}>{errors.name}</p>}
+                <input className="text-cute" type="text" onChange={handleInput} name="details" placeholder="Địa chỉ nhận hàng" defaultValue={addressToEdit.address} />
+                {errors.details && <p style={{ color: "red", fontSize: "12px", textAlign: "left" }}>{errors.details}</p>}
+                <input className="text-cute" type="text" onChange={handleInput} name="contact" placeholder="Số điện thoại nhận hàng" defaultValue={addressToEdit.phoneNumber} />
+                {errors.contact && <p style={{ color: "red", fontSize: "12px", textAlign: "left" }}>{errors.contact}</p>}
+                <button className="button-good" type="submit">Cập nhật</button>
+              </form>
+
+
             <button style={{ width: '100%' }} onClick={() => setIsModalEdit(false)}>Close</button>
           </div>
         </div>

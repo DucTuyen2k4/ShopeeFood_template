@@ -3,11 +3,6 @@ export default function Validation(values) {
     const errors = {};
     const email_pattern = /^\S+@\S+\.\S{2,6}$/;
     const name_pattern = /^[\p{L}\s\d\-]+$/u;
-
-
-
-
-
     const phoneNumber_pattern = /^(0[1-9][0-9]{8,9})$/;
     const address_pattern = /.*/; // Mẫu này có thể được điều chỉnh để phù hợp với định dạng địa chỉ cụ thể
     const timeStart_pattern = /^([01]\d|2[0-3]):([0-5]\d)$/; // Matches HH:MM in 24-hour format

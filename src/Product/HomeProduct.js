@@ -120,7 +120,7 @@ export default function HomeProduct() {
 
     const addProductToCart = async (idShop, idUser, idProduct) => {
         try {
-            const response = await axios.post(`http://localhost:8080/api/detailCart/${params.id}/1/${idProduct}`);
+            const response = await axios.post(`http://localhost:8080/api/detailCart/1/${params.id}/${idProduct}`);
             console.log('Product added to cart:', response.data);
             Showcar();
         } catch (error) {
@@ -233,7 +233,7 @@ export default function HomeProduct() {
 
     const fetchMenus = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/menus/1');
+            const response = await axios.get(`http://localhost:8080/api/menus/${params.id}`);
             setMenus(response.data);
         } catch (error) {
             console.error('Error fetching menus:', error);
@@ -428,7 +428,7 @@ export default function HomeProduct() {
                                     </div>
                                     <form className="payment-form">
                                         <button>
-                                            <Link to="/OrderAndListOrderItem" className="payment-button">+ Xác nhận thanh toán</Link>
+                                            <Link to={`/OrderAndListOrderItem/${params.id}`} className="payment-button">+ Xác nhận thanh toán</Link>
                                         </button>
                                     </form>
                                 </div>

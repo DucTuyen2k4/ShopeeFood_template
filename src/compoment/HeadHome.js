@@ -34,7 +34,7 @@ export default function HeadHome() {
                         <div className='header-content navbar row  justify-content-between align-items-center'>
                             <div className='logo-now col-auto'>
                                 <span>
-                                    <Link to={'/HomeProduct'}> <img className='imgLogo' src='https://shopeefood.vn/app/assets/img/shopeefoodvn.png?4aa1a38e8da801f4029b80734905f3f7'></img></Link>
+                                    <Link to={'/'}> <img className='imgLogo' src='https://shopeefood.vn/app/assets/img/shopeefoodvn.png?4aa1a38e8da801f4029b80734905f3f7'></img></Link>
                                 </span>
                             </div>
                             <div className='selectLocal col-auto'>
