@@ -7,6 +7,7 @@ import axios from 'axios';
 export default function HeadHome() {
     const [citys, setCity] = useState([]);
     const [category, setCategory] = useState([]);
+    const [listShop, setListShop] = useState([]);
 
     async function getListCites() {
         const response = await axios.get(`http://localhost:8080/api/cities`);
@@ -15,6 +16,11 @@ export default function HeadHome() {
     async function getListCategory() {
         const response = await axios.get(`http://localhost:8080/api/categories`);
         setCategory(response.data);
+    }
+    async function searchShopByIdCity(idCity) {
+        const response = await axios.get(`http://localhost:8080/api/categories/idCity/${idCity}`);
+        console.log(response.data);
+        setCategory(response.data)
     }
     useEffect(() => {
         getListCategory();
@@ -38,7 +44,7 @@ export default function HeadHome() {
                                     </button>
                                     <div class="dropdown-content">
                                         {citys.map((city) => (
-                                            <span><a class="dropdown-item" href="#">  {city.name}</a></span>
+                                            <span><button onClick={() => searchShopByIdCity(city.id)} type='button' class="dropdown-item" > {city.name}</button></span>
 
                                         ))}
                                     </div>

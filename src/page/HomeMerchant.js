@@ -16,6 +16,7 @@ export default function HomeMerchant() {
         setShop(result.data);
         console.log(result.data);
     };
+    
     return (
         <div>
             <HeadMerchant />

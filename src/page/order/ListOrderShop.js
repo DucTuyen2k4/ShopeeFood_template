@@ -161,11 +161,13 @@ function ListOrderShop() {
                             <td>
                                 <div className='button-orders'>
                                     {order.status.id === 2 && (
+
                                         <span>  {order.status.type}</span>
 
                                     )}
                                     {order.status.id === 3 && (
                                         <span>  {order.status.type}</span>
+
 
                                     )}
                                     {order.status.id === 1 && (

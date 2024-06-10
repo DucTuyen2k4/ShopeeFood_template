@@ -164,6 +164,7 @@ export default function OrderAndListOrderItem() {
     try {
       await axios.put(`http://localhost:8080/api/detailCart/plus/${id}`);
       Showcar();
+      
     } catch (error) {
       console.error('Lỗi khi tăng số lượng sản phẩm:', error);
     }
@@ -428,6 +429,7 @@ export default function OrderAndListOrderItem() {
         <div className="modal-father">
           <div className="modal-con">
             <h2>Cập nhật địa chỉ</h2>
+
               <form className="form-cute" onSubmit={handleUpdateAddress}>
                 <input className="text-cute" type="text" onChange={handleInput} name="name" placeholder="Tên khách hàng" defaultValue={addressToEdit.nameUser} />
                 {errors.name && <p style={{ color: "red", fontSize: "12px", textAlign: "left" }}>{errors.name}</p>}
@@ -437,6 +439,7 @@ export default function OrderAndListOrderItem() {
                 {errors.contact && <p style={{ color: "red", fontSize: "12px", textAlign: "left" }}>{errors.contact}</p>}
                 <button className="button-good" type="submit">Cập nhật</button>
               </form>
+
 
             <button style={{ width: '100%' }} onClick={() => setIsModalEdit(false)}>Close</button>
           </div>
