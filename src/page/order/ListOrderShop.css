@@ -6,6 +6,9 @@
     padding: 20px;
     background-color: #f9f9f9;
 }
+td{
+    margin-top: 5px;
+}
 
 /* Each order card */
 .order-card {
@@ -159,18 +162,25 @@
 }
 
 .button-orders {
-    width: 120px;
+    width: 132px;
+     margin: 0 auto;
+     text-align: center;
+}
+.btn.btn-primary{
+    margin-bottom: 0;
 }
 
 .btn {
     width: 120px;
-    margin-top: 5px;
+    margin-top: 0px;
+    margin-bottom: 0rem;
 }
 
 .modal-content {
     display: flex;
     height: 40rem;
     min-width: 1200px;
+    margin-left: -67px;
 }
 
 .modal-dialog {

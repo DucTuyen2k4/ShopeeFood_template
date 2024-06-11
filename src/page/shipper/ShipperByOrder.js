@@ -100,8 +100,9 @@ function Shipper() {
                             <tr>
                                 <th className="center">STT</th>
                                 <th className="center">Mã đơn hàng</th>
-                                <th>Thông tin khách hàng</th>
-                                <th>Trạng thái</th>
+                                    <th className="center">Thông tin khách hàng</th>
+                                    <th className="center">Vị trí nhận hàng</th> {/* Thêm cột mới */}
+                                    <th className="center">Trạng thái</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -114,6 +115,9 @@ function Shipper() {
                                         {order.user.phoneNumber}<br />
                                         {order.user.address}
                                     </td>
+                                    <td>
+                                        {order.addressOrder.address}
+                                    </td> {/* Hiển thị địa chỉ nhận hàng */}
                                     <td className="center">
                                         <div className='button-orders'>
                                             {order.status.id === 2 && (

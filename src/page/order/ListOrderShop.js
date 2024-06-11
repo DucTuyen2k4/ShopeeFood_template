@@ -29,6 +29,17 @@ function ListOrderShop() {
 
     async function setStatusConfirmOrder(idOrder) {
         try {
+            const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/5`);
+            console.log('Order status updated:', response.data);
+            toast.success("Nhận đơn hàng thành công");
+            // Refresh the list of orders
+            listOrdersByUser();
+        } catch (error) {
+            console.error('Error updating order status:', error);
+        }
+    }
+    async function setStatusConfirmOrder1(idOrder) {
+        try {
             const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/2`);
             console.log('Order status updated:', response.data);
             toast.success("Nhận đơn hàng thành công");
@@ -141,11 +152,11 @@ function ListOrderShop() {
                     <tr>
                         <th className="center">STT</th>
                         <th className="center">Mã đơn hàng</th>
-                        <th>Thời gian</th>
-                        <th>Thông tin khách hàng</th>
-                        <th>Thành tiền</th>
-                        <th>Trạng thái</th>
-                        <th>Chi tiết</th>
+                        <th className="center">Thời gian</th>
+                        <th className="center">Thông tin khách hàng</th>
+                        <th className="center">Thành tiền</th>
+                        <th className="center">Trạng thái</th>
+                        <th className="center">Chi tiết</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -153,34 +164,37 @@ function ListOrderShop() {
                         <tr key={order.id}>
                             <td className="center">{index + 1}</td>
                             <td className="center">{order.id}</td>
-                            <td>Thời gian đặt: {moment(order.createdAt).format("DD-MM-YYYY HH:mm")}</td>
-                            <td>
+                            <td className="center">Thời gian đặt: {moment(order.createdAt).format("DD-MM-YYYY HH:mm")}</td>
+                            <td className="center">
                                 {order.user.name}<br />
                                 {order.user.phoneNumber}<br />
                                 {order.user.address}
                             </td>
-                            <td>{formatNumberWithCommas(calculateOrderTotal(order.orderItems))} đ</td>
-                            <td>
+                            <td className="center">{formatNumberWithCommas(calculateOrderTotal(order.orderItems))} đ</td>
+                            <td >
                                 <div className='button-orders'>
-                                    {order.status.id === 2 && (
-
-                                        <span>  {order.status.type}</span>
-
-                                    )}
-                                    {order.status.id === 3 && (
-                                        <span>  {order.status.type}</span>
-
-
-                                    )}
+                                  
                                     {order.status.id === 1 && (
                                         <>
                                             <button onClick={() => setStatusConfirmOrder(order.id)} type="button" className="btn btn-success">Nhận đơn</button><br />
                                             <button onClick={() => setStatusCancelOrder(order.id)} type="button" className="btn btn-danger">Hủy đơn</button>
                                         </>
                                     )}
+                                    {order.status.id === 5 && (
+                                        <>
+                                            <span >{order.status.type}</span>
+
+
+                                            <button onClick={() => setStatusConfirmOrder1(order.id)} type="button" className="btn btn-success">Gửi thông báo đến Shipper</button><br />
+                                           
+                                        </>
+                                    )}
+                                    {order.status.id !== 1 && order.status.id !== 5 && (
+                                        <span>  {order.status.type}</span>
+                                    )}
                                 </div>
                             </td>
-                            <td className="link">
+                            <td className="link center">
                                 <Link
                                     onClick={() => {
                                         setModalShow(true);

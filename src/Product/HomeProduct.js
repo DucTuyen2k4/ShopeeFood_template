@@ -9,6 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import OrderAndListOrderItem from './OrderAndListOrderItem';
 import { Link } from 'react-router-dom';
 import FooterHome from '../compoment/FooterHome';
+import ModalDetailProduct from "./ModalDetailProduct";
 
 export default function HomeProduct() {
     const navigate = useNavigate();
@@ -35,6 +36,8 @@ export default function HomeProduct() {
     const [likedProducts, setLikedProducts] = useState({});
     const [idMenu, setIdMenu] = useState(null);
     const menuRefs = useRef([]);
+    const [showDetailProduct, setShowDetailProduct] = useState(false);
+    const [idDetailProduct, setIdDtailProduct] = useState();
     async function getProduct() {
         const response = await axios.get(`http://localhost:8080/api/shops/${params.id}`);
         setProduct(response.data);
@@ -52,7 +55,7 @@ export default function HomeProduct() {
     document.title = "Shop";
 
     function formatNumberWithCommas(number) {
-        return number.toLocaleString('de-DE');
+        return number.toLocaleString("de-DE");
     }
 
 
@@ -240,6 +243,9 @@ export default function HomeProduct() {
             console.error('Error fetching menus:', error);
         }
     };
+      const handleClose = () => {
+    setShowDetailProduct(false);
+  };
 
 
 
@@ -257,7 +263,7 @@ export default function HomeProduct() {
                         <div className='col'>
                             <div className='detail-restaurant-info'>
                                 <div className='kind-restaurant'>
-                                    <div className='tag-preferred'>Yêu Thích</div>
+                                    <div className='tag-preferreds'>Yêu Thích</div>
                                     <span>Quán ăn</span>
                                 </div>
                                 <h1 className='title-restaurant'>{name}</h1>
@@ -301,7 +307,7 @@ export default function HomeProduct() {
                         <div className='item active'>Thực Đơn</div>
                     </div>
                     <div className="row">
-                        <div className="col">
+                        <div className="col-3">
                             <div className='menu-restaurant-category'>
                                 <div className='list-category'>
                                     <div className='scrollbar-container ps'>
@@ -355,7 +361,18 @@ export default function HomeProduct() {
                                                                     <div key={index} className='item-restaurant-row'>
                                                                         <div className='row'>
                                                                             <div className='col-auto item-restaurant-img'>
-                                                                                <img className='img-item' src={`http://localhost:8080/img/${product.image}`} alt={product.name} />
+                                                                                <Link
+                                                                                    onClick={() => {
+                                                                                        setShowDetailProduct(true);
+                                                                                        setIdDtailProduct(product.id);
+                                                                                    }}
+                                                                                >
+                                                                                    <img
+                                                                                        className="img-item"
+                                                                                        src={`http://localhost:8080/img/${product.image}`}
+                                                                                        alt={product.name}
+                                                                                    />
+                                                                                </Link>
                                                                             </div>
                                                                             <div className='col item-restaurant-info'>
                                                                                 <h2 className='item-restaurant-name'>{product.name}</h2>
@@ -378,7 +395,7 @@ export default function HomeProduct() {
                                                                                 <div className='row'>
                                                                                     <div className='col-auto product-price'>
                                                                                         <div className='current-price'>
-                                                                                            {product.price}
+                                                                                            {formatNumberWithCommas(product.price)}
                                                                                             <span className='price'>đ</span>
                                                                                         </div>
                                                                                     </div>
@@ -416,7 +433,7 @@ export default function HomeProduct() {
                                                         <input type="text" className='quantity-value' value={item.quantity} readOnly />
                                                         <button className='btnQuantity' onClick={() => handlePlus(item.id)}>+</button>
                                                     </div>
-                                                    <div className='col-4 price-cart'>{formatNumberWithCommas(item.product.price)} đ</div>
+                                                    <div className='col-4 price-cart'>{formatNumberWithCommas(item.product.price * item.quantity)} đ</div>
                                                 </div>
                                                 <hr />
                                             </div>
@@ -438,6 +455,7 @@ export default function HomeProduct() {
                     </div>
                 </div>
             </div>
+            <ModalDetailProduct show={showDetailProduct} handleClose={handleClose} idDetailProduct={idDetailProduct} />
             <FooterHome />
         </div>
     );

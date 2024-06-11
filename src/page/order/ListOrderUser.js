@@ -17,7 +17,7 @@ function ListOrderUser() {
             const response = await axios.get(
                 `http://localhost:8080/api/order/orderItem/${orderId}`
             );
-            document.title = "Đơn hàng có thể nhận";
+           
             test.current = response.data;
             console.log(test.current);
         }
@@ -39,6 +39,7 @@ function ListOrderUser() {
             const response = await axios.get(
                 `http://localhost:8080/api/order/orders/user/${params.id}`
             );
+            document.title = "Đơn hàng của bạn";
             // Ensure the data is an array and log its length
             if (Array.isArray(response.data)) {
                 console.log("API returned an array with length:", response.data.length);

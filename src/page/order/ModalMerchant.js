@@ -67,7 +67,7 @@ function ModalMerchant(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <table class="table table-bordered">
+                <table class="tableDetail table-bordered">
                     <tr>
                         <th>Thành viên</th>
                         <th>Món ăn</th>

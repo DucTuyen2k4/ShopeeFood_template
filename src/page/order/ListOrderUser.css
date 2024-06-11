@@ -7,13 +7,19 @@
     max-width: 30%;
 }
 
-.table {
+.table{
     width: 90%;
     margin: 25px auto;
     background-color: #fdfdfd;
 }
+.tableDetail {
+    width: 100%;
+    margin: 25px auto;
+    background-color: #fdfdfd;
+}
 
-td {
+td { 
+    margin-top: 5px;
     height: 80px;
 }
 

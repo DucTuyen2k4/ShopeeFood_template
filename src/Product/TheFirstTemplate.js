@@ -1,7 +1,7 @@
 import FooterHome from "../compoment/FooterHome";
 import axios from 'axios';
 import HeadHome from "../compoment/HeadHome";
-import {faTags,faAngleRight,faArrowRightLong,faMagnifyingGlass, faHouse, faBriefcase, faLocationDot, faWallet, faMoneyBill, faMoneyCheckDollar, faBuildingColumns, faCircleXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faTags, faAngleRight, faArrowRightLong, faMagnifyingGlass, faHouse, faBriefcase, faLocationDot, faWallet, faMoneyBill, faMoneyCheckDollar, faBuildingColumns, faCircleXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import '../css/TheFirst.css';
 import React, { useState, useEffect, useCallback } from 'react';
@@ -165,11 +165,11 @@ export default function TheFirstTemplate() {
                             <div className="title-wrapper">
                                 <h2 className="title1">Ưu đãi</h2>
                             </div>
-                            {shop.map(item => (
+                            {shop.slice(0, 9).map(item => ( // Limit to 9 results
                                 <div className="item-restaurants" key={item.id}>
                                     <Link to={`/HomeProduct/${item.id}`} className="item-content">
                                         <div className="img-restaurant">
-                                            <img className="img-small" src={`http://localhost:8080/img/${item.image}`} alt="Sample Image from Unsplash" />
+                                            <img className="img-smalls" src={`http://localhost:8080/img/${item.image}`} alt="Sample Image from Unsplash" />
                                         </div>
                                         <div className="info-restaurants">
                                             <div className="info-basic-ress">

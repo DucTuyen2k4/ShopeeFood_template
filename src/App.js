@@ -28,7 +28,7 @@ function App() {
       <div >
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<ListProduct />} ></Route>
+            <Route path='/' element={<TheFirstTemplate />} ></Route>
             <Route path='/homeMerchant' element={<HomeMerchant />} ></Route>
             <Route path='/detailShop/:id' element={<DetailsShopMerchant />} ></Route>
             <Route path='/create' element={<CreateMerchant />} ></Route>
@@ -41,7 +41,8 @@ function App() {
             <Route path='/shipper' element={<Shipper />} ></Route>
             <Route path='/ShipperReceived' element={<ShipperReceived />} ></Route>
             <Route path='/ListOrderUser/:id' element={<ListOrderUser />} ></Route>
-            <Route path='/TheFirstTemplate' element={<TheFirstTemplate />}></Route>
+            <Route path='/listProduct' element={<ListProduct />}></Route>
+            
           </Routes>
         </BrowserRouter>
       </div>

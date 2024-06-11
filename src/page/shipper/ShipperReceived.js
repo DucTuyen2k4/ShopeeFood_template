@@ -68,6 +68,7 @@ function ShipperReceived() {
                         <th className="center">STT</th>
                         <th className="center">Mã đơn hàng</th>
                         <th>Thông tin khách hàng</th>
+                        <th>Vị trí nhận hàng</th> {/* Thêm cột mới */}
                         <th>Trạng thái</th>
                     </tr>
                 </thead>
@@ -80,6 +81,9 @@ function ShipperReceived() {
                                 {order.user.name}<br />
                                 {order.user.phoneNumber}<br />
                                 {order.user.address}
+                            </td>
+                            <td>
+                                {order.addressOrder.address} {/* Hiển thị địa chỉ nhận hàng */}
                             </td>
                             <td className="center">
                                 <div className='button-orders'>

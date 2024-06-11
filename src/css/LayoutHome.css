@@ -31,7 +31,7 @@
     display: flex;
 }
 
-.tag-preferred {
+.tag-preferreds {
     background: #f13233;
     color: #fff;
     padding: 3px 5px;
@@ -136,7 +136,7 @@
 .menu-restaurant-category {
     border: 1px solid #ebebeb;
     padding: 15px 5px 15px 15px;
-    width: 235px;
+    width: 300px;
     margin-right: 10px;
     background: #fff;
     border-radius: 4px;
@@ -383,8 +383,8 @@
 
                 .btn-adding:before {
                     content: "+";
-                    top: 40%;
-                    left: 54%;
+                    top: 50%;
+                    left: 50%;
                     transform: translate(-50%, -50%);
                     position: absolute;
                 }

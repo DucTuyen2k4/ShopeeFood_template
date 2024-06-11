@@ -382,7 +382,7 @@ export default function OrderAndListOrderItem() {
                               +
                             </button>
                           </div>
-                          <div className="col-4 price-cart">{formatNumberWithCommas(item.product.price)} đ</div>
+                          <div className="col-4 price-cart">{formatNumberWithCommas(item.product.price * item.quantity)} đ</div>
                         </div>
                         <hr />
                       </div>
@@ -442,7 +442,9 @@ export default function OrderAndListOrderItem() {
 
 
 
-            <button style={{ width: '100%' }} onClick={() => setIsModalEdit(false)}>Close</button>
+            <button style={{ width: '100%' }} onClick={() => setIsModalEdit(false)}>Hủy
+            
+            </button>
           </div>
         </div>
       )}

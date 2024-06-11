@@ -138,7 +138,6 @@
   z-index: auto;
   margin-bottom: 75px;
   min-height: calc(100vh - 123px);
-  overflow: scroll;
 }
 .user-get-local{
   background-color: #fff;

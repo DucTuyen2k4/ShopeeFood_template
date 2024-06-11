@@ -48,7 +48,7 @@ function ModalUser(props) {
     }, [data]);
 
     return (
-        <Modal
+        <Modal 
             show={props.show}
             onHide={props.onHide}
             size="lg"
@@ -68,7 +68,7 @@ function ModalUser(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <table class="table table-bordered">
+                <table class="tableDetail table-bordered">
                     <tr>
                         <th>Thành viên</th>
                         <th>Món ăn</th>
