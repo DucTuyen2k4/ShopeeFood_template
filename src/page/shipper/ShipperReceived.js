@@ -61,30 +61,37 @@ function ShipperReceived() {
     return (
         <>
             <HeadHome />
-            <h2 className="center">Đơn hàng của bạn</h2>
+            <h2 className="center-ship">Đơn hàng của bạn</h2>
             <table className="table table-bordered">
                 <thead>
                     <tr>
                         <th className="center">STT</th>
                         <th className="center">Mã đơn hàng</th>
-                        <th>Thông tin khách hàng</th>
-                        <th>Vị trí nhận hàng</th> {/* Thêm cột mới */}
-                        <th>Trạng thái</th>
+                        <th className="center">Thông tin khách hàng</th>
+                        <th className="center">Vị trí nhận hàng</th> {/* Thêm cột mới */}
+                        <th className="center">Vị trí giao hàng</th> {/* Thêm cột mới */}
+                        <th className="center">Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
                     {currentOrders.map((order, index) => (
                         <tr key={order.id}>
                             <td className="center">{indexOfFirstOrder + index + 1}</td>
-                            <td className="center">{order.id}</td>
-                            <td>
+                            <td className="center">{order.codeOrders}</td>
+                            <td className="center">
                                 {order.user.name}<br />
                                 {order.user.phoneNumber}<br />
                                 {order.user.address}
                             </td>
-                            <td>
+                            {order.orderItems.length > 0 && (
+                                    <td className="center">
+                                        {order.orderItems[0].shop.address}
+                                    </td>
+                                    )}
+                            <td className="center">
                                 {order.addressOrder.address} {/* Hiển thị địa chỉ nhận hàng */}
                             </td>
+                           
                             <td className="center">
                                 <div className='button-orders'>
                                     {order.status.id === 4 && (

@@ -1,7 +1,13 @@
 .center {
-    margin-top: 5%;
+    margin-top: 2%;
     text-align: center;
 }
+
+.center-ship{
+    margin-top: 4%;
+    text-align: center;
+}
+
 
 .title-order {
     max-width: 30%;
