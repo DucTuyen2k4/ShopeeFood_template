@@ -9,6 +9,7 @@ import '../css/LayoutHome.css';
 import { faHouse, faBriefcase, faLocationDot, faWallet, faMoneyBill, faMoneyCheckDollar, faBuildingColumns, faCircleXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import FooterHome from "../compoment/FooterHome";
 import Validation from "../css/ValidateAddress.js";
+import { toast } from "react-toastify";
 
 export default function OrderAndListOrderItem() {
   const navigate = useNavigate();
@@ -91,9 +92,8 @@ export default function OrderAndListOrderItem() {
         headers: { 'Content-Type': 'text/plain' },
       });
       console.log('Đặt hàng thành công', orderResponse.data);
-       toast.success("Đặt hàng thành công");
+      toast.success("Đặt hàng thành công");
       navigate(`/HomeProduct/${params.id}`);
-      
     } catch (error) {
       console.error('Lỗi khi đặt hàng:', error);
     }
