@@ -91,6 +91,7 @@ export default function OrderAndListOrderItem() {
         headers: { 'Content-Type': 'text/plain' },
       });
       console.log('Đặt hàng thành công', orderResponse.data);
+       toast.success("Đặt hàng thành công");
       navigate(`/HomeProduct/${params.id}`);
       
     } catch (error) {
