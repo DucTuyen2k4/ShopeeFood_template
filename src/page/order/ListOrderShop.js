@@ -29,26 +29,22 @@ function ListOrderShop() {
 
     async function setStatusConfirmOrder(idOrder) {
         try {
-            const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/5`);
-            console.log('Order status updated:', response.data);
-            toast.success("Nhận đơn hàng thành công");
-            // Refresh the list of orders
-            listOrdersByUser();
-        } catch (error) {
-            console.error('Error updating order status:', error);
-        }
-    }
-    async function setStatusConfirmOrder1(idOrder) {
-        try {
             const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/2`);
             console.log('Order status updated:', response.data);
             toast.success("Nhận đơn hàng thành công");
             // Refresh the list of orders
             listOrdersByUser();
         } catch (error) {
-            console.error('Error updating order status:', error);
+            if (error.response && error.response.status === 400) {
+                toast.error("Đã xảy ra lỗi: " + error.response.data);
+            } else {
+                console.error('Error updating order status:', error);
+                toast.error("Đã xảy ra lỗi khi cập nhật trạng thái đơn hàng");
+            }
         }
     }
+
+
 
     async function setStatusCancelOrder(idOrder) {
         try {
@@ -180,16 +176,8 @@ function ListOrderShop() {
                                             <button onClick={() => setStatusCancelOrder(order.id)} type="button" className="btn btn-danger">Hủy đơn</button>
                                         </>
                                     )}
-                                    {order.status.id === 5 && (
-                                        <>
-                                            <span >{order.status.type}</span>
-
-
-                                            <button onClick={() => setStatusConfirmOrder1(order.id)} type="button" className="btn btn-success">Gửi thông báo đến Shipper</button><br />
-                                           
-                                        </>
-                                    )}
-                                    {order.status.id !== 1 && order.status.id !== 5 && (
+                             
+                                    {order.status.id !== 1 &&  (
                                         <span>  {order.status.type}</span>
                                     )}
                                 </div>
