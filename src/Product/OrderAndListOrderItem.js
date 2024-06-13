@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import FooterHome from "../compoment/FooterHome";
 import Validation from "../css/ValidateAddress.js";
+import { toast } from "react-toastify";
 
 export default function OrderAndListOrderItem() {
   const navigate = useNavigate();
@@ -99,14 +100,12 @@ export default function OrderAndListOrderItem() {
 
     const orderNote = note || " ";
     try {
-      const orderResponse = await axios.post(
-        `http://localhost:8080/api/order/${idUser}/${params.id}/${selectedAddressId}`,
-        orderNote,
-        {
-          headers: { "Content-Type": "text/plain" },
-        }
-      );
-      console.log("Đặt hàng thành công", orderResponse.data);
+     ;
+      const orderResponse = await axios.post(`http://localhost:8080/api/order/${idUser}/${params.id}/${selectedAddressId}`, orderNote, {
+        headers: { 'Content-Type': 'text/plain' },
+      });
+      console.log('Đặt hàng thành công', orderResponse.data);
+      toast.success("Đặt hàng thành công");
       navigate(`/HomeProduct/${params.id}`);
     } catch (error) {
       console.error("Lỗi khi đặt hàng:", error);
@@ -642,3 +641,4 @@ export default function OrderAndListOrderItem() {
     </div>
   );
 }
+

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import HeadHome from "../../compoment/HeadHome";
+import { toast } from "react-toastify";
 
 function ShipperReceived() {
     const [orderShip, setShipOrder] = useState([]);
@@ -20,6 +21,7 @@ function ShipperReceived() {
             setShipOrder(response.data);
             setTotalPages(Math.ceil(response.data.length / ordersPerPage));
             document.title = "Đơn hàng đã nhận";
+       
         } catch (error) {
             console.error('Error fetching orders:', error);
         }
@@ -30,6 +32,13 @@ function ShipperReceived() {
             const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/${idStatus}`);
             console.log('Order status updated:', response.data);
             getOrderByShip();
+            if (`${idStatus}`==6){
+                toast.success("Đơn hàng đã nhận bắt đầu giao hàng.")
+            }
+            if (`${idStatus}` == 7) {
+                toast.success("Giao thành công.")
+            }
+           
         } catch (error) {
             console.error('Error updating order status:', error);
         }

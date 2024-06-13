@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import HeadHome from "../../compoment/HeadHome";
+import { toast } from "react-toastify";
 
 function Shipper() {
     const [orderShip, setShipOrder] = useState([]);
@@ -26,6 +27,8 @@ function Shipper() {
             const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/${idStatus}`);
             console.log('Order status updated:', response.data);
             getOrderByShip();
+            toast.success("Nhận đơn thành công")
+           
         } catch (error) {
             console.error('Error updating order status:', error);
         }
