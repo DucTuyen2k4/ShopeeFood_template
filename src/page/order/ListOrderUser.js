@@ -167,8 +167,7 @@ function ListOrderUser() {
                                 <button type="button" class="btns btn-primary">Tìm kiếm</button>
                             </div>
                         </div>
-                    </div>
-                    <table class="table table-bordered">
+                        <table class="table table-bordered">
                         <tr>
                             <th className="center">STT</th>
                             <th className="center">Mã đơn hàng</th>
@@ -181,7 +180,7 @@ function ListOrderUser() {
                         {ordersProducts.map((order, index) => (
                             <tr>
                                 <td className="center">{index + 1}</td>
-                                <td className="center">{order.id}</td>
+                                <td className="center">{order.codeOrders}</td>
                                 <td>
                                     Thời gian đặt:{" "}
                                     {moment(order.createdAt).format(" DD-MM-YYYY HH:mm")}
@@ -217,6 +216,8 @@ function ListOrderUser() {
                             </tr>
                         ))}
                     </table>
+                    </div>
+                  
                     {/* Pagination */}
                     <ul className="pagination">
                         <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
