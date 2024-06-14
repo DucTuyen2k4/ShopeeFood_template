@@ -46,12 +46,7 @@ th {
     display: flex;
     border-bottom: 1px solid #ebebeb;
 }
-
-.active now {
-    color: #cf2127;
-}
-
-.active {
+.history-switch .active {
     cursor: default;
     background-color: #fff;
     margin-bottom: -1px;
@@ -59,13 +54,18 @@ th {
     border-bottom: 0;
 }
 
-.item {
+.active now {
+    color: #cf2127;
+}
+
+.history-switch .item {
     font-size: 18px;
     font-weight: 700;
     cursor: pointer;
     padding: 5px 25px;
     border-radius: 5px 5px 0 0;
 }
+
 
 .history-table-container {
     background: #fff;

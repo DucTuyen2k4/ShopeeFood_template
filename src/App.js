@@ -14,12 +14,10 @@ import HomeProduct from './Product/HomeProduct';
 import OrderAndListOrderItem from './Product/OrderAndListOrderItem';
 import DetailProductMerchant from './page/DetailProductMerchant';
 import DetailsShopMerchant from './page/DetailsShopMerchant';
-import { ToastContainer, toast } from 'react-bootstrap';
-
 import TheFirstTemplate from './Product/TheFirstTemplate';
-
 import ListProduct from './Product/ListProduct';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -42,7 +40,7 @@ function App() {
             <Route path='/ShipperReceived' element={<ShipperReceived />} ></Route>
             <Route path='/ListOrderUser/:id' element={<ListOrderUser />} ></Route>
             <Route path='/listProduct' element={<ListProduct />}></Route>
-            
+
           </Routes>
         </BrowserRouter>
       </div>

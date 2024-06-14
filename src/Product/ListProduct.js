@@ -97,8 +97,8 @@ export default function ListProduct() {
                         </div>
                     </div>
                 </div>
-                <div classNameName='now-list-restaurant'>
-                    <div classNameName='list-restaurant'>
+                <div className='now-list-restaurants'>
+                    <div className='list-restaurant'>
                         {product.map((product) => (
                             <div className="item-restaurant">
                                 <Link to={`/HomeProduct/${product.id}`} target="_blank" className="item-content">
@@ -127,27 +127,27 @@ export default function ListProduct() {
                         ))}
                     </div>
                 </div>
-            </div>
-            {/* Pagination
-            <ul className="pagination">
-                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                    <button onClick={prevPage} className="page-link">
-                        <FontAwesomeIcon icon={faArrowLeft} />
-                    </button>
-                </li>
-                {Array.from({ length: Math.ceil(product.length / productsPerPage) }, (_, i) => (
-                    <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
-                        <button onClick={() => paginate(i + 1)} className="page-link">
-                            {i + 1}
+                {/* Pagination */}
+                <ul className="pagination">
+                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                        <button onClick={prevPage} className="page-link">
+                            <FontAwesomeIcon icon={faArrowLeft} />
                         </button>
                     </li>
-                ))}
-                <li className={`page-item ${currentPage === Math.ceil(product.length / productsPerPage) ? 'disabled' : ''}`}>
-                    <button onClick={nextPage} className="page-link">
-                        <FontAwesomeIcon icon={faArrowRight} />
-                    </button>
-                </li>
-            </ul> */}
+                    {Array.from({ length: Math.ceil(product.length / productsPerPage) }, (_, i) => (
+                        <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+                            <button onClick={() => paginate(i + 1)} className="page-link">
+                                {i + 1}
+                            </button>
+                        </li>
+                    ))}
+                    <li className={`page-item ${currentPage === Math.ceil(product.length / productsPerPage) ? 'disabled' : ''}`}>
+                        <button onClick={nextPage} className="page-link">
+                            <FontAwesomeIcon icon={faArrowRight} />
+                        </button>
+                    </li>
+                </ul>
+            </div>
             <FooterHome />
         </div >
     )
