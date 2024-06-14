@@ -95,7 +95,7 @@ function ModalMerchant(props) {
                             </div>
                         </td>
                         <td>
-                            <span>{formatNumberWithCommas(totalQuantity)} Items</span>
+                            <span>{formatNumberWithCommas(totalQuantity)} Sản phẩm</span>
                         </td>
                         <td>
                             <b>
