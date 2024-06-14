@@ -96,7 +96,7 @@ export default function TheFirstTemplate() {
                         </div>
                         <div className="category-list-filter">
                             <a className="haha" href="#">
-                                <Link to="/" className="category-item">All</Link>
+                                <Link to="/listProduct" className="category-item">All</Link>
                             </a>
                             <a className="haha" href="#">
                                 <span className="category-item">Đồ ăn</span>

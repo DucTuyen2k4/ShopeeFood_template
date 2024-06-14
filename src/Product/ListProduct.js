@@ -128,7 +128,7 @@ export default function ListProduct() {
                     </div>
                 </div>
             </div>
-            {/* Pagination
+            {/* Pagination */}
             <ul className="pagination">
                 <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                     <button onClick={prevPage} className="page-link">
@@ -147,7 +147,7 @@ export default function ListProduct() {
                         <FontAwesomeIcon icon={faArrowRight} />
                     </button>
                 </li>
-            </ul> */}
+            </ul>
             <FooterHome />
         </div >
     )

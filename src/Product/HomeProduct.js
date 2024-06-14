@@ -304,7 +304,8 @@ export default function HomeProduct() {
             <div className="container relative clearfix">
                 <div className='now-menu-restauran'>
                     <div className='menu-restaurant-tab'>
-                        <div className='item active'>Thực Đơn</div>
+                    
+                        <div className='item active'>&nbsp;&nbsp;&nbsp;&nbsp;Thực Đơn</div>
                     </div>
                     <div className="row">
                         <div className="col-3">
@@ -447,11 +448,13 @@ export default function HomeProduct() {
                                                 <span className='sumPrice'>      Tổng: {formatNumberWithCommas(sum)} đ</span>
                                         </div> 
                                     </div>
+                                    <Link to={`/OrderAndListOrderItem/${params.id}`} className="payment-button">
                                     <form className="payment-form">
                                         <button>
-                                            <Link to={`/OrderAndListOrderItem/${params.id}`} className="payment-button">+ Xác nhận thanh toán</Link>
+                                            + Xác nhận thanh toán
                                         </button>
                                     </form>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

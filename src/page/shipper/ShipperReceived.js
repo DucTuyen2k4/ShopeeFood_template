@@ -78,7 +78,7 @@ function ShipperReceived() {
                         <th className="center">Mã đơn hàng</th>
                         <th className="center">Thông tin khách hàng</th>
                         <th className="center">Vị trí nhận hàng</th> {/* Thêm cột mới */}
-                        <th className="center">Vị trí giao hàng</th> {/* Thêm cột mới */}
+
                         <th className="center">Trạng thái</th>
                     </tr>
                 </thead>

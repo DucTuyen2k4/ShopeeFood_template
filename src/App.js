@@ -14,7 +14,8 @@ import HomeProduct from './Product/HomeProduct';
 import OrderAndListOrderItem from './Product/OrderAndListOrderItem';
 import DetailProductMerchant from './page/DetailProductMerchant';
 import DetailsShopMerchant from './page/DetailsShopMerchant';
-import { ToastContainer, toast } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import TheFirstTemplate from './Product/TheFirstTemplate';
 

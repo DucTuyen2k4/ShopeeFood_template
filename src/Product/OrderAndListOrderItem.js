@@ -484,6 +484,12 @@ export default function OrderAndListOrderItem() {
                       Tổng: {formatNumberWithCommas(sum)} đ
                     </span>
                   </div>
+
+                  <form className="payment-form" onSubmit={CreateOrder}>
+                    <button type="submit" className="payment-button">
+                      + Xác nhận thanh toán
+                    </button>
+                  </form>
                 </div>
                 <form className="payment-form" onSubmit={CreateOrder}>
                   <button type="submit" className="payment-button">
