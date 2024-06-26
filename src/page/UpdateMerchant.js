@@ -27,9 +27,9 @@ function UpdateMerchant() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const responseCity = await axios.get(`https://localhost8080.up.railway.app/api/cities`);
-                const responseCategory = await axios.get(`https://localhost8080.up.railway.app/api/categories`);
-                const responseMerchant = await axios.get(`https://localhost8080.up.railway.app/api/shops/${params.id}`);
+                const responseCity = await axios.get(`http://localhost:8080/api/cities`);
+                const responseCategory = await axios.get(`http://localhost:8080/api/categories`);
+                const responseMerchant = await axios.get(`http://localhost:8080/api/shops/${params.id}`);
 
                 setIdCity(responseCity.data);
                 setIdCategory(responseCategory.data);
@@ -90,7 +90,7 @@ function UpdateMerchant() {
         formData.append('idCategory', selectedCategoryId);
 
         try {
-            await axios.put(`https://localhost8080.up.railway.app/api/shops/${params.id}`, formData, {
+            await axios.put(`http://localhost:8080/api/shops/${params.id}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             navigate('/');

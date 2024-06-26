@@ -30,7 +30,7 @@ function ListOrderShop() {
 
     async function setStatusConfirmOrder(idOrder) {
         try {
-            const response = await axios.put(`https://localhost8080.up.railway.app/api/order/status/${idOrder}/2`);
+            const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/2`);
             console.log('Order status updated:', response.data);
             toast.success("Nhận đơn hàng thành công");
             // Refresh the list of orders

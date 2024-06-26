@@ -14,7 +14,7 @@ function Shipper() {
 
     async function getOrderByShip() {
         try {
-            const response = await axios.get(`https://localhost8080.up.railway.app/api/order/orderByShip`);
+            const response = await axios.get(`http://localhost:8080/api/order/orderByShip`);
             setShipOrder(response.data);
             document.title = "Đơn hàng có thể nhận";
         } catch (error) {
@@ -24,7 +24,7 @@ function Shipper() {
  
     async function setStatusConfirmOrder(idOrder, idStatus) {
         try {
-            const response = await axios.put(`https://localhost8080.up.railway.app/api/order/status/${idOrder}/${idStatus}`);
+            const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/${idStatus}`);
             console.log('Order status updated:', response.data);
             getOrderByShip();
             toast.success("Nhận đơn thành công")

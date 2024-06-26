@@ -19,7 +19,7 @@ export default function DetailsShopMerchant() {
     const [nameCategory, setNameCategory] = useState('');
 
     async function getProduct() {
-        const response = await axios.get(`https://localhost8080.up.railway.app/api/shops/${params.id}`);
+        const response = await axios.get(`http://localhost:8080/api/shops/${params.id}`);
         setId(response.data.id)
         setName(response.data.name);
         setAddress(response.data.address);
@@ -48,7 +48,7 @@ export default function DetailsShopMerchant() {
                     </div>
 
                     <div className='row'>
-                        <img src={`https://localhost8080.up.railway.app/img/${image}`}></img>
+                        <img src={`http://localhost:8080/img/${image}`}></img>
                     </div>
                     <div className="row mb-3">
                         <label class="col-sm-full col-form-label">Tên quán: {name} </label>

@@ -17,7 +17,7 @@ function ModalUser(props) {
     const fetchData = async (id) => {
         if (id) {
             const response = await axios.get(
-                `https://localhost8080.up.railway.app/api/order/orderItem/${id}`
+                `http://localhost:8080/api/order/orderItem/${id}`
             );
             setNewDataUser(props.users);
             console.log(props.users);

@@ -55,7 +55,7 @@ export default function OrderAndListOrderItem() {
     }
 
     try {
-      await axios.post(`https://localhost8080.up.railway.app/api/address/${idUser}`, newAddress);
+      await axios.post(`http://localhost:8080/api/address/${idUser}`, newAddress);
       setIsModalOpen(false);
       getAddressList(); // Cập nhật danh sách địa chỉ sau khi thêm thành công
       setValues({   // Đặt lại giá trị của values thành một đối tượng rỗng
@@ -88,7 +88,7 @@ export default function OrderAndListOrderItem() {
 
     const orderNote = note || ' ';
     try {
-      const orderResponse = await axios.post(`https://localhost8080.up.railway.app/api/order/${idUser}/${params.id}/${selectedAddressId}`, orderNote, {
+      const orderResponse = await axios.post(`http://localhost:8080/api/order/${idUser}/${params.id}/${selectedAddressId}`, orderNote, {
         headers: { 'Content-Type': 'text/plain' },
       });
       console.log('Đặt hàng thành công', orderResponse.data);
@@ -101,7 +101,7 @@ export default function OrderAndListOrderItem() {
 
   async function getShop() {
     try {
-      const response = await axios.get(`https://localhost8080.up.railway.app/api/shops/${params.id}`);
+      const response = await axios.get(`http://localhost:8080/api/shops/${params.id}`);
       setShop(response.data);
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu cửa hàng:', error);
@@ -110,7 +110,7 @@ export default function OrderAndListOrderItem() {
 
   async function getAddressList() {
     try {
-      const response = await axios.get(`https://localhost8080.up.railway.app/api/address/${idUser}`);
+      const response = await axios.get(`http://localhost:8080/api/address/${idUser}`);
       setAddress(response.data);
     } catch (error) {
       console.error('Lỗi khi lấy danh sách địa chỉ:', error);
@@ -120,7 +120,7 @@ export default function OrderAndListOrderItem() {
 
   async function getOrderItem() {
     try {
-      const response = await axios.get(`https://localhost8080.up.railway.app/api/detailCart/1/${idUser}`);
+      const response = await axios.get(`http://localhost:8080/api/detailCart/1/${idUser}`);
       setCart(response.data);
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu giỏ hàng:', error);
@@ -135,7 +135,7 @@ export default function OrderAndListOrderItem() {
 
   const Showcar = async () => {
     try {
-      const response = await axios.get(`https://localhost8080.up.railway.app/api/detailCart/${params.id}/${idUser}`);
+      const response = await axios.get(`http://localhost:8080/api/detailCart/${params.id}/${idUser}`);
       setCart(response.data);
     } catch (error) {
       console.error('Lỗi khi hiển thị giỏ hàng:', error);
@@ -144,7 +144,7 @@ export default function OrderAndListOrderItem() {
 
   const addProductToCart = async (idShop, idUser, idProduct) => {
     try {
-      const response = await axios.post(`https://localhost8080.up.railway.app/api/detailCart/1/${params.id}/${idProduct}`);
+      const response = await axios.post(`http://localhost:8080/api/detailCart/1/${params.id}/${idProduct}`);
       console.log('Thêm sản phẩm vào giỏ hàng:', response.data);
       Showcar();
     } catch (error) {
@@ -154,7 +154,7 @@ export default function OrderAndListOrderItem() {
 
   const handleMinus = async (id) => {
     try {
-      await axios.put(`https://localhost8080.up.railway.app/api/detailCart/minus/${id}`);
+      await axios.put(`http://localhost:8080/api/detailCart/minus/${id}`);
       Showcar();
     } catch (error) {
       console.error('Lỗi khi giảm số lượng sản phẩm:', error);
@@ -163,7 +163,7 @@ export default function OrderAndListOrderItem() {
 
   const handlePlus = async (id) => {
     try {
-      await axios.put(`https://localhost8080.up.railway.app/api/detailCart/plus/${id}`);
+      await axios.put(`http://localhost:8080/api/detailCart/plus/${id}`);
       Showcar();
 
     } catch (error) {
@@ -182,7 +182,7 @@ export default function OrderAndListOrderItem() {
 
   const openEditModal = async (addressId) => {
     try {
-      const response = await axios.get(`https://localhost8080.up.railway.app/api/address/update/${addressId}`);
+      const response = await axios.get(`http://localhost:8080/api/address/update/${addressId}`);
       setAddressToEdit(response.data);
       setSelectedAddressId(addressId);
       setIsModalEdit(true);
@@ -200,7 +200,7 @@ export default function OrderAndListOrderItem() {
   const handleDeleteAddress = async () => {
     if (addressToDelete) {
       try {
-        await axios.delete(`https://localhost8080.up.railway.app/api/address/${addressToDelete}`);
+        await axios.delete(`http://localhost:8080/api/address/${addressToDelete}`);
         setIsDeleteModalOpen(false);
         setAddressToDelete(null);
         getAddressList();
@@ -230,7 +230,7 @@ export default function OrderAndListOrderItem() {
     }
 
     try {
-      await axios.put(`https://localhost8080.up.railway.app/api/address/${selectedAddressId}/${idUser}`, updatedAddress);
+      await axios.put(`http://localhost:8080/api/address/${selectedAddressId}/${idUser}`, updatedAddress);
       setIsModalEdit(false);
       getAddressList();
       setValues({

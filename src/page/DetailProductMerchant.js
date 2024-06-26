@@ -17,7 +17,7 @@ export default function DetailProductMerchant() {
     const [nameCategory, setNameCategory] = useState('');
 
     async function getOder() {
-        const response = await axios.get(`https://localhost8080.up.railway.app/api/order/1`);
+        const response = await axios.get(`http://localhost:8080/api/order/1`);
         // setId(response.data.id)
         // setName(response.data.user.name);
         // setAddress(response.data.user.address);
@@ -45,7 +45,7 @@ export default function DetailProductMerchant() {
                     </div>
  
                     <div className='row'>
-                        <img src={`https://localhost8080.up.railway.app/img/}`}></img>
+                        <img src={`http://localhost:8080/img/}`}></img>
                     </div>
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label">Mã Đơn Hàng</label>

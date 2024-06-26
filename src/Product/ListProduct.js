@@ -24,7 +24,7 @@ export default function ListProduct() {
         setCurrentPage(currentPage - 1);
     };
     async function listProduct() {
-        const response = await axios.get("https://localhost8080.up.railway.app/api/shops")
+        const response = await axios.get("http://localhost:8080/api/shops")
         document.title = "Các shop";
         console.log(response.data);
         setProduct(response.data);
@@ -106,7 +106,7 @@ export default function ListProduct() {
                                         <div className="tag-preferred">
                                             <i className="fa fa-thumbs-up" aria-hidden="true"></i>Yêu thích
                                         </div>
-                                        <img src={`https://localhost8080.up.railway.app/img/${product.image}`} className="" />
+                                        <img src={`http://localhost:8080/img/${product.image}`} className="" />
                                     </div>
                                     <div className="info-restaurant">
                                         <div className="info-basic-res">

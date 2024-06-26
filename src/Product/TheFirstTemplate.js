@@ -18,7 +18,7 @@ export default function TheFirstTemplate() {
     }, []);
 
     const showShop = async () => {
-        const result = await axios.get("https://localhost8080.up.railway.app/api/shops");
+        const result = await axios.get("http://localhost:8080/api/shops");
         setShop(result.data);
     };
 
@@ -28,7 +28,7 @@ export default function TheFirstTemplate() {
             return;
         }
 
-        const result = await axios.get(`https://localhost8080.up.railway.app/api/shops/findShopByName?name=${searchQuery}`);
+        const result = await axios.get(`http://localhost:8080/api/shops/findShopByName?name=${searchQuery}`);
         setSearchResults(result.data.slice(0, 6)); // Limit to 6 results
     }, [searchQuery]);
 
@@ -80,7 +80,7 @@ export default function TheFirstTemplate() {
                                         <div className="item-restaurantcc" key={item.id}>
                                             <Link to={`/HomeProduct/${item.id}`} className="item-contentcc">
                                                 <div className="img-restaurantcc">
-                                                    <img className="img-smallcc" src={`https://localhost8080.up.railway.app/img/${item.image}`} alt={item.name} />
+                                                    <img className="img-smallcc" src={`http://localhost:8080/img/${item.image}`} alt={item.name} />
                                                 </div>
                                                 <div className="info-restaurantcc">
                                                     <div className="info-basic-ress">
@@ -169,7 +169,7 @@ export default function TheFirstTemplate() {
                                 <div className="item-restaurants" key={item.id}>
                                     <Link to={`/HomeProduct/${item.id}`} className="item-content">
                                         <div className="img-restaurant">
-                                            <img className="img-smalls" src={`https://localhost8080.up.railway.app/img/${item.image}`} alt="Sample Image from Unsplash" />
+                                            <img className="img-smalls" src={`http://localhost:8080/img/${item.image}`} alt="Sample Image from Unsplash" />
                                         </div>
                                         <div className="info-restaurants">
                                             <div className="info-basic-ress">

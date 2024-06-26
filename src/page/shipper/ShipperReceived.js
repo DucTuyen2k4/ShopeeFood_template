@@ -17,7 +17,7 @@ function ShipperReceived() {
 
     async function getOrderByShip() {
         try {
-            const response = await axios.get(`https://localhost8080.up.railway.app/api/order/orderReceived`);
+            const response = await axios.get(`http://localhost:8080/api/order/orderReceived`);
             setShipOrder(response.data);
             setTotalPages(Math.ceil(response.data.length / ordersPerPage));
             document.title = "Đơn hàng đã nhận";
@@ -29,7 +29,7 @@ function ShipperReceived() {
  
     async function setStatusConfirmOrder(idOrder, idStatus) {
         try {
-            const response = await axios.put(`https://localhost8080.up.railway.app/api/order/status/${idOrder}/${idStatus}`);
+            const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/${idStatus}`);
             console.log('Order status updated:', response.data);
             getOrderByShip();
             if (`${idStatus}`==6){

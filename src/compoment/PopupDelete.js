@@ -9,7 +9,7 @@ function PopupDelete(props) {
     const { open, handleClose, id } = props;
 
     async function setStatusCancelOrder() {
-        const response = await axios.put(`https://localhost8080.up.railway.app/api/order/status/${id}/3`);
+        const response = await axios.put(`http://localhost:8080/api/order/status/${id}/3`);
         toast.success("Hủy thành công")
     }
  

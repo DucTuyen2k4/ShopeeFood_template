@@ -13,7 +13,7 @@ function ModalDetailProduct(props) {
     const fetchData = async (idDetailProduct) => {
         if (idDetailProduct) {
             const response = await axios.get(
-                `https://localhost8080.up.railway.app/api/products/detailProduct/${idDetailProduct}`
+                `http://localhost:8080/api/products/detailProduct/${idDetailProduct}`
             );
             setDetailProduct(response.data);
         }
@@ -34,7 +34,7 @@ function ModalDetailProduct(props) {
                     <div className="image-container">
                         <img
                             className="custom-image"
-                            src={`https://localhost8080.up.railway.app/img/${detailProduct.image}`}
+                            src={`http://localhost:8080/img/${detailProduct.image}`}
                             alt={detailProduct.name}
                         />
                         <div className="overlay">

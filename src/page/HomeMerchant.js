@@ -12,7 +12,7 @@ export default function HomeMerchant() {
         showShop();
     }, []);
     const showShop = async () => {
-        const result = await axios.get("https://localhost8080.up.railway.app/api/shops")
+        const result = await axios.get("http://localhost:8080/api/shops")
         document.title = "Giao diện chủ shop";
         setShop(result.data);
         console.log(result.data);
@@ -36,7 +36,7 @@ export default function HomeMerchant() {
                         <div className='carShop'>
  
                             <Link to={`/detailShop/${item.id}`}>
-                                <img className='image' src={`https://localhost8080.up.railway.app/img/${item.image}`} alt="" />
+                                <img className='image' src={`http://localhost:8080/img/${item.image}`} alt="" />
                             </Link>
                             <div className='carShopBody'>
                                 <div className='carShopName'>

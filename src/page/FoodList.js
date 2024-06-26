@@ -18,7 +18,7 @@ function FoodList() {
 
     async function findByNameAndMenu(menuId, productName) {
         try {
-            const productResponse = await axios.get(`https://localhost8080.up.railway.app/api/products/FindByPByName/${menuId}?productName=${productName}`);
+            const productResponse = await axios.get(`http://localhost:8080/api/products/FindByPByName/${menuId}?productName=${productName}`);
             document.title = "Danh sách sản phẩm của shop";
             return productResponse.data;
         } catch (error) {
@@ -29,7 +29,7 @@ function FoodList() {
  
     const fetchData = async () => {
         try {
-            const response = await axios.get(`https://localhost8080.up.railway.app/api/menus/${params.id}`);
+            const response = await axios.get(`http://localhost:8080/api/menus/${params.id}`);
             const menus = response.data;
 
             let allProducts = [];
@@ -75,7 +75,7 @@ function FoodList() {
 
     const handleStatusChange = async (id, newStatus) => {
         try {
-            await axios.put(`https://localhost8080.up.railway.app/api/products/${id}`, { status: newStatus });
+            await axios.put(`http://localhost:8080/api/products/${id}`, { status: newStatus });
             setProducts(products.map(product => product.id === id ? { ...product, status: newStatus } : product));
         } catch (error) {
             console.error('Error updating product status:', error);
@@ -125,7 +125,7 @@ function FoodList() {
                                 <tr key={index}>
                                     <td>{product.name}</td>
                                     <td>{formatNumberWithCommas(product.price)} VND</td>
-                                    <td><img className='image' src={`https://localhost8080.up.railway.app/img/${product.image}`} alt="" /></td>
+                                    <td><img className='image' src={`http://localhost:8080/img/${product.image}`} alt="" /></td>
                                     <td>{product.quantity} sản phẩm</td>
                                     <td>{product.detail}</td>
                                     <td>

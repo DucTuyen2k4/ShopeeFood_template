@@ -15,7 +15,7 @@ function ListOrderUser() {
         if (orderId) {
             console.log(orderId);
             const response = await axios.get(
-                `https://localhost8080.up.railway.app/api/order/orderItem/${orderId}`
+                `http://localhost:8080/api/order/orderItem/${orderId}`
             );
            
             test.current = response.data;
@@ -37,7 +37,7 @@ function ListOrderUser() {
 
         try {
             const response = await axios.get(
-                `https://localhost8080.up.railway.app/api/order/orders/user/${params.id}`
+                `http://localhost:8080/api/order/orders/user/${params.id}`
             );
             document.title = "Đơn hàng của bạn";
             // Ensure the data is an array and log its length
@@ -67,7 +67,7 @@ function ListOrderUser() {
     
     const searchOrderByStatus = async (value) => {
         try {
-            const response = await axios.get(`https://localhost8080.up.railway.app/api/order/status/${value}`);
+            const response = await axios.get(`http://localhost:8080/api/order/status/${value}`);
             // Ensure the data is an array and log its length
             if (Array.isArray(response.data)) {
                 console.log("API returned an array with length:", response.data.length);

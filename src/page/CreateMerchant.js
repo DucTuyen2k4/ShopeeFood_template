@@ -64,7 +64,7 @@ export default function CreateMerchant() {
             formData.append('idCategory', selectedCategoryId);
 
             // Send POST request to create merchant
-            const response = await axios.post(`https://localhost8080.up.railway.app/api/shops`, formData, {
+            const response = await axios.post(`http://localhost:8080/api/shops`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
@@ -79,7 +79,7 @@ export default function CreateMerchant() {
     // Fetch list of cities from API
     async function fetchCities() {
         try {
-            const response = await axios.get(`https://localhost8080.up.railway.app/api/cities`);
+            const response = await axios.get(`http://localhost:8080/api/cities`);
             setIdCity(response.data);
         } catch (error) {
             console.error('Error fetching cities:', error);
@@ -89,7 +89,7 @@ export default function CreateMerchant() {
     // Fetch list of categories from API
     async function fetchCategories() {
         try {
-            const response = await axios.get(`https://localhost8080.up.railway.app/api/categories`);
+            const response = await axios.get(`http://localhost:8080/api/categories`);
             setIdCategory(response.data);
         } catch (error) {
             console.error('Error fetching categories:', error);

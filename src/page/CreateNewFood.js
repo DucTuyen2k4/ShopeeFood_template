@@ -22,7 +22,7 @@ export default function CreateNewFood() {
     async function getListMenu() {
         console.log(menus)
         try {
-            const response = await axios.get(`https://localhost8080.up.railway.app/api/menus/${params.id}`);
+            const response = await axios.get(`http://localhost:8080/api/menus/${params.id}`);
             const menuData = response.data;
             document.title = "Món ăn của shopper";
             // Nếu danh sách menu rỗng, thêm menu mặc định
@@ -78,7 +78,7 @@ export default function CreateNewFood() {
         formData.append('menus', selectedMenuId);
  
         try {
-            await axios.post("https://localhost8080.up.railway.app/api/products", formData, {
+            await axios.post("http://localhost:8080/api/products", formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             navigate(`/foodList/${params.id}`);

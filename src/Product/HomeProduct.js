@@ -39,7 +39,7 @@ export default function HomeProduct() {
     const [showDetailProduct, setShowDetailProduct] = useState(false);
     const [idDetailProduct, setIdDtailProduct] = useState();
     async function getProduct() {
-        const response = await axios.get(`https://localhost8080.up.railway.app/api/shops/${params.id}`);
+        const response = await axios.get(`http://localhost:8080/api/shops/${params.id}`);
         setProduct(response.data);
         setName(response.data.name);
         setAddress(response.data.address);
@@ -69,7 +69,7 @@ export default function HomeProduct() {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`https://localhost8080.up.railway.app/api/menus/${params.id}`);
+            const response = await axios.get(`http://localhost:8080/api/menus/${params.id}`);
             let menus = response.data;
 
 
@@ -100,7 +100,7 @@ export default function HomeProduct() {
 
     const findByNameAndMenu = async (menuId, productName) => {
         try {
-            const productResponse = await axios.get(`https://localhost8080.up.railway.app/api/products/FindByPByName/${menuId}?productName=${productName}`);
+            const productResponse = await axios.get(`http://localhost:8080/api/products/FindByPByName/${menuId}?productName=${productName}`);
             return productResponse.data;
         } catch (error) {
             console.error('Error fetching product data:', error);
@@ -115,7 +115,7 @@ export default function HomeProduct() {
 
     const Showcar = async () => {
         try {
-            const response = await axios.get(`https://localhost8080.up.railway.app/api/detailCart/${params.id}/1`);
+            const response = await axios.get(`http://localhost:8080/api/detailCart/${params.id}/1`);
             setCart(response.data);
         } catch (error) {
             console.error('Error fetching cart data:', error);
@@ -124,7 +124,7 @@ export default function HomeProduct() {
 
     const addProductToCart = async (idShop, idUser, idProduct) => {
         try {
-            const response = await axios.post(`https://localhost8080.up.railway.app/api/detailCart/1/${params.id}/${idProduct}`);
+            const response = await axios.post(`http://localhost:8080/api/detailCart/1/${params.id}/${idProduct}`);
             console.log('Product added to cart:', response.data);
             Showcar();
         } catch (error) {
@@ -134,7 +134,7 @@ export default function HomeProduct() {
 
     const handleMinus = async (id) => {
         try {
-            await axios.put(`https://localhost8080.up.railway.app/api/detailCart/minus/${id}`);
+            await axios.put(`http://localhost:8080/api/detailCart/minus/${id}`);
             Showcar();
         } catch (error) {
             if (error.response && error.response.status === 204) {
@@ -147,7 +147,7 @@ export default function HomeProduct() {
 
     const handlePlus = async (id) => {
         try {
-            await axios.put(`https://localhost8080.up.railway.app/api/detailCart/plus/${id}`);
+            await axios.put(`http://localhost:8080/api/detailCart/plus/${id}`);
             Showcar();
         } catch (error) {
             console.error('Error adding quantity to cart:', error);
@@ -173,7 +173,7 @@ export default function HomeProduct() {
 
     const checkUserLikeExists = async (userId, productId) => {
         try {
-            const response = await fetch(`https://localhost8080.up.railway.app/api/products/like-exists?userId=${userId}&productId=${productId}`);
+            const response = await fetch(`http://localhost:8080/api/products/like-exists?userId=${userId}&productId=${productId}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -201,7 +201,7 @@ export default function HomeProduct() {
 
     const handleLike = async (userId, productId) => {
         try {
-            const response = await fetch(`https://localhost8080.up.railway.app/api/products/plus-like?userId=${userId}&productId=${productId}`, {
+            const response = await fetch(`http://localhost:8080/api/products/plus-like?userId=${userId}&productId=${productId}`, {
                 method: 'POST',
             });
             if (!response.ok) {
@@ -216,7 +216,7 @@ export default function HomeProduct() {
 
     const handleUnlike = async (userId, productId) => {
         try {
-            const response = await fetch(`https://localhost8080.up.railway.app/api/products/delete-like?userId=${userId}&productId=${productId}`, {
+            const response = await fetch(`http://localhost:8080/api/products/delete-like?userId=${userId}&productId=${productId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
@@ -237,7 +237,7 @@ export default function HomeProduct() {
 
     const fetchMenus = async () => {
         try {
-            const response = await axios.get(`https://localhost8080.up.railway.app/api/menus/${params.id}`);
+            const response = await axios.get(`http://localhost:8080/api/menus/${params.id}`);
             setMenus(response.data);
         } catch (error) {
             console.error('Error fetching menus:', error);
@@ -257,7 +257,7 @@ export default function HomeProduct() {
                     <div className='row'>
                         <div className='col-5'>
                             <div className='detail-restaurant-img'>
-                                <img src={`https://localhost8080.up.railway.app/img/${image}`} alt={name} />
+                                <img src={`http://localhost:8080/img/${image}`} alt={name} />
                             </div>
                         </div>
                         <div className='col'>
@@ -370,7 +370,7 @@ export default function HomeProduct() {
                                                                                 >
                                                                                     <img
                                                                                         className="img-item"
-                                                                                        src={`https://localhost8080.up.railway.app/img/${product.image}`}
+                                                                                        src={`http://localhost:8080/img/${product.image}`}
                                                                                         alt={product.name}
                                                                                     />
                                                                                 </Link>
