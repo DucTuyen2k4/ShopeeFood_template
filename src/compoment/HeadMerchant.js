@@ -7,12 +7,13 @@ import { Link } from 'react-router-dom';
 export default function HeadMerchant() {
 
     return (
-        <Link to={`/HomeMerchant`}>
-          <div className='header'>
-           <header class="header">
+        <div className='header'>
+            <header class="header">
                 <div class="header_left">
-                    <FontAwesomeIcon icon={faCoffee} />
-                    <span class="ms-3">Xem món ăn</span>
+                    <Link className='none' to={"/homeMerchant"}>
+                        <FontAwesomeIcon icon={faCoffee} />
+                        <span class="ms-3">Cửa hàng</span>
+                    </Link>
                 </div>
             </header>
         </div>

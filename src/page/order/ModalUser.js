@@ -13,7 +13,7 @@ function ModalUser(props) {
     function formatNumberWithCommas(number) {
         return number.toLocaleString("de-DE");
     }
-
+ 
     const fetchData = async (id) => {
         if (id) {
             const response = await axios.get(

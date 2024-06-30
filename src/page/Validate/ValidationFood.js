@@ -9,7 +9,7 @@ export default function Validation(values) {
     const quantity_pattern = /^[1-9]\d+$/;
     const detail_pattern = /.*/;
     const phoneNumber_pattern = /^(0[1-9][0-9]{8,9})$/;
-
+ 
     // Kiểm tra trường số điện thoại
     if (values.phoneNumber && !phoneNumber_pattern.test(values.phoneNumber)) {
         errors.phoneNumber = "Số điện thoại không hợp lệ.";

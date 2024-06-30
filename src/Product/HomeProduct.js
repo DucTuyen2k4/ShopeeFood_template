@@ -375,7 +375,7 @@ export default function HomeProduct() {
                                                                                     />
                                                                                 </Link>
                                                                             </div>
-                                                                            <div className='col item-restaurant-info'>
+                                                                             <div className='col item-restaurant-info'>
                                                                                 <h2 className='item-restaurant-name'>{product.name}</h2>
                                                                                 <div className='item-restaurant-desc'>{product.detail}</div>
                                                                                 <div>

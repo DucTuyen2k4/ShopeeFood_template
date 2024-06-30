@@ -75,7 +75,7 @@ export default function CreateMerchant() {
             console.error('Error creating merchant:', error);
         }
     }
-
+ 
     // Fetch list of cities from API
     async function fetchCities() {
         try {

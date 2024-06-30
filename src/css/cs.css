@@ -11,7 +11,7 @@
     color: #fff;
 
 }
-
+ 
 .header_right {
     display: flex;
     align-items: center;
@@ -70,3 +70,7 @@ body {
 }
 
 
+.none{
+    text-decoration: none;
+    color: white;
+}

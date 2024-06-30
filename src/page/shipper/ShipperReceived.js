@@ -26,7 +26,7 @@ function ShipperReceived() {
             console.error('Error fetching orders:', error);
         }
     }
-
+ 
     async function setStatusConfirmOrder(idOrder, idStatus) {
         try {
             const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/${idStatus}`);

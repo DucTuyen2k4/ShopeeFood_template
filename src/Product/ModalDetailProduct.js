@@ -22,7 +22,7 @@ function ModalDetailProduct(props) {
         fetchData(props.idDetailProduct);
     }, [props.idDetailProduct]);
 
-    
+      
 
     return (
         <>

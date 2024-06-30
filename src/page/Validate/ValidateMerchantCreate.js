@@ -10,7 +10,7 @@ export default function Validation(values) {
     if (!(values.phoneNumber && phoneNumber_pattern.test(values.phoneNumber))) {
         errors.phoneNumber = "Số điện thoại không hợp lệ.";
     }
-
+ 
     if (!(values.email && email_pattern.test(values.email))) {
         errors.email = "Địa chỉ email không hợp lệ.";
     }

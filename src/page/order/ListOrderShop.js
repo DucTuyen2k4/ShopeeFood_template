@@ -12,7 +12,10 @@ import { Link } from "react-router-dom";
 import ModalMerchant from "./ModalMerchant";
 import { toast } from "react-toastify";
 import PopupDelete from "../../compoment/PopupDelete";
-import HeadMerchant from "../../compoment/HeadMerchant";
+
+import HeadHome from "../../compoment/HeadHome";
+
+
 
 function ListOrderShop() {
     const [modalShow, setModalShow] = useState(false);
@@ -48,7 +51,7 @@ function ListOrderShop() {
 
     async function setStatusCancelOrder(idOrder) {
         try {
-            const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/3`);
+            const response = await axios.put(`https://localhost8080.up.railway.app/api/order/status/${idOrder}/3`);
             console.log('Order status updated:', response.data);
             toast.success("Hủy đơn hàng thành công");
             // Refresh the list of orders
@@ -65,8 +68,8 @@ function ListOrderShop() {
     async function listOrdersByUser() {
         try {
             const response = await axios.get(
-                `http://localhost:8080/api/order/orders/shop/${params.id}`
-                
+                `https://localhost8080.up.railway.app/api/order/orders/shop/${params.id}`
+
             );
             document.title = "Đơn hàng của shopper";
             if (Array.isArray(response.data)) {
@@ -123,7 +126,7 @@ function ListOrderShop() {
     async function listOrdersByOrderId() {
         if (orderId) {
             const response = await axios.get(
-                `http://localhost:8080/api/order/orderItem/${orderId}`
+                `https://localhost8080.up.railway.app/api/order/orderItem/${orderId}`
             );
             test.current = response.data;
             console.log(test.current);
@@ -141,8 +144,8 @@ function ListOrderShop() {
 
     return (
         <>
-            <HeadMerchant/>
-            <h2 className="center">Danh sách đơn hàng</h2>
+            <HeadMerchant />
+            <h2 className="centers">Danh sách đơn hàng</h2>
             <table className="table table-bordered">
                 <thead>
                     <tr>
@@ -169,15 +172,15 @@ function ListOrderShop() {
                             <td className="center">{formatNumberWithCommas(calculateOrderTotal(order.orderItems))} đ</td>
                             <td >
                                 <div className='button-orders'>
-                                  
+
                                     {order.status.id === 1 && (
                                         <>
-                                            <button onClick={() => setStatusConfirmOrder(order.id)} type="button" className="btn btn-success">Nhận đơn</button><br />
+                                            <button onClick={() => setStatusConfirmOrder(order.id)} type="button" className="btn btn-success mb-1">Nhận đơn</button>
                                             <button onClick={() => setStatusCancelOrder(order.id)} type="button" className="btn btn-danger">Hủy đơn</button>
                                         </>
                                     )}
-                             
-                                    {order.status.id !== 1 &&  (
+
+                                    {order.status.id !== 1 && (
                                         <span>  {order.status.type}</span>
                                     )}
                                 </div>
@@ -225,6 +228,7 @@ function ListOrderShop() {
                 <li className={`page-item ${currentPage === Math.ceil(orders.length / ordersPerPage) ? "disabled" : ""}`}>
                     <button onClick={nextPage} className="page-link">
                         <FontAwesomeIcon icon={faArrowRight} />
+
                     </button>
                 </li>
             </ul>

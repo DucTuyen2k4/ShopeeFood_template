@@ -21,7 +21,7 @@
    border-radius: 5px;
    margin-bottom: 30px;
 }
-
+ 
 .div2 {
    width: 33%;
    height: 100%;
@@ -294,6 +294,7 @@
    width: 538px;
 }
 .exit-icon {
+   float: left;
    font-size: 25px;
 }
 

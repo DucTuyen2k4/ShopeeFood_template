@@ -18,7 +18,7 @@ export default function FooterHome() {
                                 </li>
                                 <li className="menu-item">
                                     <a
-                                        href="https://help.shopeefood.vn/"
+                                         href="https://help.shopeefood.vn/"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
