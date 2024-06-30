@@ -14,10 +14,10 @@ export default function HeadMerchant() {
                         <FontAwesomeIcon icon={faCoffee} />
                         <span class="ms-3">Cửa hàng</span>
                     </Link>
-
                 </div>
-
             </header>
         </div>
+        </Link>
+      
     )
 }

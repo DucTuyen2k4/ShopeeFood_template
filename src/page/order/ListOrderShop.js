@@ -12,8 +12,10 @@ import { Link } from "react-router-dom";
 import ModalMerchant from "./ModalMerchant";
 import { toast } from "react-toastify";
 import PopupDelete from "../../compoment/PopupDelete";
+
 import HeadHome from "../../compoment/HeadHome";
-import HeadMerchant from "../../compoment/HeadMerchant";
+
+
 
 function ListOrderShop() {
     const [modalShow, setModalShow] = useState(false);
@@ -160,7 +162,7 @@ function ListOrderShop() {
                     {ordersProducts.map((order, index) => (
                         <tr key={order.id}>
                             <td className="center">{index + 1}</td>
-                            <td className="center">{order.id}</td>
+                            <td className="center">{order.codeOrders}</td>
                             <td className="center">Thời gian đặt: {moment(order.createdAt).format("DD-MM-YYYY HH:mm")}</td>
                             <td className="center">
                                 {order.user.name}<br />

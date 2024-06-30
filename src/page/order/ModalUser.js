@@ -97,7 +97,7 @@ function ModalUser(props) {
                         </td>
                         <>
                             <td>
-                                <span>{formatNumberWithCommas(totalQuantity)} Items</span>
+                                <span>{formatNumberWithCommas(totalQuantity)} Sản phẩm</span>
                             </td>
                             <td>
                                 <div>

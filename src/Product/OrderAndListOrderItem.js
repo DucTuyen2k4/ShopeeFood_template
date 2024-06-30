@@ -1,12 +1,21 @@
-
 import axios from "axios";
 import { useEffect, useState } from "react";
-import '../css/LayoutOrederAndListOrderItem.css';
+import "../css/LayoutOrederAndListOrderItem.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import HeadHome from "../compoment/HeadHome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import '../css/LayoutHome.css';
-import { faHouse, faBriefcase, faLocationDot, faWallet, faMoneyBill, faMoneyCheckDollar, faBuildingColumns, faCircleXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import "../css/LayoutHome.css";
+import {
+  faHouse,
+  faBriefcase,
+  faLocationDot,
+  faWallet,
+  faMoneyBill,
+  faMoneyCheckDollar,
+  faBuildingColumns,
+  faCircleXmark,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import FooterHome from "../compoment/FooterHome";
 import Validation from "../css/ValidateAddress.js";
 import { toast } from "react-toastify";
@@ -23,16 +32,16 @@ export default function OrderAndListOrderItem() {
   const [isModalEdit, setIsModalEdit] = useState(false);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [addressToDelete, setAddressToDelete] = useState(null);
-  const [note, setNote] = useState('');
+  const [note, setNote] = useState("");
   const [showWarning, setShowWarning] = useState(false);
   const [status, setStatus] = useState(0);
   const [addressToEdit, setAddressToEdit] = useState({});
   const [idUser, setIdUser] = useState(1);
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
-    name: '',
-    details: '',
-    contact: ''
+    name: "",
+    details: "",
+    contact: "",
   });
   function handleInput(event) {
     const { name, value } = event.target;
@@ -55,19 +64,22 @@ export default function OrderAndListOrderItem() {
     }
 
     try {
-      await axios.post(`http://localhost:8080/api/address/${idUser}`, newAddress);
+      await axios.post(
+        `http://localhost:8080/api/address/${idUser}`,
+        newAddress
+      );
       setIsModalOpen(false);
       getAddressList(); // Cập nhật danh sách địa chỉ sau khi thêm thành công
-      setValues({   // Đặt lại giá trị của values thành một đối tượng rỗng
-        name: '',
-        details: '',
-        contact: ''
+      setValues({
+        // Đặt lại giá trị của values thành một đối tượng rỗng
+        name: "",
+        details: "",
+        contact: "",
       });
     } catch (error) {
-      console.error('Lỗi khi thêm địa chỉ mới:', error);
+      console.error("Lỗi khi thêm địa chỉ mới:", error);
     }
   };
-
 
   useEffect(() => {
     getShop();
@@ -82,12 +94,13 @@ export default function OrderAndListOrderItem() {
   async function CreateOrder(e) {
     e.preventDefault();
     if (!selectedAddressId) {
-      alert('Bạn hãy chọn địa chỉ giao hàng');
+      alert("Bạn hãy chọn địa chỉ giao hàng");
       return;
     }
 
-    const orderNote = note || ' ';
+    const orderNote = note || " ";
     try {
+     ;
       const orderResponse = await axios.post(`http://localhost:8080/api/order/${idUser}/${params.id}/${selectedAddressId}`, orderNote, {
         headers: { 'Content-Type': 'text/plain' },
       });
@@ -95,60 +108,71 @@ export default function OrderAndListOrderItem() {
       toast.success("Đặt hàng thành công");
       navigate(`/HomeProduct/${params.id}`);
     } catch (error) {
-      console.error('Lỗi khi đặt hàng:', error);
+      console.error("Lỗi khi đặt hàng:", error);
     }
   }
 
   async function getShop() {
     try {
-      const response = await axios.get(`http://localhost:8080/api/shops/${params.id}`);
+      const response = await axios.get(
+        `http://localhost:8080/api/shops/${params.id}`
+      );
       setShop(response.data);
     } catch (error) {
-      console.error('Lỗi khi lấy dữ liệu cửa hàng:', error);
+      console.error("Lỗi khi lấy dữ liệu cửa hàng:", error);
     }
   }
 
   async function getAddressList() {
     try {
-      const response = await axios.get(`http://localhost:8080/api/address/${idUser}`);
+      const response = await axios.get(
+        `http://localhost:8080/api/address/${idUser}`
+      );
       setAddress(response.data);
     } catch (error) {
-      console.error('Lỗi khi lấy danh sách địa chỉ:', error);
+      console.error("Lỗi khi lấy danh sách địa chỉ:", error);
     }
   }
-
 
   async function getOrderItem() {
     try {
-      const response = await axios.get(`http://localhost:8080/api/detailCart/1/${idUser}`);
+      const response = await axios.get(
+        `http://localhost:8080/api/detailCart/1/${idUser}`
+      );
       setCart(response.data);
     } catch (error) {
-      console.error('Lỗi khi lấy dữ liệu giỏ hàng:', error);
+      console.error("Lỗi khi lấy dữ liệu giỏ hàng:", error);
     }
   }
 
-
-  const formatNumberWithCommas = (number) => number.toLocaleString('de-DE');
+  const formatNumberWithCommas = (number) => number.toLocaleString("de-DE");
 
   const calculateOrderTotal = (orderItems) =>
-    orderItems.reduce((total, item) => total + item.quantity * item.product.price, 0);
+    orderItems.reduce(
+      (total, item) => total + item.quantity * item.product.price,
+      0
+    );
 
   const Showcar = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/detailCart/${params.id}/${idUser}`);
+      const response = await axios.get(
+        `http://localhost:8080/api/detailCart/${params.id}/${idUser}`
+      );
       setCart(response.data);
     } catch (error) {
-      console.error('Lỗi khi hiển thị giỏ hàng:', error);
+      console.error("Lỗi khi hiển thị giỏ hàng:", error);
     }
   };
 
   const addProductToCart = async (idShop, idUser, idProduct) => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/detailCart/1/${params.id}/${idProduct}`);
-      console.log('Thêm sản phẩm vào giỏ hàng:', response.data);
+      const response = await axios.post(
+        `http://localhost:8080/api/detailCart/1/${params.id}/${idProduct}`
+      );
+      console.log("Thêm sản phẩm vào giỏ hàng:", response.data);
       Showcar();
     } catch (error) {
-      console.error('Lỗi khi thêm sản phẩm vào giỏ hàng:', error);
+      console.error("Lỗi khi thêm sản phẩm vào giỏ hàng:", error);
     }
   };
 
@@ -157,7 +181,7 @@ export default function OrderAndListOrderItem() {
       await axios.put(`http://localhost:8080/api/detailCart/minus/${id}`);
       Showcar();
     } catch (error) {
-      console.error('Lỗi khi giảm số lượng sản phẩm:', error);
+      console.error("Lỗi khi giảm số lượng sản phẩm:", error);
     }
   };
 
@@ -165,9 +189,8 @@ export default function OrderAndListOrderItem() {
     try {
       await axios.put(`http://localhost:8080/api/detailCart/plus/${id}`);
       Showcar();
-
     } catch (error) {
-      console.error('Lỗi khi tăng số lượng sản phẩm:', error);
+      console.error("Lỗi khi tăng số lượng sản phẩm:", error);
     }
   };
 
@@ -182,13 +205,15 @@ export default function OrderAndListOrderItem() {
 
   const openEditModal = async (addressId) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/address/update/${addressId}`);
+      const response = await axios.get(
+        `http://localhost:8080/api/address/update/${addressId}`
+      );
       setAddressToEdit(response.data);
       setSelectedAddressId(addressId);
       setIsModalEdit(true);
       setErrors({}); // Đặt lại state errors thành một đối tượng trống khi mở modal chỉnh sửa
     } catch (error) {
-      console.error('Lỗi khi lấy dữ liệu địa chỉ:', error);
+      console.error("Lỗi khi lấy dữ liệu địa chỉ:", error);
     }
   };
 
@@ -200,26 +225,25 @@ export default function OrderAndListOrderItem() {
   const handleDeleteAddress = async () => {
     if (addressToDelete) {
       try {
-        await axios.delete(`http://localhost:8080/api/address/${addressToDelete}`);
+        await axios.delete(
+          `http://localhost:8080/api/address/${addressToDelete}`
+        );
         setIsDeleteModalOpen(false);
         setAddressToDelete(null);
         getAddressList();
       } catch (error) {
-        console.error('Lỗi khi xóa địa chỉ:', error);
+        console.error("Lỗi khi xóa địa chỉ:", error);
       }
     }
   };
-
-
-
   const handleUpdateAddress = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const updatedAddress = {
       id: selectedAddressId,
-      nameUser: formData.get('name'),
-      address: formData.get('details'),
-      phoneNumber: formData.get('contact'),
+      nameUser: formData.get("name"),
+      address: formData.get("details"),
+      phoneNumber: formData.get("contact"),
       status: addressToEdit.status,
     };
 
@@ -230,16 +254,19 @@ export default function OrderAndListOrderItem() {
     }
 
     try {
-      await axios.put(`http://localhost:8080/api/address/${selectedAddressId}/${idUser}`, updatedAddress);
+      await axios.put(
+        `http://localhost:8080/api/address/${selectedAddressId}/${idUser}`,
+        updatedAddress
+      );
       setIsModalEdit(false);
       getAddressList();
       setValues({
-        name: '',
-        details: '',
-        contact: ''
+        name: "",
+        details: "",
+        contact: "",
       });
     } catch (error) {
-      console.error('Lỗi khi cập nhật địa chỉ:', error);
+      console.error("Lỗi khi cập nhật địa chỉ:", error);
     }
   };
 
@@ -253,20 +280,25 @@ export default function OrderAndListOrderItem() {
     if (addr) {
       return (
         <div
+
           className={`itemG ${selectedAddressId === addr.id ? 'selected' : ''} ${status === 1 ? 'home' : 'work'
             }`}
           key={status}
         >
-
           <FontAwesomeIcon className="div-icon" icon={icon} />
           <div className="div-text-in">
             <div className="div-NameAddress">{label}</div>
             <div className="div-text-in-text">{addr.nameUser}</div>
             <div className="div-text-in-text">{addr.address}</div>
+
             <button className="button-eidt" onClick={() => handleSelectAddress(addr.id)}>
               Giao tới địa chỉ này
             </button>
-            <FontAwesomeIcon className="penhouse" icon={faPenToSquare} onClick={() => openEditModal(addr.id)} />
+            <FontAwesomeIcon
+              className="penhouse"
+              icon={faPenToSquare}
+              onClick={() => openEditModal(addr.id)}
+            />
           </div>
           <FontAwesomeIcon className="exit-icon" icon={faCircleXmark} onClick={() => openDeleteModal(addr.id)} />
         </div>
@@ -286,8 +318,6 @@ export default function OrderAndListOrderItem() {
       );
     }
   };
-
-
   return (
     <div>
       <HeadHome />
@@ -298,6 +328,7 @@ export default function OrderAndListOrderItem() {
             <div>
               <label className="The-text">Chọn địa chỉ giao hàng</label>
             </div>
+
             {showWarning && <div className="warning-message">Bạn hãy chọn địa chỉ </div>}
             <div className="div4">
               <div className="itemG">
@@ -316,6 +347,7 @@ export default function OrderAndListOrderItem() {
                 (addr, index) =>
                   addr.status === 0 && (
                     <div
+
                       className={`itemG other ${selectedAddressId === addr.id ? 'selected' : ''}`}
                       key={index}
                     >
@@ -344,6 +376,7 @@ export default function OrderAndListOrderItem() {
                   <label className="text-cutevl">COD</label>
                 </div>
                 <div className="color">
+
                   <FontAwesomeIcon className="div-iconic" icon={faMoneyCheckDollar} />
                   <label className="text-cutevl">Credit</label>
                 </div>
@@ -400,7 +433,6 @@ export default function OrderAndListOrderItem() {
                     + Xác nhận thanh toán
                   </button>
                 </form>
-
               </div>
             </div>
           </div>
@@ -411,6 +443,7 @@ export default function OrderAndListOrderItem() {
           <div className="modal-con">
             <h2>Thêm địa chỉ mới</h2>
             <form className="form-cute" onSubmit={handleSubmitAddress}>
+
               <input className="text-cute" type="text" onChange={handleInput} name="name" placeholder="Tên khách hàng" />
               {errors.name && <p style={{ color: "red", fontSize: "12px", textAlign: "left" }}>{errors.name}</p>}
               <input className="text-cute" type="text" onChange={handleInput} name="details" placeholder="Địa chỉ nhận hàng" />
@@ -421,7 +454,10 @@ export default function OrderAndListOrderItem() {
                 Xác nhận
               </button>
             </form>
-            <button style={{ width: '100%' }} onClick={() => setIsModalOpen(false)}>
+            <button
+              style={{ width: "100%" }}
+              onClick={() => setIsModalOpen(false)}
+            >
               Hủy
             </button>
           </div>
@@ -433,6 +469,7 @@ export default function OrderAndListOrderItem() {
             <h2>Cập nhật địa chỉ</h2>
 
             <form className="form-cute" onSubmit={handleUpdateAddress}>
+
               <input className="text-cute" type="text" onChange={handleInput} name="name" placeholder="Tên khách hàng" defaultValue={addressToEdit.nameUser} />
               {errors.name && <p style={{ color: "red", fontSize: "12px", textAlign: "left" }}>{errors.name}</p>}
               <input className="text-cute" type="text" onChange={handleInput} name="details" placeholder="Địa chỉ nhận hàng" defaultValue={addressToEdit.address} />
@@ -441,11 +478,7 @@ export default function OrderAndListOrderItem() {
               {errors.contact && <p style={{ color: "red", fontSize: "12px", textAlign: "left" }}>{errors.contact}</p>}
               <button className="button-good" type="submit">Cập nhật</button>
             </form>
-
-
-
             <button style={{ width: '100%' }} onClick={() => setIsModalEdit(false)}>Hủy
-
             </button>
           </div>
         </div>
@@ -458,7 +491,10 @@ export default function OrderAndListOrderItem() {
             <button className="button-delecute" onClick={handleDeleteAddress}>
               Xóa
             </button>
-            <button className="cancle" onClick={() => setIsDeleteModalOpen(false)}>
+            <button
+              className="cancle"
+              onClick={() => setIsDeleteModalOpen(false)}
+            >
               Hủy
             </button>
           </div>
@@ -467,4 +503,3 @@ export default function OrderAndListOrderItem() {
       <FooterHome />
     </div>
   );
-}
