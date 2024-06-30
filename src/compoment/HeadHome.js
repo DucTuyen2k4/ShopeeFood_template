@@ -1,45 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import '../css/HeadHome.css';
-import '../css/responerSize.css';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import '../css/HeadHome.css';
+import '../css/responerSize.css';
 
 export default function HeadHome() {
     const [citys, setCity] = useState([]);
     const [category, setCategory] = useState([]);
     const [selectedCity, setSelectedCity] = useState({ id: null, name: 'Select City' });
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [isDropdownVisibles, setDropdownVisibles] = useState(false);
-    async function getListCites() {
-        const response = await axios.get(`http://localhost:8080/api/cities`);
-        setCity(response.data);
-        if (response.data.length > 0) {
-            setSelectedCity(response.data[0]);
-        }
-       
-    }
-
-    async function getListCategory() {
-        const response = await axios.get(`http://localhost:8080/api/categories`);
-        setCategory(response.data);
-        setSelectedCategory(response.data);
-   
-    }
-
-    async function searchShopByIdCity(city) {
-        setSelectedCity(city);
-        const response = await axios.get(`http://localhost:8080/api/categories/idCity/${city.id}`);
-        setCategory(response.data);
-        setSelectedCategory(response.data);
-    }
-
-    const handleCategoryClick = (category) => {
-        setSelectedCategory(category);
-        console.log(`Category with id ${category.id} was clicked`);
-    };
+    const dropdownRef = useRef(null);
+    const userDropdownRef = useRef(null);
 
     useEffect(() => {
+        const getListCites = async () => {
+            const response = await axios.get('http://localhost:8080/api/cities');
+            setCity(response.data);
+            if (response.data.length > 0) {
+                setSelectedCity(response.data[0]);
+            }
+        };
+
+        const getListCategory = async () => {
+            const response = await axios.get('http://localhost:8080/api/categories');
+            setCategory(response.data);
+            setSelectedCategory(response.data);
+        };
+
         getListCategory();
         getListCites();
     }, []);
@@ -49,15 +38,48 @@ export default function HeadHome() {
             setSelectedCategory(category[0]);
         }
     }, [category]);
+
     useEffect(() => {
         if (selectedCity && selectedCity.id) {
-            searchShopByIdCity(selectedCity); // Fetch categories based on the initially selected city
+            searchShopByIdCity(selectedCity);
         }
     }, [selectedCity]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownVisible(false);
+            }
+            if (userDropdownRef.current && !userDropdownRef.current.contains(event.target)) {
+                setDropdownVisibles(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    const searchShopByIdCity = async (city) => {
+        setSelectedCity(city);
+        const response = await axios.get(`http://localhost:8080/api/categories/idCity/${city.id}`);
+        setCategory(response.data);
+        setSelectedCategory(response.data);
+    };
+
+    const handleCategoryClick = (category) => {
+        setSelectedCategory(category);
+        console.log(`Category with id ${category.id} was clicked`);
+    };
+
     const toggleDropdowns = () => {
         setDropdownVisibles(!isDropdownVisibles);
     };
 
+    const toggleDropdown = () => {
+        setIsDropdownVisible(!isDropdownVisible);
+    };
 
     return (
         <div className='wrapper'>
@@ -72,25 +94,17 @@ export default function HeadHome() {
                             </span>
                         </div>
                         <div className='selectLocal col-auto'>
-                            <div className='dropdown'>
-                                <button className="dropdown-toggle"  type="button" >
+                            <div className='dropdown' ref={dropdownRef}>
+                                <button className="dropdown-toggle" type="button" onClick={toggleDropdown}>
                                     {selectedCity.name}
                                 </button>
-                                {isDropdownVisible && (
-                                    <ul>
-                                        {citys.map((city) => (
-                                            <li key={city.id} onClick={() => setSelectedCity(city)}>
-                                                {city.name}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                                <div className="dropdown-content">
-                                    {citys.map((city) => (
+                                <div className={`dropdown-content ${isDropdownVisible ? 'show' : ''}`}>
+                                    {citys.map((city, index) => (
                                         <span key={city.id}>
                                             <button onClick={() => searchShopByIdCity(city)} type='button' className="dropdown-item">
                                                 {city.name}
                                             </button>
+                                            {index < citys.length - 1 && <div className="separator"></div>}
                                         </span>
                                     ))}
                                 </div>
@@ -117,8 +131,6 @@ export default function HeadHome() {
                                         border: 'none',
                                         backgroundColor: 'transparent',
                                         cursor: 'pointer',
-                                        // fontSize: 'inherit',
-
                                     }}
                                 >
                                     {categoryItem.name}
@@ -126,7 +138,7 @@ export default function HeadHome() {
                             ))}
                         </div>
                         <div className='user-acc col-auto'>
-                            <div className='dropdown-user'>
+                            <div className='dropdown-user' ref={userDropdownRef}>
                                 <div
                                     className="dropdown-toggle-user"
                                     role="button"
@@ -142,10 +154,10 @@ export default function HeadHome() {
                                 </div>
                                 {isDropdownVisibles && (
                                     <div className='dropdown-content-user'>
-                                        <span><Link to={`/ListOrderUser/1`} className="dropdown-item"><img className='img-icon' src='https://e7.pngegg.com/pngimages/556/171/png-clipart-kawasaki-of-salina-maintenance-computer-repair-technician-installation-computer-electronics-service-thumbnail.png'></img> Đơn hàng</Link></span>
-                                        <span><a className="dropdown-item" href="#">Lịch sử đơn hàng</a></span>
-                                        <span><a className="dropdown-item" href="#">Chỉnh sửa thông tin</a></span>
-                                        <span><a className="dropdown-item" href="#">Đăng Suất</a></span>
+                                        <span><Link to={`/ListOrderUser/1`} className="dropdown-item-user"><img className='img-icon' src='https://e7.pngegg.com/pngimages/556/171/png-clipart-kawasaki-of-salina-maintenance-computer-repair-technician-installation-computer-electronics-service-thumbnail.png'></img> Đơn hàng</Link></span>
+                                        <span><a className="dropdown-item-user" href="#">Lịch sử đơn hàng</a></span>
+                                        <span><a className="dropdown-item-user" href="#">Chỉnh sửa thông tin</a></span>
+                                        <span><a className="dropdown-item-user" href="#">Đăng Suất</a></span>
                                     </div>
                                 )}
                             </div>
