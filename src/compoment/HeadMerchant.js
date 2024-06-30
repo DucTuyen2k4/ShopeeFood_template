@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 export default function HeadMerchant() {
 
     return (
+
         <div className='header'>
             <header class="header">
                 <div class="header_left">
@@ -17,7 +18,12 @@ export default function HeadMerchant() {
 
                 </div>
 
+
+    
+
             </header>
         </div>
+       
+      
     )
 }

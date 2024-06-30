@@ -17,7 +17,7 @@ export default function HomeProduct() {
     const [allMenusRendered, setAllMenusRendered] = useState(false);
     const [menuProducts, setMenuProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [idShop, setIdShop] = useState(1);
+    const [idShop, setIdShop] = useState(11);
     const [idUser, setIdUser] = useState(1);
     const [cart, setCart] = useState([]);
     const [product, setProduct] = useState([]);
@@ -426,7 +426,7 @@ export default function HomeProduct() {
                                 <div className='restaurant-cart'>
                                     {cart.map((item) => (
                                         <div key={item.id}>
-                                            <div className=''>
+                                            <div className='td-card'>
                                                 <div className='row'>
                                                     <div className='col-5 name-cart'>{item.product.name}</div>
                                                     <div className='inputQuantity col-3'>
@@ -443,7 +443,10 @@ export default function HomeProduct() {
                                 </div>
                                 <div className='restaurant-checkout'>
                                     <div className='restaurant-price'>
-                                        <FontAwesomeIcon className='iconWallet' icon={faWallet} /> <span className='sumPrice'>Tổng: {formatNumberWithCommas(sum)} đ</span>
+                                        <div className='icon-sum'>
+                                                <FontAwesomeIcon className='iconWallet' icon={faWallet} /> 
+                                                <span className='sumPrice'>      Tổng: {formatNumberWithCommas(sum)} đ</span>
+                                        </div> 
                                     </div>
                                     <Link to={`/OrderAndListOrderItem/${params.id}`} className="payment-button">
                                     <form className="payment-form">
