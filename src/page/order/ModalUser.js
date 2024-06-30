@@ -13,7 +13,7 @@ function ModalUser(props) {
     function formatNumberWithCommas(number) {
         return number.toLocaleString("de-DE");
     }
- 
+
     const fetchData = async (id) => {
         if (id) {
             const response = await axios.get(
@@ -48,7 +48,7 @@ function ModalUser(props) {
     }, [data]);
 
     return (
-        <Modal 
+        <Modal
             show={props.show}
             onHide={props.onHide}
             size="lg"

@@ -17,7 +17,7 @@ function ListOrderUser() {
             const response = await axios.get(
                 `http://localhost:8080/api/order/orderItem/${orderId}`
             );
-           
+
             test.current = response.data;
             console.log(test.current);
         }
@@ -64,7 +64,7 @@ function ListOrderUser() {
             console.error("Error fetching orders:", error);
         }
     }
-    
+
     const searchOrderByStatus = async (value) => {
         try {
             const response = await axios.get(`http://localhost:8080/api/order/status/${value}`);
@@ -169,56 +169,56 @@ function ListOrderUser() {
                             </div>
                         </div>
                         <table class="table table-bordered">
-                        <tr>
-                            <th className="center">STT</th>
-                            <th className="center">Mã đơn hàng</th>
-                            <th>Thời gian </th>
-                            <th>Địa điểm </th>
-                            <th>Thành tiền</th>
-                            <th>Trạng thái</th>
-                            <th>Chi tiết</th>
-                        </tr>
-                        {ordersProducts.map((order, index) => (
                             <tr>
-                                <td className="center">{index + 1}</td>
-                                <td className="center">{order.codeOrders}</td>
-                                <td>
-                                    Thời gian đặt:{" "}
-                                    {moment(order.createdAt).format(" DD-MM-YYYY HH:mm")}
-                                </td>
-                                {order.orderItems.length > 0 && (
-                                    <td>
-                                        {order.orderItems[0].shop.name}
-                                        <br />
-                                        {order.orderItems[0].shop.idCity.name}
-                                    </td>
-                                )}
-                                <td>
-                                    {formatNumberWithCommas(calculateOrderTotal(order.orderItems))} đ
-                                </td>
-                                <td>
-                                    {order.status.type}<br />
-                                    {/* <button type="button" class="btn btn-danger">Hủy đơn</button> */}
-                                </td>
-                                <td className="link">
-                                    <div>
-                                        <Link
-                                            onClick={() => {
-                                                setModalShow(true);
-                                                setDataOrderId(order.id);
-                                                setUser(order.user)
-                                            }}
-                                        >
-                                            Chi tiết đơn hàng
-                                        </Link>
-                                    </div>
-
-                                </td>
+                                <th className="center">STT</th>
+                                <th className="center">Mã đơn hàng</th>
+                                <th>Thời gian </th>
+                                <th>Địa điểm </th>
+                                <th>Thành tiền</th>
+                                <th>Trạng thái</th>
+                                <th>Chi tiết</th>
                             </tr>
-                        ))}
-                    </table>
+                            {ordersProducts.map((order, index) => (
+                                <tr>
+                                    <td className="center">{index + 1}</td>
+                                    <td className="center">{order.codeOrders}</td>
+                                    <td>
+                                        Thời gian đặt:{" "}
+                                        {moment(order.createdAt).format(" DD-MM-YYYY HH:mm")}
+                                    </td>
+                                    {order.orderItems.length > 0 && (
+                                        <td>
+                                            {order.orderItems[0].shop.name}
+                                            <br />
+                                            {order.orderItems[0].shop.idCity.name}
+                                        </td>
+                                    )}
+                                    <td>
+                                        {formatNumberWithCommas(calculateOrderTotal(order.orderItems))} đ
+                                    </td>
+                                    <td>
+                                        {order.status.type}<br />
+                                        {/* <button type="button" class="btn btn-danger">Hủy đơn</button> */}
+                                    </td>
+                                    <td className="link">
+                                        <div>
+                                            <Link
+                                                onClick={() => {
+                                                    setModalShow(true);
+                                                    setDataOrderId(order.id);
+                                                    setUser(order.user)
+                                                }}
+                                            >
+                                                Chi tiết đơn hàng
+                                            </Link>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            ))}
+                        </table>
                     </div>
-                  
+
                     {/* Pagination */}
                     <ul className="pagination">
                         <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
@@ -250,13 +250,13 @@ function ListOrderUser() {
                             </button>
                         </li>
                     </ul>
-                    <ModalUser 
+                    <ModalUser
                         show={modalShow}
                         id={orderId}
                         users={user}
                         onHide={() => setModalShow(false)}></ModalUser>
                 </div>
-                <FooterHome/>
+                <FooterHome />
             </div>
         </>
     );
