@@ -20,7 +20,7 @@
 //     const createProduct = async (event) => {
 //         event.stopPropagation();
 //         event.preventDefault();
-
+ 
 //         var formData = new FormData();
 //         formData.append('name', name);
 //         formData.append('price', price);

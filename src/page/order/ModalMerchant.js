@@ -46,7 +46,7 @@ function ModalMerchant(props) {
         }
     }, [data]);
 
-    
+
 
     return (
         <Modal

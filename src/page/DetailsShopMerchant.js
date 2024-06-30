@@ -68,7 +68,7 @@ export default function DetailsShopMerchant() {
                         <label class="col-sm-2 col-form-label label-center">Số điện thoại</label>
                         <div className="col-sm-4">
                             <label class="col-sm-full col-form-label">{phoneNumber}</label>
-                          
+
                         </div>
                     </div>
 
@@ -80,7 +80,7 @@ export default function DetailsShopMerchant() {
                         </div>
                         <label class="col-sm-2 col-form-label">Địa chỉ </label>
                         <div className="col-sm-4">
-                            <label class="col-sm-2 col-form-label">{address}</label>
+                            <label class="col-sm-12 col-form-label">{address}</label>
                         </div>
                     </div>
 

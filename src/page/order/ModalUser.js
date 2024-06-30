@@ -48,7 +48,7 @@ function ModalUser(props) {
     }, [data]);
 
     return (
-        <Modal 
+        <Modal
             show={props.show}
             onHide={props.onHide}
             size="lg"

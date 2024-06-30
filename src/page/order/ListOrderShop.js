@@ -66,7 +66,7 @@ function ListOrderShop() {
         try {
             const response = await axios.get(
                 `http://localhost:8080/api/order/orders/shop/${params.id}`
-                
+
             );
             document.title = "Đơn hàng của shopper";
             if (Array.isArray(response.data)) {
@@ -141,7 +141,7 @@ function ListOrderShop() {
 
     return (
         <>
-            <HeadMerchant/>
+            <HeadMerchant />
             <h2 className="center">Danh sách đơn hàng</h2>
             <table className="table table-bordered">
                 <thead>
@@ -169,15 +169,15 @@ function ListOrderShop() {
                             <td className="center">{formatNumberWithCommas(calculateOrderTotal(order.orderItems))} đ</td>
                             <td >
                                 <div className='button-orders'>
-                                  
+
                                     {order.status.id === 1 && (
                                         <>
                                             <button onClick={() => setStatusConfirmOrder(order.id)} type="button" className="btn btn-success">Nhận đơn</button><br />
                                             <button onClick={() => setStatusCancelOrder(order.id)} type="button" className="btn btn-danger">Hủy đơn</button>
                                         </>
                                     )}
-                             
-                                    {order.status.id !== 1 &&  (
+
+                                    {order.status.id !== 1 && (
                                         <span>  {order.status.type}</span>
                                     )}
                                 </div>

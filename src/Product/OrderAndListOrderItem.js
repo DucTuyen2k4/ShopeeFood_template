@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../css/LayoutOrederAndListOrderItem.css";
+
 import { Link, useNavigate, useParams } from "react-router-dom";
 import HeadHome from "../compoment/HeadHome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -100,7 +101,7 @@ export default function OrderAndListOrderItem() {
 
     const orderNote = note || " ";
     try {
-     ;
+      ;
       const orderResponse = await axios.post(`http://localhost:8080/api/order/${idUser}/${params.id}/${selectedAddressId}`, orderNote, {
         headers: { 'Content-Type': 'text/plain' },
       });
@@ -281,9 +282,8 @@ export default function OrderAndListOrderItem() {
     if (addr) {
       return (
         <div
-          className={`itemG ${
-            selectedAddressId === addr.id ? "selected" : ""
-          } ${status === 1 ? "home" : "work"}`}
+          className={`itemG ${selectedAddressId === addr.id ? "selected" : ""
+            } ${status === 1 ? "home" : "work"}`}
           key={status}
         >
           <FontAwesomeIcon
@@ -361,9 +361,8 @@ export default function OrderAndListOrderItem() {
                 (addr, index) =>
                   addr.status === 0 && (
                     <div
-                      className={`itemG other ${
-                        selectedAddressId === addr.id ? "selected" : ""
-                      }`}
+                      className={`itemG other ${selectedAddressId === addr.id ? "selected" : ""
+                        }`}
                       key={index}
                     >
                       <FontAwesomeIcon
@@ -647,4 +646,3 @@ export default function OrderAndListOrderItem() {
     </div>
   );
 }
-

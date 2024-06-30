@@ -188,7 +188,7 @@ export default function TheFirstTemplate() {
                             ))}
                         </div>
                     </div>
-                </div>
+                </div>      
             </div>
             <FooterHome />
         </>

@@ -98,7 +98,7 @@ function UpdateMerchant() {
             console.error('Error updating merchant:', error);
         }
     }
-
+ 
     function handleCityChange(e) {
         setSelectedCityId(e.target.value);
     }

@@ -112,7 +112,7 @@ export default function ListProduct() {
                                         <div className="info-basic-res">
                                             <h4 className="name-res">
                                                 <span className="icon icon-quality-merchant"></span>{product.name}
-                                            </h4>
+                                            </h4> 
                                             <div className="address-res" >{product.address}</div>
                                         </div>
                                         <p className="content-promotion">

@@ -43,7 +43,7 @@ export default function DetailProductMerchant() {
                     <div className='header-name'>
                         <div className="title">Thông tin chi tiết sản phẩm </div>
                     </div>
-
+ 
                     <div className='row'>
                         <img src={`http://localhost:8080/img/}`}></img>
                     </div>

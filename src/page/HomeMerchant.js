@@ -34,7 +34,7 @@ export default function HomeMerchant() {
                 <div className='listShop'>
                     {shop.map(item => (
                         <div className='carShop'>
-
+ 
                             <Link to={`/detailShop/${item.id}`}>
                                 <img className='image' src={`http://localhost:8080/img/${item.image}`} alt="" />
                             </Link>
