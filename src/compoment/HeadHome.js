@@ -154,10 +154,10 @@ export default function HeadHome() {
                                 </div>
                                 {isDropdownVisibles && (
                                     <div className='dropdown-content-user'>
-                                        <span><Link to={`/ListOrderUser/1`} className="dropdown-item-user"><img className='img-icon' src='https://e7.pngegg.com/pngimages/556/171/png-clipart-kawasaki-of-salina-maintenance-computer-repair-technician-installation-computer-electronics-service-thumbnail.png'></img> Đơn hàng</Link></span>
-                                        <span><a className="dropdown-item-user" href="#">Lịch sử đơn hàng</a></span>
-                                        <span><a className="dropdown-item-user" href="#">Chỉnh sửa thông tin</a></span>
-                                        <span><a className="dropdown-item-user" href="#">Đăng Suất</a></span>
+                                        <span><Link to={`/ListOrderUser/1`} className="dropdown-item-user"><img className='img-icon' src='https://png.pngtree.com/png-vector/20190621/ourlarge/pngtree-delivery-truck-icon-design-template-vector-illustration-isolated-png-image_1502463.jpg'></img>&nbsp; Đơn hàng</Link></span>
+                                        <span><a className="dropdown-item-user" href="#"><img className='img-icon' src='https://png.pngtree.com/png-clipart/20230806/original/pngtree-history-icon-black-and-white-vector-sign-old-antique-letter-vector-picture-image_10027338.png'></img>&nbsp; Lịch sử đơn hàng</a></span>
+                                        <span><a className="dropdown-item-user" href="#"><img className='img-icon' src='https://e7.pngegg.com/pngimages/556/171/png-clipart-kawasaki-of-salina-maintenance-computer-repair-technician-installation-computer-electronics-service-thumbnail.png'></img>&nbsp;Chỉnh sửa thông tin</a></span>
+                                        <span><a className="dropdown-item-user" href="#"><img className='img-icon' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOW9OXWHSnI5ewzYrgjzljuwRtfm8dgCveV_EWcUg-inz2eVfKBhR85oXLNItutqzuqFM&usqp=CAU'></img>&nbsp;Đăng Suất</a></span>
                                     </div>
                                 )}
                             </div>
