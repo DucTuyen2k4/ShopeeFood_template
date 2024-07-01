@@ -1,0 +1,16 @@
+@media (max-width: 1496px) {
+    .container-header {
+        height: 70px;
+        width: 1496px;
+
+    }
+
+    .nav-item {
+
+        font-size: 14.75px;
+    }
+
+    .main-nav {
+        font-size: 15.5px;
+    }
+}
