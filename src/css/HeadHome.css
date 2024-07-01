@@ -119,7 +119,7 @@
     margin: auto;
 }
 
-.dropdown-toggle-user:hover + .dropdown-content-user,
+.dropdown-toggle-user:hover+.dropdown-content-user,
 .dropdown-content-user:hover {
     display: block;
 }
