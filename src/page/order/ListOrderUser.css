@@ -59,9 +59,9 @@ th {
 
 .active {
     cursor: default;
-    background-color: #fff;
+    /* background-color: #fff; */
     margin-bottom: -1px;
-    border: 1px solid #ebebeb;
+    /* border: 1px solid #ebebeb; */
     border-bottom: 0;
 }
 

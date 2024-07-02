@@ -10,7 +10,8 @@
 }
 
 * {
-   font-family: 'Arial';
+   font-family: "Noto Sans", Arial, sans-serif;
+   font-size: 0.875rem;
 }
 
 .div1 {
