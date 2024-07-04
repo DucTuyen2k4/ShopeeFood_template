@@ -13,7 +13,7 @@
     z-index: 99;
     background-color: #fff;
     height: 78px;
-    width: 1680px;
+    width: 100%;
     margin: auto;
     /* Kích thước này không phù hợp cho viewport nhỏ hơn 1460px */
 }

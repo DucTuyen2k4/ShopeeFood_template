@@ -1,7 +1,7 @@
 @media (max-width: 1496px) {
     .container-header {
         height: 70px;
-        width: 1496px;
+        width: 100%;
       
     }
     .nav-item {

@@ -301,8 +301,8 @@ export default function HomeProduct() {
                     </div>
                 </div>
             </div>
-            <div className="container relative clearfix">
-                <div className='now-menu-restauran'>
+            <div className="container relative clearfix min-height" >
+                <div className='now-menu-restauran' >
                     <div className='menu-restaurant-tab'>
                     
                         <div className='item active'>&nbsp;&nbsp;&nbsp;&nbsp;Thực Đơn</div>
@@ -329,10 +329,10 @@ export default function HomeProduct() {
                             <div className='menu-restaurant-detail'>
                                 <div className='search-items mt-2'>
                                     <form className='input-group' onSubmit={handleSearch}>
-                                        <input className='form-control' type='search' name="searchKey" placeholder="Tìm món" onChange={(e) => setSearchQuery(e.target.value)} />
-                                        <button type='submit' className='btnSearch'>
-                                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                        </button>
+                                    <div class="search-container">
+                                        <FontAwesomeIcon className='search-icon' icon={faMagnifyingGlass}/>
+                                        <input className='input-search' type='search' name="searchKey" placeholder="Tìm món" onChange={(e) => setSearchQuery(e.target.value)} />
+                                    </div>
                                     </form>
                                 </div>
                                 {noResults ? (

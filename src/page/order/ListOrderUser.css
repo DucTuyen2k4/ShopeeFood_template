@@ -59,10 +59,10 @@ th {
 
 .active {
     cursor: default;
-    background-color: #fff;
+    /* background-color: #fff;
     margin-bottom: -1px;
     border: 1px solid #ebebeb;
-    border-bottom: 0;
+    border-bottom: 0; */
 }
 
 .item {
@@ -135,4 +135,12 @@ th {
 .btns.btn-primary {
     background-color: #ee4d2d;
     border-color: #ee4d2d;
+}
+.buttonSearch{
+    height: 30px;
+    width: 90px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #0288d1;
+    border: none;
 }

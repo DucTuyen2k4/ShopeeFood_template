@@ -136,7 +136,7 @@ function ListOrderUser() {
 
             <div className="block-section">
                 <div className="container">
-                    <h1 className="block-title mb-4 center">Danh sách đơn hàng</h1>
+                    <h1 className="block-title mb-4 center">Lịch sử đơn hàng</h1>
                     {/* <div className="history-switch">
                         <div class="item now active">ShopeeFood</div>
                     </div> */}
@@ -165,7 +165,7 @@ function ListOrderUser() {
                                 </div>
                             </div>
                             <div class="filter-table-item">
-                                <button type="button" class="btns btn-primary">Tìm kiếm</button>
+                                <button className="buttonSearch" type="button" >Tìm kiếm</button>
                             </div>
                         </div>
                         <table class="table table-bordered">

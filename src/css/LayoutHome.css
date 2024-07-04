@@ -516,3 +516,39 @@
 .td-card{
     margin-top: 21px;
 }
+.search-container {
+    position: relative;
+    width: 100%; /* Chiều rộng của container */
+}
+
+/* Thiết lập phong cách cho icon */
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: gray;
+}
+
+/* Thiết lập phong cách cho input */
+.input-search {
+    width: 100%;
+    padding: 10px 10px 10px 35px; /* Thêm khoảng cách bên trái để icon không bị che khuất */
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+.min-height{
+    min-height: 40rem;
+}
+/* Khi cart được ghim vào đầu trang */
+.cart-restaurant.sticky {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000; /* Đảm bảo nó nằm trên các phần tử khác */
+    margin: 0;
+    width: 100%;
+    max-width: 300px;
+}
