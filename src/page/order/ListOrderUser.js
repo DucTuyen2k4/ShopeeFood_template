@@ -222,9 +222,11 @@ function ListOrderUser() {
                     {/* Pagination */}
                     <ul className="pagination">
                         <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-                            <button onClick={prevPage} className="page-link">
-                                <FontAwesomeIcon icon={faArrowLeft} />
-                            </button>
+                            {currentPage > 1 && (
+                                <button onClick={prevPage} className="page-link">
+                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                </button>
+                            )}
                         </li>
                         {Array.from(
                             { length: Math.ceil(orders.length / ordersPerPage) },
@@ -245,9 +247,11 @@ function ListOrderUser() {
                                 : ""
                                 }`}
                         >
-                            <button onClick={nextPage} className="page-link">
-                                <FontAwesomeIcon icon={faArrowRight} />
-                            </button>
+                            {currentPage < Math.ceil(orders.length / ordersPerPage) && (
+                                <button onClick={nextPage} className="page-link">
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                </button>
+                            )}
                         </li>
                     </ul>
                     <ModalUser

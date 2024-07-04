@@ -209,19 +209,16 @@ function ListOrderShop() {
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
                 </li>
-                {Array.from(
-                    { length: Math.ceil(orders.length / ordersPerPage) },
-                    (_, i) => (
-                        <li
-                            key={i}
-                            className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
-                        >
-                            <button onClick={() => paginate(i + 1)} className="page-link">
-                                {i + 1}
-                            </button>
-                        </li>
-                    )
-                )}
+                {Array.from({ length: Math.ceil(orders.length / ordersPerPage) }, (_, i) => (
+                    <li
+                        key={i}
+                        className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+                    >
+                        <button onClick={() => paginate(i + 1)} className="page-link">
+                            {i + 1}
+                        </button>
+                    </li>
+                ))}
                 <li className={`page-item ${currentPage === Math.ceil(orders.length / ordersPerPage) ? "disabled" : ""}`}>
                     <button onClick={nextPage} className="page-link">
                         <FontAwesomeIcon icon={faArrowRight} />

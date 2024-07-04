@@ -43,7 +43,7 @@ function App() {
             <Route path='/ShipperReceived' element={<ShipperReceived />} ></Route>
             <Route path='/ListOrderUser/:id' element={<ListOrderUser />} ></Route>
             <Route path='/listProduct' element={<ListProduct />}></Route>
-            
+
           </Routes>
         </BrowserRouter>
       </div>
@@ -54,4 +54,3 @@ function App() {
 }
 
 export default App;
- 

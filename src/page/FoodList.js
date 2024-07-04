@@ -26,7 +26,7 @@ function FoodList() {
             return [];
         }
     }
- 
+
     const fetchData = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/menus/${params.id}`);
@@ -148,18 +148,20 @@ function FoodList() {
                                     </td>
                                 </tr>
                             ))}
-                            </tbody>
+                        </tbody>
                     </table>
 
                 )}
 
                 {/* Pagination */}
                 <ul className="pagination">
-                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                        <button onClick={prevPage} className="page-link">
-                            <FontAwesomeIcon icon={faArrowLeft} />
-                        </button>
-                    </li>
+                    {currentPage > 1 && (
+                        <li className="page-item">
+                            <button onClick={prevPage} className="page-link">
+                                <FontAwesomeIcon icon={faArrowLeft} />
+                            </button>
+                        </li>
+                    )}
                     {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, i) => (
                         <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
                             <button onClick={() => paginate(i + 1)} className="page-link">
@@ -167,11 +169,13 @@ function FoodList() {
                             </button>
                         </li>
                     ))}
-                    <li className={`page-item ${currentPage === Math.ceil(products.length / productsPerPage) ? 'disabled' : ''}`}>
-                        <button onClick={nextPage} className="page-link">
-                            <FontAwesomeIcon icon={faArrowRight} />
-                        </button>
-                    </li>
+                    {currentPage < Math.ceil(products.length / productsPerPage) && (
+                        <li className="page-item">
+                            <button onClick={nextPage} className="page-link">
+                                <FontAwesomeIcon icon={faArrowRight} />
+                            </button>
+                        </li>
+                    )}
                 </ul>
             </div>
         </>

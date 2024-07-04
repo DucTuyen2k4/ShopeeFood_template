@@ -21,24 +21,24 @@ function ShipperReceived() {
             setShipOrder(response.data);
             setTotalPages(Math.ceil(response.data.length / ordersPerPage));
             document.title = "Đơn hàng đã nhận";
-       
+
         } catch (error) {
             console.error('Error fetching orders:', error);
         }
     }
- 
+
     async function setStatusConfirmOrder(idOrder, idStatus) {
         try {
             const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/${idStatus}`);
             console.log('Order status updated:', response.data);
             getOrderByShip();
-            if (`${idStatus}`==6){
+            if (`${idStatus}` == 6) {
                 toast.success("Đơn hàng đã nhận bắt đầu giao hàng.")
             }
             if (`${idStatus}` == 7) {
                 toast.success("Giao thành công.")
             }
-           
+
         } catch (error) {
             console.error('Error updating order status:', error);
         }
@@ -93,14 +93,14 @@ function ShipperReceived() {
                                 {order.user.address}
                             </td>
                             {order.orderItems.length > 0 && (
-                                    <td className="center">
-                                        {order.orderItems[0].shop.address}
-                                    </td>
-                                    )}
+                                <td className="center">
+                                    {order.orderItems[0].shop.address}
+                                </td>
+                            )}
                             <td className="center">
                                 {order.addressOrder.address} {/* Hiển thị địa chỉ nhận hàng */}
                             </td>
-                           
+
                             <td className="center">
                                 <div className='button-orders'>
                                     {order.status.id === 4 && (
@@ -121,11 +121,13 @@ function ShipperReceived() {
 
             {/* Pagination */}
             <ul className="pagination">
-                <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-                    <button onClick={prevPage} className="page-link">
-                        <FontAwesomeIcon icon={faArrowLeft} />
-                    </button>
-                </li>
+                {currentPage > 1 && (
+                    <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                        <button onClick={prevPage} className="page-link">
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                        </button>
+                    </li>
+                )}
                 {Array.from({ length: totalPages }, (_, i) => (
                     <li key={i} className={`page-item ${currentPage === i + 1 ? "active" : ""}`}>
                         <button onClick={() => paginate(i + 1)} className="page-link">
@@ -133,11 +135,13 @@ function ShipperReceived() {
                         </button>
                     </li>
                 ))}
-                <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
-                    <button onClick={nextPage} className="page-link">
-                        <FontAwesomeIcon icon={faArrowRight} />
-                    </button>
-                </li>
+                {currentPage < totalPages && (
+                    <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                        <button onClick={nextPage} className="page-link">
+                            <FontAwesomeIcon icon={faArrowRight} />
+                        </button>
+                    </li>
+                )}
             </ul>
         </>
     );
