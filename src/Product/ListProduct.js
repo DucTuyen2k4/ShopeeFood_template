@@ -112,7 +112,7 @@ export default function ListProduct() {
                                         <div className="info-basic-res">
                                             <h4 className="name-res">
                                                 <span className="icon icon-quality-merchant"></span>{product.name}
-                                            </h4> 
+                                            </h4>
                                             <div className="address-res" >{product.address}</div>
                                         </div>
                                         <p className="content-promotion">
@@ -129,11 +129,13 @@ export default function ListProduct() {
                 </div>
             </div>
             {/* Pagination */}
-            <ul className="pagination">
+            {/* <ul className="pagination">
                 <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                    <button onClick={prevPage} className="page-link">
-                        <FontAwesomeIcon icon={faArrowLeft} />
-                    </button>
+                    {currentPage > 1 && (
+                        <button onClick={prevPage} className="page-link">
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                        </button>
+                    )}
                 </li>
                 {Array.from({ length: Math.ceil(product.length / productsPerPage) }, (_, i) => (
                     <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
@@ -143,11 +145,13 @@ export default function ListProduct() {
                     </li>
                 ))}
                 <li className={`page-item ${currentPage === Math.ceil(product.length / productsPerPage) ? 'disabled' : ''}`}>
-                    <button onClick={nextPage} className="page-link">
-                        <FontAwesomeIcon icon={faArrowRight} />
-                    </button>
+                    {currentPage < Math.ceil(product.length / productsPerPage) && (
+                        <button onClick={nextPage} className="page-link">
+                            <FontAwesomeIcon icon={faArrowRight} />
+                        </button>
+                    )}
                 </li>
-            </ul>
+            </ul> */}
             <FooterHome />
         </div >
     )

@@ -21,14 +21,14 @@ function Shipper() {
             console.error('Error fetching orders:', error);
         }
     }
- 
+
     async function setStatusConfirmOrder(idOrder, idStatus) {
         try {
             const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/${idStatus}`);
             console.log('Order status updated:', response.data);
             getOrderByShip();
             toast.success("Nhận đơn thành công")
-           
+
         } catch (error) {
             console.error('Error updating order status:', error);
         }
@@ -103,10 +103,10 @@ function Shipper() {
                             <tr>
                                 <th className="center">STT</th>
                                 <th className="center">Mã đơn hàng</th>
-                                    <th className="center">Thông tin khách hàng</th>
-                                    <th className="center">Vị trí nhận hàng</th> {/* Thêm cột mới */}
-                                    <th className="center">Vị trí giao hàng</th> {/* Thêm cột mới */}
-                                    <th className="center">Trạng thái</th>
+                                <th className="center">Thông tin khách hàng</th>
+                                <th className="center">Vị trí nhận hàng</th> {/* Thêm cột mới */}
+                                <th className="center">Vị trí giao hàng</th> {/* Thêm cột mới */}
+                                <th className="center">Trạng thái</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -120,11 +120,11 @@ function Shipper() {
                                         {order.user.address}
                                     </td>
                                     {order.orderItems.length > 0 && (
-                                    <td className="center">
-                                        {order.orderItems[0].shop.address}
-                                    </td>
+                                        <td className="center">
+                                            {order.orderItems[0].shop.address}
+                                        </td>
                                     )}
-                                    
+
                                     <td className="center">
                                         {order.addressOrder.address}
                                     </td> {/* Hiển thị địa chỉ nhận hàng */}
@@ -142,11 +142,13 @@ function Shipper() {
 
                     {/* Pagination */}
                     <ul className="pagination">
-                        <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-                            <button onClick={prevPage} className="page-link">
-                                <FontAwesomeIcon icon={faArrowLeft} />
-                            </button>
-                        </li>
+                        {currentPage > 1 && (
+                            <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                                <button onClick={prevPage} className="page-link">
+                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                </button>
+                            </li>
+                        )}
                         {Array.from({ length: Math.ceil(orderShip.length / ordersPerPage) }, (_, i) => (
                             <li key={i} className={`page-item ${currentPage === i + 1 ? "active" : ""}`}>
                                 <button onClick={() => paginate(i + 1)} className="page-link">
@@ -154,11 +156,13 @@ function Shipper() {
                                 </button>
                             </li>
                         ))}
-                        <li className={`page-item ${currentPage === Math.ceil(orderShip.length / ordersPerPage) ? "disabled" : ""}`}>
-                            <button onClick={nextPage} className="page-link">
-                                <FontAwesomeIcon icon={faArrowRight} />
-                            </button>
-                        </li>
+                        {currentPage < Math.ceil(orderShip.length / ordersPerPage) && (
+                            <li className={`page-item ${currentPage === Math.ceil(orderShip.length / ordersPerPage) ? "disabled" : ""}`}>
+                                <button onClick={nextPage} className="page-link">
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                </button>
+                            </li>
+                        )}
                     </ul>
                 </>
             )}
