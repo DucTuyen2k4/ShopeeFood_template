@@ -10,6 +10,7 @@ import HeadHome from "../../compoment/HeadHome";
 import FooterHome from "../../compoment/FooterHome";
 import Modal from "react-bootstrap/Modal";
 import ModalUser from "./ModalUser";
+
 function ListOrderUser() {
     async function listOrdersByOrderId() {
         if (orderId) {
@@ -17,11 +18,12 @@ function ListOrderUser() {
             const response = await axios.get(
                 `http://localhost:8080/api/order/orderItem/${orderId}`
             );
-           
+
             test.current = response.data;
             console.log(test.current);
         }
     }
+
     const [orders, setOrders] = useState([]);
     const params = useParams();
     const [selectedValue, setSelectedValue] = useState('1');
@@ -32,9 +34,9 @@ function ListOrderUser() {
     const [user, setUser] = useState({});
     const [isShowModalOrder, setIsShowModalOrder] = useState(false);
     const [modalShow, setModalShow] = useState(false);
+    const [startIndex, setStartIndex] = useState(0); // State for starting index of displayed items
 
     async function listOrdersByUser() {
-
         try {
             const response = await axios.get(
                 `http://localhost:8080/api/order/orders/user/${params.id}`
@@ -43,8 +45,17 @@ function ListOrderUser() {
             // Ensure the data is an array and log its length
             if (Array.isArray(response.data)) {
                 console.log("API returned an array with length:", response.data.length);
-                // Process createdAt to keep only the necessary parts
+                // Process updatedAt to keep only the necessary parts
                 const processedOrders = response.data.map((order) => {
+                    const updatedAt = order.updatedAt ? new Date(
+                        order.updatedAt[0], // Year
+                        order.updatedAt[1] - 1, // Month (0-indexed)
+                        order.updatedAt[2], // Day
+                        order.updatedAt[3], // Hour
+                        order.updatedAt[4], // Minute
+                        0, // Seconds
+                        0 // Milliseconds
+                    ) : null;
                     const createdAt = new Date(
                         order.createdAt[0], // Year
                         order.createdAt[1] - 1, // Month (0-indexed)
@@ -54,7 +65,7 @@ function ListOrderUser() {
                         0, // Seconds
                         0 // Milliseconds
                     );
-                    return { ...order, createdAt };
+                    return { ...order, updatedAt, createdAt };
                 });
                 setOrders(processedOrders);
             } else {
@@ -64,14 +75,25 @@ function ListOrderUser() {
             console.error("Error fetching orders:", error);
         }
     }
+
     const searchOrderByStatus = async (value) => {
         try {
             const response = await axios.get(`http://localhost:8080/api/order/status/${value}`);
             // Ensure the data is an array and log its length
             if (Array.isArray(response.data)) {
                 console.log("API returned an array with length:", response.data.length);
-                // Process createdAt to keep only the necessary parts
+                // Process updatedAt to keep only the necessary parts
                 const processedOrders = response.data.map(order => {
+                    const updatedAt = order.updatedAt ? new Date(
+                        order.updatedAt[0],  // Year
+                        order.updatedAt[1] - 1,  // Month (0-indexed)
+                        order.updatedAt[2],  // Day
+                        order.updatedAt[3],  // Hour
+                        order.updatedAt[4],  // Minute
+                        0,  // Seconds
+                        0  // Milliseconds
+                    ) : null;
+
                     const createdAt = new Date(
                         order.createdAt[0],  // Year
                         order.createdAt[1] - 1,  // Month (0-indexed)
@@ -81,7 +103,7 @@ function ListOrderUser() {
                         0,  // Seconds
                         0  // Milliseconds
                     );
-                    return { ...order, createdAt };
+                    return { ...order, updatedAt, createdAt };
                 });
                 setOrders(processedOrders);
                 console.log("avc", processedOrders);
@@ -92,11 +114,15 @@ function ListOrderUser() {
             console.error('Error fetching orders:', error);
         }
     }
+
     const indexOfLastProduct = currentPage * ordersPerPage;
     const indexOfFirstProduct = indexOfLastProduct - ordersPerPage;
     const ordersProducts = orders.slice(indexOfFirstProduct, indexOfLastProduct);
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        setStartIndex((pageNumber - 1) * ordersPerPage); // Update startIndex based on current page
+    };
 
     const nextPage = () => {
         setCurrentPage(currentPage + 1);
@@ -105,9 +131,11 @@ function ListOrderUser() {
     const prevPage = () => {
         setCurrentPage(currentPage - 1);
     };
+
     function formatNumberWithCommas(number) {
         return number.toLocaleString("de-DE");
     }
+
     useEffect(() => {
         listOrdersByUser();
     }, []);
@@ -128,7 +156,6 @@ function ListOrderUser() {
         listOrdersByOrderId();
     }, [orderId]);
 
-
     return (
         <>
             <HeadHome />
@@ -136,126 +163,131 @@ function ListOrderUser() {
             <div className="block-section">
                 <div className="container">
                     <h1 className="block-title mb-4 center">Danh sách đơn hàng</h1>
-                    {/* <div className="history-switch">
-                        <div class="item now active">ShopeeFood</div>
-                    </div> */}
-                    <div class="history-table-container">
-                        <div class="filter-table">
-                            <div class="filter-table-item ">
-                                <div class="text-nowrap">
-                                    <span class="filter-table-label">Trạng thái</span>
-                                    <select name="" value={selectedValue} onChange={handleChange} class="form-control filter-table-input">
+                    <div className="history-table-container">
+                        <div className="filter-table">
+                            <div className="filter-table-item">
+                                <div className="text-nowrap">
+                                    <span className="filter-table-label">Trạng thái</span>
+                                    <select name="" value={selectedValue} onChange={handleChange} className="form-control filter-table-input">
                                         <option value="1" selected="">All</option>
                                         <option value="7">Hoàn tất</option>
                                         <option value="3">Hủy</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="filter-table-item">
-                                <div class="text-nowrap">
-                                    <span class="filter-table-label">Từ ngày</span>
-                                    <input value="" type="date" class="flatpickr-input" readonly="readonly" />
+                            <div className="filter-table-item">
+                                <div className="text-nowrap">
+                                    <span className="filter-table-label">Từ ngày</span>
+                                    <input value="" type="date" className="flatpickr-input" readOnly="readonly" />
                                 </div>
                             </div>
-                            <div class="filter-table-item">
-                                <div class="text-nowrap">
-                                    <span class="filter-table-label">Đến ngày</span>
-                                    <input mindate="Mon May 27 2024 08:26:05 GMT+0700 (Indochina Time)" value="" type="date" class="flatpickr-input" readonly="readonly" />
+                            <div className="filter-table-item">
+                                <div className="text-nowrap">
+                                    <span className="filter-table-label">Đến ngày</span>
+                                    <input mindate="Mon May 27 2024 08:26:05 GMT+0700 (Indochina Time)" value="" type="date" className="flatpickr-input" readOnly="readonly" />
                                 </div>
                             </div>
-                            <div class="filter-table-item">
-                                <button type="button" class="btns btn-primary">Tìm kiếm</button>
+                            <div className="filter-table-item">
+                                <button type="button" className="btns btn-primary">Tìm kiếm</button>
                             </div>
                         </div>
                         <table class="table table-bordered">
-                        <tr>
-                            <th className="center">STT</th>
-                            <th className="center">Mã đơn hàng</th>
-                            <th>Thời gian </th>
-                            <th>Địa điểm </th>
-                            <th>Thành tiền</th>
-                            <th>Trạng thái</th>
-                            <th>Chi tiết</th>
-                        </tr>
-                        {ordersProducts.map((order, index) => (
-                            <tr>
-                                <td className="center">{index + 1}</td>
-                                <td className="center">{order.codeOrders}</td>
-                                <td>
-                                    Thời gian đặt:{" "}
-                                    {moment(order.createdAt).format(" DD-MM-YYYY HH:mm")}
-                                </td>
-                                {order.orderItems.length > 0 && (
-                                    <td>
-                                        {order.orderItems[0].shop.name}
-                                        <br />
-                                        {order.orderItems[0].shop.idCity.name}
-                                    </td>
-                                )}
-                                <td>
-                                    {formatNumberWithCommas(calculateOrderTotal(order.orderItems))} đ
-                                </td>
-                                <td>
-                                    {order.status.type}<br />
-                                    {/* <button type="button" class="btn btn-danger">Hủy đơn</button> */}
-                                </td>
-                                <td className="link">
-                                    <div>
-                                        <Link
-                                            onClick={() => {
-                                                setModalShow(true);
-                                                setDataOrderId(order.id);
-                                                setUser(order.user)
-                                            }}
-                                        >
-                                            Chi tiết đơn hàng
-                                        </Link>
-                                    </div>
-
-                                </td>
-                            </tr>
-                        ))}
-                    </table>
+                            <thead>
+                                <tr>
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>STT</th>
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Mã đơn hàng</th>
+                                
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Thời gian </th>
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Địa điểm</th>
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Thành tiền</th>
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Trạng thái</th>
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Chi tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {ordersProducts.map((order, index) => (
+                                    <tr key={index}>
+                                        <td className="center">{startIndex + index + 1}</td> {/* Calculate STT dynamically */}
+                                        <td className="center">{order.codeOrders}</td>
+                                        <td>
+                                            {order.updatedAt ? (
+                                                `Thời gian cập nhật: ${moment(order.updatedAt).format("DD-MM-YYYY HH:mm")}`
+                                            ) : (
+                                                ""
+                                            )}
+                                            {!order.updatedAt ? (
+                                                `Thời gian tạo: ${moment(order.createdAt).format("DD-MM-YYYY HH:mm")}`
+                                            ) : (
+                                                ""
+                                            )}
+                                        </td>
+                                        {order.orderItems.length > 0 && (
+                                            <td>
+                                                {order.orderItems[0].shop.name}
+                                                <br />
+                                                {order.orderItems[0].shop.idCity.name}
+                                            </td>
+                                        )}
+                                        <td>
+                                            {formatNumberWithCommas(calculateOrderTotal(order.orderItems))} đ
+                                        </td>
+                                        <td>
+                                            {order.status.type}<br />
+                                        </td>
+                                        <td className="link">
+                                            <div>
+                                                <Link
+                                                    onClick={() => {
+                                                        setModalShow(true);
+                                                        setDataOrderId(order.id);
+                                                        setUser(order.user);
+                                                    }}
+                                                >
+                                                    Chi tiết đơn hàng
+                                                </Link>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
-                  
-                    {/* Pagination */}
-                    <ul className="pagination">
-                        <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-                            <button onClick={prevPage} className="page-link">
-                                <FontAwesomeIcon icon={faArrowLeft} />
-                            </button>
-                        </li>
-                        {Array.from(
-                            { length: Math.ceil(orders.length / ordersPerPage) },
-                            (_, i) => (
-                                <li
-                                    key={i}
-                                    className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
-                                >
-                                    <button onClick={() => paginate(i + 1)} className="page-link">
-                                        {i + 1}
-                                    </button>
-                                </li>
-                            )
-                        )}
-                        <li
-                            className={`page-item ${currentPage === Math.ceil(orders.length / ordersPerPage)
-                                ? "disabled"
-                                : ""
-                                }`}
-                        >
-                            <button onClick={nextPage} className="page-link">
-                                <FontAwesomeIcon icon={faArrowRight} />
-                            </button>
-                        </li>
-                    </ul>
-                    <ModalUser 
+                    {Math.ceil(orders.length / ordersPerPage) > 1 && (
+                        <ul className="pagination">
+                            <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                                <button onClick={prevPage} className="page-link">
+                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                </button>
+                            </li>
+                            {Array.from(
+                                { length: Math.ceil(orders.length / ordersPerPage) },
+                                (_, i) => (
+                                    <li
+                                        key={i}
+                                        className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+                                    >
+                                        <button onClick={() => paginate(i + 1)} className="page-link">
+                                            {i + 1}
+                                        </button>
+                                    </li>
+                                )
+                            )}
+                            <li
+                                className={`page-item ${currentPage === Math.ceil(orders.length / ordersPerPage) ? "disabled" : ""}`}
+                            >
+                                <button onClick={nextPage} className="page-link">
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                </button>
+                            </li>
+                        </ul>
+                    )}
+                    <ModalUser
                         show={modalShow}
                         id={orderId}
                         users={user}
                         onHide={() => setModalShow(false)}></ModalUser>
                 </div>
-                <FooterHome/>
+                <FooterHome />
             </div>
         </>
     );

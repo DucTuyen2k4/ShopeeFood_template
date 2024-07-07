@@ -13,9 +13,8 @@
     z-index: 99;
     background-color: #fff;
     height: 78px;
-    width: 1680px;
+    width: 100%;
     margin: auto;
-    /* Kích thước này không phù hợp cho viewport nhỏ hơn 1460px */
 }
 
 .header-content {
@@ -155,20 +154,21 @@
     min-height: 50px;
 }
 
-.nav-item {
+.nav-item-headHome {
     color: #252525;
     padding: 10px 12px;
     font-size: 15.32px;
     font-family: Noto Sans, Arial, sans-serif;
     border: none;
     background-color: transparent;
-    padding: 0;
     cursor: pointer;
     font-size: inherit;
+    margin-right: 10px;
+    /* Khoảng cách giữa các phần tử */
 }
 
-.nav-item:hover {
-    color: rebeccapurple;
+.nav-item-headHome:hover {
+    color: rgb(169, 57, 63);
 }
 
 .main-nav {

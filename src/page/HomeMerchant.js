@@ -23,13 +23,14 @@ export default function HomeMerchant() {
             <HeadMerchant />
             <div className='container'>
                 <div className='row flex-container mt-4 '>
-                    <div className='col-xs-12 col-md-6 title'>Đăng Ký Quán</div>
+                    <div className="col-xs-12 col-md-6 title" style={{ height: '35px' }}></div>
+
                     <div className='col-xs-12 col-md-6 right'>
-                        <Link to={'/create'} className=' btnCreate'>Tạo quán mới</Link>
+                        <Link to={'/create'} className=' btnCreate' style={{ fontSize: '16px' }}>Tạo quán mới</Link>
                     </div>
                 </div>
                 <div className='tabContainer'>
-                    <span className='textOrange'>Quán của tôi </span>
+                    <span className='textOrange' style={{ fontSize: '20px' }}>&nbsp;&nbsp;&nbsp;&nbsp;Quán của tôi </span>
                 </div>
                 <div className='listShop'>
                     {shop.map(item => (

@@ -81,15 +81,21 @@ export default function CreateMerchant() {
         try {
             const response = await axios.get(`http://localhost:8080/api/cities`);
             setIdCity(response.data);
+
+            if (response.data.length > 0) {
+                const firstCityId = response.data[0].id;
+                setSelectedCityId(firstCityId);
+                fetchCategories(firstCityId); // Fetch categories for the first city
+            }
         } catch (error) {
             console.error('Error fetching cities:', error);
         }
     }
 
     // Fetch list of categories from API
-    async function fetchCategories() {
+    async function fetchCategories(idCity) {
         try {
-            const response = await axios.get(`http://localhost:8080/api/categories`);
+            const response = await axios.get(`http://localhost:8080/api/categories/idCity/${idCity}`);
             setIdCategory(response.data);
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -101,14 +107,11 @@ export default function CreateMerchant() {
         fetchCities();
     }, []);
 
-    // useEffect to fetch categories when component mounts
-    useEffect(() => {
-        fetchCategories();
-    }, []);
-
     // Function to handle city selection
     function handleCityChange(e) {
-        setSelectedCityId(e.target.value);
+        const selectedCity = e.target.value;
+        setSelectedCityId(selectedCity);
+        fetchCategories(selectedCity); // Fetch categories when a new city is selected
     }
 
     // Function to handle category selection

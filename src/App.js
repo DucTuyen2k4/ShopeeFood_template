@@ -30,6 +30,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<TheFirstTemplate />} ></Route>
+            <Route path='/:id' element={<TheFirstTemplate />} ></Route>
             <Route path='/homeMerchant' element={<HomeMerchant />} ></Route>
             <Route path='/detailShop/:id' element={<DetailsShopMerchant />} ></Route>
             <Route path='/create' element={<CreateMerchant />} ></Route>

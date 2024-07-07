@@ -103,8 +103,8 @@
 }
 
 .image {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     margin-right: 20px;
     object-fit: cover;
     background-position: 50%;
@@ -133,7 +133,7 @@
 .carShopNameText {
     max-width: 600px;
     margin-left: 5px;
-    font-size: 19px;
+    font-size: 30px;
     font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -150,7 +150,7 @@
 }
 
 .carShopTitleText {
-    font-size: 14px;
+    font-size: 19px;
     padding-left: 10px;
     color: #656565;
 }

@@ -1,26 +1,36 @@
-import FooterHome from "../compoment/FooterHome";
-import axios from 'axios';
-import HeadHome from "../compoment/HeadHome";
-import { faTags, faAngleRight, faArrowRightLong, faMagnifyingGlass, faHouse, faBriefcase, faLocationDot, faWallet, faMoneyBill, faMoneyCheckDollar, faBuildingColumns, faCircleXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import '../css/TheFirst.css';
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-export default function TheFirstTemplate() {
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass, faArrowRightLong, faTags, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import HeadHome from "../compoment/HeadHome";
+import FooterHome from "../compoment/FooterHome";
+import '../css/TheFirst.css';
+
+const TheFirstTemplate = () => {
     const imageUrl = 'https://shopeefood.vn/app/assets/img/main-banner.jpg?45bff8c9ec408a5ba51f9fdef662324e';
     const imageIcon = 'https://shopeefood.vn/app/assets/img/bg-icon.png?2404d5c158d1d09104c34443b2fd5f44';
     const [shop, setShop] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const params = useParams();
+    const navigate = useNavigate();
+
+    const showShops = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/shops/findByIdCategory/${params.id}`);
+            setShop(response.data);
+        } catch (error) {
+            console.error('Error fetching shops:', error);
+        }
+    };
 
     useEffect(() => {
-        showShop();
-    }, []);
-
-    const showShop = async () => {
-        const result = await axios.get("http://localhost:8080/api/shops");
-        setShop(result.data);
-    };
+        showShops();
+        if (!params.id) {
+            navigate('/1'); // Điều hướng đến /1 nếu params.id là null hoặc không có giá trị
+        }
+    }, [params.id, navigate]);
 
     const handleSearch = useCallback(async () => {
         if (searchQuery.trim() === '') {
@@ -28,8 +38,12 @@ export default function TheFirstTemplate() {
             return;
         }
 
-        const result = await axios.get(`http://localhost:8080/api/shops/findShopByName?name=${searchQuery}`);
-        setSearchResults(result.data.slice(0, 6)); // Limit to 6 results
+        try {
+            const result = await axios.get(`http://localhost:8080/api/shops/findShopByName?name=${searchQuery}`);
+            setSearchResults(result.data.slice(0, 6)); // Limit to 6 results
+        } catch (error) {
+            console.error('Error searching shops:', error);
+        }
     }, [searchQuery]);
 
     const debounce = (func, delay) => {
@@ -85,7 +99,7 @@ export default function TheFirstTemplate() {
                                                 <div className="info-restaurantcc">
                                                     <div className="info-basic-ress">
                                                         <h4 className="name-ressc" title={item.name}>{item.name} - {item.idCategory.name}</h4>
-                                                        <div class="address-rescc">{item.address}</div>
+                                                        <div className="address-rescc">{item.address}</div>
                                                     </div>
                                                 </div>
                                             </Link>
@@ -165,11 +179,11 @@ export default function TheFirstTemplate() {
                             <div className="title-wrapper">
                                 <h2 className="title1">Ưu đãi</h2>
                             </div>
-                            {shop.slice(0, 9).map(item => ( // Limit to 9 results
+                            {shop.slice(0, 9).map(item => (
                                 <div className="item-restaurants" key={item.id}>
                                     <Link to={`/HomeProduct/${item.id}`} className="item-content">
                                         <div className="img-restaurant">
-                                            <img className="img-smalls" src={`http://localhost:8080/img/${item.image}`} alt="Sample Image from Unsplash" />
+                                            <img className="img-smalls" src={`http://localhost:8080/img/${item.image}`} alt="Sample Image" />
                                         </div>
                                         <div className="info-restaurants">
                                             <div className="info-basic-ress">
@@ -194,3 +208,5 @@ export default function TheFirstTemplate() {
         </>
     );
 }
+
+export default TheFirstTemplate;

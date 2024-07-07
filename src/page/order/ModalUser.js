@@ -70,24 +70,24 @@ function ModalUser(props) {
             <Modal.Body>
                 <table class="tableDetail table-bordered">
                     <tr>
-                        <th>Thành viên</th>
-                        <th>Món ăn</th>
-                        <th>Số lượng</th>
-                        <th>Tổng cộng</th>
+                        <th style={{ textAlign: "center" }}>Thành viên</th>
+                        <th style={{ textAlign: "center" }}>Món ăn</th>
+                        <th style={{ textAlign: "center" }}>Số lượng</th>
+                        <th style={{ textAlign: "center" }}>Tổng cộng</th>
                     </tr>
                     <tr>
-                        <td>
+                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                             <b>
-                                user id :{" " + newDataUser.id + "  "}
+                                {/* {" " + newDataUser.id + "  "} */}
                                 {newDataUser.name}
                             </b>
                         </td>
-                        <td>
+                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                             <div>
                                 {data.map((s) => (
                                     <b>
                                         <span>
-                                            {s.quantity + "  "}
+                                            {/* {s.quantity + "  "} */}
                                             {s.product.name}
                                             <br />
                                         </span>
@@ -96,13 +96,13 @@ function ModalUser(props) {
                             </div>
                         </td>
                         <>
-                            <td>
+                            <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                                 <span>{formatNumberWithCommas(totalQuantity)} Sản phẩm</span>
                             </td>
                             <td>
-                                <div>
+                                <div style={{ textAlign: "center", verticalAlign: "middle" }}>
                                     <b>
-                                        {" "}
+                                      
                                         <span className="color-modal2">{formatNumberWithCommas(sum)} đ</span>
                                     </b>
                                 </div>

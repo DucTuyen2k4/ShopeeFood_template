@@ -1,16 +1,16 @@
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import HeadHome from "../../compoment/HeadHome";
 import { toast } from "react-toastify";
-
+import moment from "moment"; // Import moment library for date formatting
+import HeadMerchant from "../../compoment/HeadMerchant";
+import HeadShipper from "../../compoment/HeadShipper";
 function Shipper() {
     const [orderShip, setShipOrder] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [ordersPerPage] = useState(10);
+    const [ordersPerPage] = useState(7);
 
     async function getOrderByShip() {
         try {
@@ -27,8 +27,7 @@ function Shipper() {
             const response = await axios.put(`http://localhost:8080/api/order/status/${idOrder}/${idStatus}`);
             console.log('Order status updated:', response.data);
             getOrderByShip();
-            toast.success("Nhận đơn thành công")
-           
+            toast.success("Nhận đơn thành công");
         } catch (error) {
             console.error('Error updating order status:', error);
         }
@@ -59,7 +58,7 @@ function Shipper() {
 
     return (
         <>
-            <HeadHome />
+            <HeadShipper />
             <h2 className="center-ship">Danh sách đơn hàng</h2>
             <style>
                 {`
@@ -101,12 +100,14 @@ function Shipper() {
                     <table className="table table-bordered">
                         <thead>
                             <tr>
-                                <th className="center">STT</th>
-                                <th className="center">Mã đơn hàng</th>
-                                    <th className="center">Thông tin khách hàng</th>
-                                    <th className="center">Vị trí nhận hàng</th> {/* Thêm cột mới */}
-                                    <th className="center">Vị trí giao hàng</th> {/* Thêm cột mới */}
-                                    <th className="center">Trạng thái</th>
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>STT</th>
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Mã đơn hàng</th>
+                                   
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Vị trí nhận hàng</th> {/* Thêm cột mới */}
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Vị trí giao hàng</th> {/* Thêm cột mới */}
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Thông tin khách hàng</th>
+                                    <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Trạng thái</th>
+                                    {/* <th className="center" style={{ color: 'rgb(238, 77, 45)' }}>Thời gian</th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -114,20 +115,21 @@ function Shipper() {
                                 <tr key={order.id}>
                                     <td className="center">{indexOfFirstOrder + index + 1}</td>
                                     <td className="center">{order.codeOrders}</td>
+                                  
+                                    {order.orderItems.length > 0 && (
+                                        <td className="center">
+                                            {order.orderItems[0].shop.address}
+                                        </td>
+                                    )}
+
+                                    <td className="center">
+                                        {order.addressOrder.address}
+                                    </td> {/* Hiển thị địa chỉ nhận hàng */}
                                     <td className="center">
                                         {order.user.name}<br />
                                         {order.user.phoneNumber}<br />
                                         {order.user.address}
                                     </td>
-                                    {order.orderItems.length > 0 && (
-                                    <td className="center">
-                                        {order.orderItems[0].shop.address}
-                                    </td>
-                                    )}
-                                    
-                                    <td className="center">
-                                        {order.addressOrder.address}
-                                    </td> {/* Hiển thị địa chỉ nhận hàng */}
                                     <td className="center">
                                         <div className='button-orders'>
                                             {order.status.id === 2 && (
@@ -135,12 +137,14 @@ function Shipper() {
                                             )}
                                         </div>
                                     </td>
+                                    {/* <td>{moment(order.updatedAt).format("DD-MM-YYYY HH:mm")}</td> */}
                                 </tr>
                             ))}
                         </tbody>
                     </table>
 
                     {/* Pagination */}
+                        {Math.ceil(orderShip.length / ordersPerPage) > 1 && (
                     <ul className="pagination">
                         <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
                             <button onClick={prevPage} className="page-link">
@@ -160,6 +164,7 @@ function Shipper() {
                             </button>
                         </li>
                     </ul>
+                        )}
                 </>
             )}
         </>

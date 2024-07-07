@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import HeadMerchant from '../compoment/HeadMerchant'
+import React, { useEffect, useState } from 'react';
+import HeadMerchant from '../compoment/HeadMerchant';
 import '../css/LayoutMarchant.css';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -41,66 +41,58 @@ export default function DetailsShopMerchant() {
         <div>
             <HeadMerchant />
             <div className="container">
-                <div className="containerDetails">
-                    <div className='header-name'>
-                        <div className="title">Thông tin chi tiết quán - {name} </div>
-                        <Link to={`/updateShop/${id}`} className='carShopAction'>Sửa</Link>
+                <div className="containerDetails" style={{ fontSize: '20px' }}>
+                    <div className='header-name' style={{ fontSize: '20px' }}>
+                        <div className="title" style={{ fontSize: '20px' }}>Thông tin chi tiết quán - {name} </div>
+                        <Link to={`/updateShop/${id}`} className='carShopAction' style={{ fontSize: '20px' }}>Sửa</Link>
                     </div>
 
                     <div className='row'>
-                        <img src={`http://localhost:8080/img/${image}`}></img>
+                        <img src={`http://localhost:8080/img/${image}`} alt="Shop" />
                     </div>
                     <div className="row mb-3">
-                        <label class="col-sm-full col-form-label">Tên quán: {name} </label>
-
+                        <label className="col-sm-full col-form-label" style={{ fontSize: '20px' }}>Tên quán: {name} </label>
                     </div>
                     <div className="row mb-3">
-                        <label class="col-sm-2 col-form-label label-center">Danh mục</label>
-                        <label class="col-sm-2 col-form-label label-center">{nameCategory}</label>
-
+                        <label className="col-sm-2 col-form-label label-center" style={{ fontSize: '20px' }}>Danh mục</label>
+                        <label className="col-sm-2 col-form-label label-center" style={{ fontSize: '20px' }}>{nameCategory}</label>
                     </div>
                     <div className="row mb-3 contai">
-                        <label class="col-sm-2 col-form-label">Email</label>
-
+                        <label className="col-sm-2 col-form-label" style={{ fontSize: '20px' }}>Email</label>
                         <div className="col-sm-4">
-                            <label class="col-sm-2 col-form-label">{email}</label>
+                            <label className="col-sm-2 col-form-label" style={{ fontSize: '20px' }}>{email}</label>
                         </div>
-                        <label class="col-sm-2 col-form-label label-center">Số điện thoại</label>
+                        <label className="col-sm-2 col-form-label label-center" style={{ fontSize: '20px' }}>Số điện thoại</label>
                         <div className="col-sm-4">
-                            <label class="col-sm-full col-form-label">{phoneNumber}</label>
-                          
+                            <label className="col-sm-full col-form-label" style={{ fontSize: '20px' }}>{phoneNumber}</label>
                         </div>
                     </div>
 
                     <div className="row mb-3">
-                        <label className="col-sm-2 col-form-label">Thành phố</label>
+                        <label className="col-sm-2 col-form-label" style={{ fontSize: '20px' }}>Thành phố</label>
                         <div className="col-md-4">
-                            <label className="col-sm-full col-form-label">{nameCity}</label>
-
+                            <label className="col-sm-full col-form-label" style={{ fontSize: '20px' }}>{nameCity}</label>
                         </div>
-                        <label class="col-sm-2 col-form-label">Địa chỉ </label>
+                        <label className="col-sm-2 col-form-label" style={{ fontSize: '20px' }}>Địa chỉ </label>
                         <div className="col-sm-4">
-                            <label class="col-sm-2 col-form-label">{address}</label>
+                            <label className="col col-form-label" style={{ fontSize: '20px' }}>{address}</label>
                         </div>
                     </div>
 
                     <div className="row mb-3">
-                        <label class="col-sm-2 col-form-label ">Giờ mở cửa</label>
+                        <label className="col-sm-2 col-form-label" style={{ fontSize: '20px' }}>Giờ mở cửa</label>
                         <div className="col-sm-4">
-                            <label class="col-sm-2 col-form-label ">{timeStart}</label>
-
+                            <label className="col-sm-2 col-form-label" style={{ fontSize: '20px' }}>{timeStart}</label>
                         </div>
-                        <label class="col-sm-2 col-form-label label-center">Giờ đóng</label>
+                        <label className="col-sm-2 col-form-label label-center" style={{ fontSize: '20px' }}>Giờ đóng</label>
                         <div className="col-sm-4">
-                            <label class="col-sm-2 col-form-label ">{timeEnd}</label>
+                            <label className="col-sm-2 col-form-label" style={{ fontSize: '20px' }}>{timeEnd}</label>
                         </div>
                     </div>
-                    <Link to={`/foodList/${params.id}`} className='carShopAction mrBotton'>Danh sách sản phẩm</Link>
-                    <Link to={`/ListOrderShop/${params.id}`} className='carShopAction'>Đơn hàng của shop</Link>
-
+                    <Link to={`/foodList/${params.id}`} className='carShopAction mrBotton' >Danh sách sản phẩm</Link>
+                    <Link to={`/ListOrderShop/${params.id}`} className='carShopAction' >Đơn hàng của shop</Link>
                 </div>
             </div>
-
         </div>
     )
 }

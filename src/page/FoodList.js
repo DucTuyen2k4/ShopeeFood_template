@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTrash, faPenSquare, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import HeaderMerchant from "../compoment/HeadMerchant.js";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function FoodList() {
     const [products, setProducts] = useState([]);
@@ -45,6 +46,7 @@ function FoodList() {
             console.error('Error fetching data:', error);
         }
     };
+
     function formatNumberWithCommas(number) {
         return number.toLocaleString('de-DE');
     }
@@ -56,7 +58,6 @@ function FoodList() {
     const handleSearch = async (e) => {
         e.preventDefault();
         await fetchData();
-
     };
 
     const indexOfLastProduct = currentPage * productsPerPage;
@@ -77,11 +78,17 @@ function FoodList() {
         try {
             await axios.put(`http://localhost:8080/api/products/${id}`, { status: newStatus });
             setProducts(products.map(product => product.id === id ? { ...product, status: newStatus } : product));
+            if (newStatus === 0) {
+                toast.success("Đã ngừng bán sản phẩm");
+            } else {
+                toast.success("Sản phẩm đã được tiếp tục bán");
+            }
         } catch (error) {
             console.error('Error updating product status:', error);
         }
-
     };
+
+    const showPagination = products.length > productsPerPage;
 
     return (
         <>
@@ -111,68 +118,69 @@ function FoodList() {
                     <table className="table table-image">
                         <thead>
                             <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col" style={{ textAlign: "center" }}>Trạng thái</th>
                                 <th scope="col">Tên</th>
-                                <th scope="col">Giá</th>
                                 <th scope="col">Ảnh</th>
+                                <th scope="col">Giá</th>
                                 <th scope="col">Số lượng món ăn</th>
                                 <th scope="col">Chi tiết</th>
-                                <th scope="col">Công cụ</th>
-                                <th scope="col">Trạng thái</th>
                             </tr>
                         </thead>
                         <tbody>
                             {currentProducts.map((product, index) => (
-                                <tr key={index}>
-                                    <td>{product.name}</td>
-                                    <td>{formatNumberWithCommas(product.price)} VND</td>
-                                    <td><img className='image' src={`http://localhost:8080/img/${product.image}`} alt="" /></td>
-                                    <td>{product.quantity} sản phẩm</td>
-                                    <td>{product.detail}</td>
+                                <tr key={product.id}>
+                                    <td>{indexOfFirstProduct + index + 1}</td> {/* Thay đổi giá trị STT */}
                                     <td>
-                                        <FontAwesomeIcon className="icon" icon={faTrash} />
-                                        <FontAwesomeIcon className="icon" icon={faPenSquare} />
-                                    </td>
-                                    <td>
-                                        <div className="centered-cell">
-                                            <div className="form-check form-switch">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    role="switch"
-                                                    id={`flexSwitchCheckDefault-${product.id}`}
-                                                    checked={product.status === 1}
-                                                    onChange={(e) => handleStatusChange(product.id, e.target.checked ? 1 : 0)}
-                                                />
-                                            </div>
+                                        <div className="form-check form-switch" style={{
+                                            display: 'flex',
+                                            alignItems: 'center', // Căn giữa theo chiều dọc
+                                            justifyContent: 'center', // Căn giữa theo chiều ngang
+                                            height: '100%' // Đảm bảo chiếm toàn bộ chiều cao của ô
+                                        }}>
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                role="switch"
+                                                id={`flexSwitchCheckDefault-${product.id}`}
+                                                checked={product.status === 1}
+                                                onChange={(e) => handleStatusChange(product.id, e.target.checked ? 1 : 0)}
+                                            />
                                         </div>
                                     </td>
+                                    <td>{product.name}</td>
+                                    <td><img className='image' src={`http://localhost:8080/img/${product.image}`} alt="" /></td>
+                                    <td>{formatNumberWithCommas(product.price)} VND</td>
+                                    <td>{product.quantity} sản phẩm</td>
+                                    <td>{product.detail}</td>
                                 </tr>
                             ))}
-                            </tbody>
+                        </tbody>
                     </table>
-
                 )}
 
-                {/* Pagination */}
-                <ul className="pagination">
-                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                        <button onClick={prevPage} className="page-link">
-                            <FontAwesomeIcon icon={faArrowLeft} />
-                        </button>
-                    </li>
-                    {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, i) => (
-                        <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
-                            <button onClick={() => paginate(i + 1)} className="page-link">
-                                {i + 1}
+                {/* Hiển thị phân trang nếu có đủ sản phẩm */}
+                {showPagination && (
+                    <ul className="pagination">
+                        <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                            <button onClick={prevPage} className="page-link">
+                                <FontAwesomeIcon icon={faArrowLeft} />
                             </button>
                         </li>
-                    ))}
-                    <li className={`page-item ${currentPage === Math.ceil(products.length / productsPerPage) ? 'disabled' : ''}`}>
-                        <button onClick={nextPage} className="page-link">
-                            <FontAwesomeIcon icon={faArrowRight} />
-                        </button>
-                    </li>
-                </ul>
+                        {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, i) => (
+                            <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+                                <button onClick={() => paginate(i + 1)} className="page-link">
+                                    {i + 1}
+                                </button>
+                            </li>
+                        ))}
+                        <li className={`page-item ${currentPage === Math.ceil(products.length / productsPerPage) ? 'disabled' : ''}`}>
+                            <button onClick={nextPage} className="page-link">
+                                <FontAwesomeIcon icon={faArrowRight} />
+                            </button>
+                        </li>
+                    </ul>
+                )}
             </div>
         </>
     );
