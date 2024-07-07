@@ -144,3 +144,10 @@ th {
     background-color: #0288d1;
     border: none;
 }
+.btn-shipper{
+    margin-left: 87%;
+    margin-top: 60px;
+    width: 150px;
+    border-radius: 6px;
+    color: white;
+}

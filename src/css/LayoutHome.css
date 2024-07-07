@@ -316,12 +316,20 @@
         }
 
         .cart-restaurant {
+            position: relative;
+            z-index: 999;
             border: 1px solid #ebebeb;
             padding: 15px;
             width: 100%;
             margin: 0 auto;
             background: #f75050;
             border-radius: 4px;
+        }
+        .cart-restaurant.sticky{
+            position: -webkit-sticky; /* For Safari */
+            position: sticky;
+            top: 80px; /* Adjusted top value */
+            z-index: 999;
         }
 
         .title-cart {
@@ -542,13 +550,8 @@
 .min-height{
     min-height: 40rem;
 }
-/* Khi cart được ghim vào đầu trang */
-.cart-restaurant.sticky {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 1000; /* Đảm bảo nó nằm trên các phần tử khác */
-    margin: 0;
-    width: 100%;
-    max-width: 300px;
+.cart{
+    position: relative;
+    z-index: 999;
 }
+/* Khi cart được ghim vào đầu trang */

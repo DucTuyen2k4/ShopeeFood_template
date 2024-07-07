@@ -32,6 +32,7 @@ function ListOrderUser() {
     const [user, setUser] = useState({});
     const [isShowModalOrder, setIsShowModalOrder] = useState(false);
     const [modalShow, setModalShow] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     async function listOrdersByUser() {
 
@@ -129,10 +130,19 @@ function ListOrderUser() {
         listOrdersByOrderId();
     }, [orderId]);
 
+    const handleCategoryClick = async (category) => {
+        setSelectedCategory(category);
+    
+        const response = await axios.get(
+          `http://localhost:8080/api/shops/findByIdCategory/${category.id}`
+        );
+    
+      };
+
 
     return (
         <>
-            <HeadHome />
+            <HeadHome  onCategoryClick={handleCategoryClick}   />
 
             <div className="block-section">
                 <div className="container">

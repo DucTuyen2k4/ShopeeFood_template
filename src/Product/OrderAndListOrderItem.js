@@ -37,6 +37,7 @@ export default function OrderAndListOrderItem() {
   const [showWarning, setShowWarning] = useState(false);
   const [status, setStatus] = useState(0);
   const [addressToEdit, setAddressToEdit] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [idUser, setIdUser] = useState(1);
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
@@ -325,10 +326,19 @@ export default function OrderAndListOrderItem() {
       );
     }
   };
+  const handleCategoryClick = async (category) => {
+    setSelectedCategory(category);
+
+    const response = await axios.get(
+      `http://localhost:8080/api/shops/findByIdCategory/${category.id}`
+    );
+
+    setShop(response.data);
+  };
 
   return (
     <div>
-      <HeadHome />
+      <HeadHome onCategoryClick={handleCategoryClick}  />
       <div className="container-for container">
         <div className="div1">
           <div className="div3">Thanh toán đơn hàng</div>

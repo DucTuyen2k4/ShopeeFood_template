@@ -60,39 +60,12 @@ function Shipper() {
     return (
         <>
             <HeadHome />
-            <h2 className="center-ship">Danh sách đơn hàng</h2>
-            <style>
-                {`
-                    .order-button {
-                        position: absolute;
-                        top: 70px;
-                        right: 10px;
-                        padding: 10px 20px;
-                        font-size: 16px;
-                        color: #fff;
-                        background-color: #ff0000; /* Red color */
-                        border: none;
-                        border-radius: 4px;
-                        text-align: center;
-                        text-decoration: none;
-                        z-index: 1000;
-                        width: 150px;
-                        transition: background-color 0.3s ease;
-                    }
-                    .order-button:hover {
-                        background-color: #28a745; /* Green color */
-                    }
-                    .no-orders {
-                        text-align: center;
-                        margin: 20px;
-                        font-size: 18px;
-                        color: #888;
-                    }
-                `}
-            </style>
-            <Link to="/ShipperReceived" className="order-button">
-                Đơn hàng <br /> của shipper
+            <Link to="/ShipperReceived" >
+                <button className="btn btn-success btn-shipper">
+                     Đơn hàng <br /> của shipper
+                </button>
             </Link>
+            <h2 className="center-ship">Danh sách đơn hàng</h2>
 
             {orderShip.length === 0 ? (
                 <div className="no-orders">Không có đơn hàng</div>

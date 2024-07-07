@@ -38,6 +38,9 @@ export default function HomeProduct() {
     const menuRefs = useRef([]);
     const [showDetailProduct, setShowDetailProduct] = useState(false);
     const [idDetailProduct, setIdDtailProduct] = useState();
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const stickyDivRef = useRef(null);
+    const [isSticky, setIsSticky] = useState(false);
     async function getProduct() {
         const response = await axios.get(`http://localhost:8080/api/shops/${params.id}`);
         setProduct(response.data);
@@ -246,12 +249,38 @@ export default function HomeProduct() {
       const handleClose = () => {
     setShowDetailProduct(false);
   };
+  const handleCategoryClick = async (category) => {
+    setSelectedCategory(category);
+
+    const response = await axios.get(
+      `http://localhost:8080/api/shops/findByIdCategory/${category.id}`
+    );
+  };
+  const handleScroll = () => {
+    if (stickyDivRef.current) {
+      const headerHeight = 80; // Fixed header height
+      const stickyDivTop = stickyDivRef.current.getBoundingClientRect().top;
+
+      if (stickyDivTop <= headerHeight) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
 
 
     return (
         <div>
-            <HeadHome />
+            <HeadHome onCategoryClick={handleCategoryClick} />
             <div className='now-detail-restaurant clearfix'>
                 <div className='container'>
                     <div className='row'>
@@ -421,7 +450,7 @@ export default function HomeProduct() {
                             </div>
                         </div>
                         <div className="col">
-                            <div className='cart-restaurant'>
+                            <div className={`cart-restaurant ${isSticky ? 'sticky' : ''}`} ref={stickyDivRef}>
                                 <div className='title-cart'>Giỏ hàng</div>
                                 <div className='restaurant-cart'>
                                     {cart.map((item) => (
