@@ -15,6 +15,7 @@ export default function HeadHome() {
     const userDropdownRef = useRef(null);
     const navigate = useNavigate();
     const { idCategory } = useParams();
+
     const getListCities = async () => {
         try {
             const response = await axios.get('http://localhost:8080/api/cities');
@@ -26,6 +27,7 @@ export default function HeadHome() {
             console.error('Error fetching cities:', error);
         }
     };
+
     const getListCategory = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/categories/idCity/${selectedCity.id}`);
@@ -35,18 +37,27 @@ export default function HeadHome() {
             console.error('Error fetching categories:', error);
         }
     };
+
     useEffect(() => {
         getListCities();
-    }, []); 
+    }, []);
+    useEffect(() => {
+        if (category.length > 0) {
+            setSelectedCategory(category[0]);
+        }
+    }, [category]);
     useEffect(() => {
         if (selectedCity && selectedCity.id) {
             getListCategory();
         }
-    }, [selectedCity]); 
+    }, [selectedCity]);
 
     useEffect(() => {
         if (category.length > 0 && idCategory) {
             const foundCategory = category.find(cat => cat.id === parseInt(idCategory));
+            if (foundCategory) {
+                setSelectedCategory(foundCategory);
+            }
         }
     }, [category, idCategory]);
 
@@ -71,6 +82,8 @@ export default function HeadHome() {
     };
 
     const handleCategoryClick = (categoryItem) => {
+        localStorage.setItem('selectedCategory', JSON.stringify(categoryItem));
+        setSelectedCategory(categoryItem);
         navigate(`/${categoryItem.id}`);
     };
 
@@ -114,9 +127,25 @@ export default function HeadHome() {
                         <div className='main-nav col'>
                             {category.map((categoryItem, index) => (
                                 <button
-                                    className={`nav-item-headHome ${categoryItem.id === parseInt(idCategory) ? 'red-button' : ''}`}
+                                    className='nav-item'
                                     key={categoryItem.id}
                                     onClick={() => handleCategoryClick(categoryItem)}
+                                    style={{
+                                        marginLeft: index === 0 ? '50px' : '10px',
+                                        color: selectedCategory && selectedCategory.id === categoryItem.id
+                                            ? '#ee4d2d'
+                                            : '#252525',
+                                        fontWeight: selectedCategory && selectedCategory.id === categoryItem.id ? 'bold' : 'normal',
+                                        fontSize: selectedCategory && selectedCategory.id === categoryItem.id ? '16.5px' : 'inherit',
+                                        borderBottom: selectedCategory && selectedCategory.id === categoryItem.id
+                                            ? '2px solid #ee4d2d'
+                                            : 'none',
+                                        padding: '10px 12px',
+                                        fontFamily: 'Noto Sans, Arial, sans-serif',
+                                        border: 'none',
+                                        backgroundColor: 'transparent',
+                                        cursor: 'pointer',
+                                    }}
                                 >
                                     {categoryItem.name}
                                 </button>
@@ -140,9 +169,9 @@ export default function HeadHome() {
                                 {isDropdownVisibles && (
                                     <div className='dropdown-content-user'>
                                         <span><Link to={`/ListOrderUser/1`} className="dropdown-item-user"><img className='img-icon' src='https://png.pngtree.com/png-clipart/20230806/original/pngtree-history-icon-black-and-white-vector-sign-old-antique-letter-vector-picture-image_10027338.png' alt='history' />&nbsp; Lịch sử đơn hàng</Link></span>
-                                        <span><a className="dropdown-item-user" href="#"><img className='img-icon' src='https://png.pngtree.com/png-clipart/20230806/original/pngtree-history-icon-black-and-white-vector-sign-old-antique-letter-vector-picture-image_10027338.png' alt='history' />&nbsp; Lịch sử đơn hàng</a></span>
+                                        {/* <span><a className="dropdown-item-user" href="#"><img className='img-icon' src='https://png.pngtree.com/png-clipart/20230806/original/pngtree-history-icon-black-and-white-vector-sign-old-antique-letter-vector-picture-image_10027338.png' alt='history' />&nbsp; Lịch sử đơn hàng</a></span>
                                         <span><a className="dropdown-item-user" href="#"><img className='img-icon' src='https://e7.pngegg.com/pngimages/556/171/png-clipart-kawasaki-of-salina-maintenance-computer-repair-technician-installation-computer-electronics-service-thumbnail.png' alt='edit' />&nbsp;Chỉnh sửa thông tin</a></span>
-                                        <span><a className="dropdown-item-user" href="#"><img className='img-icon' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOW9OXWHSnI5ewzYrgjzljuwRtfm8dgCveV_EWcUg-inz2eVfKBhR85oXLNItutqzuqFM&usqp=CAU' alt='logout' />&nbsp;Đăng Suất</a></span>
+                                        <span><a className="dropdown-item-user" href="#"><img className='img-icon' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOW9OXWHSnI5ewzYrgjzljuwRtfm8dgCveV_EWcUg-inz2eVfKBhR85oXLNItutqzuqFM&usqp=CAU' alt='logout' />&nbsp;Đăng Suất</a></span> */}
                                     </div>
                                 )}
                             </div>

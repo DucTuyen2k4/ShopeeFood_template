@@ -485,11 +485,11 @@ export default function OrderAndListOrderItem() {
                     </span>
                   </div>
 
-                  <form className="payment-form" onSubmit={CreateOrder}>
+                  {/* <form className="payment-form" onSubmit={CreateOrder}>
                     <button type="submit" className="payment-button">
                       + Xác nhận thanh toán
                     </button>
-                  </form>
+                  </form> */}
                 </div>
                 <form className="payment-form" onSubmit={CreateOrder}>
                   <button type="submit" className="payment-button">
