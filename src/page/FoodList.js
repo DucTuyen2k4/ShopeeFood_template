@@ -18,7 +18,7 @@ function FoodList() {
 
     async function findByNameAndMenu(menuId, productName) {
         try {
-            const productResponse = await axios.get(`http://localhost:8080/api/products/FindByPByName/${menuId}?productName=${productName}`);
+            const productResponse = await axios.get(`http://localhost:8080/api/products/FindByName/${menuId}?productName=${productName}`);
             document.title = "Danh sách sản phẩm của shop";
             return productResponse.data;
         } catch (error) {
